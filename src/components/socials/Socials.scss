@@ -1,0 +1,11 @@
+.socials {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 160px;
+  .social-network {
+    &:not(:first-child) {
+      margin: 0 5px;
+    }
+  }
+}

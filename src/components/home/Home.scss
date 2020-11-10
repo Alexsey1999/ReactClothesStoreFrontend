@@ -1,0 +1,56 @@
+.header {
+  position: relative;
+  padding-bottom: 15px;
+  .header-container {
+    max-width: 965px;
+    margin: 0px auto;
+    padding: 0 10px;
+  }
+
+  .logo {
+    margin-right: 20px;
+    img {
+      width: 120px;
+    }
+  }
+
+  .header-top {
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .account-and-cart {
+      .account-icon {
+        cursor: pointer;
+        margin-right: 12px;
+      }
+      .cart-icon {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .header-bottom {
+  }
+
+  .pink-line {
+    position: absolute;
+    bottom: 0;
+    height: 3px;
+    width: 100%;
+    background: #f05454;
+  }
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .menu-item {
+    .menu-link {
+      color: #fcf1f1;
+    }
+  }
+}

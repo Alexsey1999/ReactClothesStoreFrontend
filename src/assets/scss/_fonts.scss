@@ -1,0 +1,20 @@
+@mixin font($font_name, $file_name, $weight, $style) {
+  @font-face {
+    font-family: $font_name;
+    font-display: swap;
+    src: url('../fonts/#{$file_name}.ttf');
+    src: url('../fonts/#{$file_name}.eot');
+    src: url('../fonts/#{$file_name}.woff') format('woff'),
+      url('../fonts/#{$file_name}.woff2') format('woff2');
+    font-weight: #{$weight};
+    font-style: #{$style};
+  }
+}
+
+// Oswald-Regular
+@include font('Oswald', 'Oswald-Regular', '400', 'normal');
+
+// SourceSansPro
+@include font('SourceSansPro', 'SourceSansPro-Light', '300', 'normal');
+@include font('SourceSansPro', 'SourceSansPro-Regular', '400', 'normal');
+@include font('SourceSansPro', 'SourceSansPro-SemiBold', '600', 'normal');
