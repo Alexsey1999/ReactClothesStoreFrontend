@@ -23,6 +23,15 @@ button {
   cursor: pointer;
   outline: none;
   border: none;
+  background: transparent;
+}
+
+.default-btn {
+  border: 2px solid #f05454;
+  padding: 12px 40px;
+  color: #fcf1f1;
+  font-weight: 400;
+  font-size: 18px;
 }
 
 body {
@@ -34,7 +43,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #000;
 }
 
 code {

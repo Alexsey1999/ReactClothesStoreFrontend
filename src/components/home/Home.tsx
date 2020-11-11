@@ -1,13 +1,27 @@
+// @ts-nocheck
 import React from 'react'
+import classNames from 'classnames'
 
 // Components
-import Socials from '../socials'
+import Socials from '../Socials'
 
 import './Home.scss'
 
 import logo from '../../assets/images/logo.png'
 
-const Home = () => {
+import homeSliderImage1 from '../../assets/images/clothes1.jpg'
+import homeSliderImage2 from '../../assets/images/clothes2.jpg'
+
+import SwiperCore, { Navigation } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/swiper.scss'
+
+SwiperCore.use([Navigation])
+
+const Home = (props) => {
+  const navigationPrevRef = React.useRef<HTMLDivElement>(null)
+  const navigationNextRef = React.useRef<HTMLDivElement>(null)
+
   return (
     <div className="home">
       <header className="header">
@@ -119,6 +133,54 @@ const Home = () => {
         </div>
         <div className="pink-line"></div>
       </header>
+      <div className="home-container">
+        <div className="home-box">
+          <div className="home-content">
+            <h2 className="home-title">Магазин одежды</h2>
+            <div className="home-descr">
+              Выбери свой уникальный стиль на каждый день. Покупай одежду в
+              нашем интернет магазине по низким ценам
+            </div>
+            <button className="default-btn start-buy-btn">
+              Начать покупки
+            </button>
+          </div>
+          <div className="home-slider-dots">
+            <div
+              ref={navigationPrevRef}
+              className={classNames('left-control')}
+            ></div>
+            <div
+              ref={navigationNextRef}
+              className={classNames('right-control')}
+            ></div>
+          </div>
+        </div>
+      </div>
+      <div className="home-slider-wrapper">
+        <Swiper
+          className="home-slider"
+          slidesPerView={1}
+          speed={0}
+          onInit={(swiper) => {
+            swiper.params.navigation.prevEl = navigationPrevRef.current
+            swiper.params.navigation.nextEl = navigationNextRef.current
+            swiper.navigation.init()
+            swiper.navigation.update()
+          }}
+        >
+          <SwiperSlide>
+            <div className="home-slide">
+              <img src={homeSliderImage1} alt="" />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="home-slide">
+              <img src={homeSliderImage2} alt="" />
+            </div>
+          </SwiperSlide>
+        </Swiper>
+      </div>
     </div>
   )
 }
