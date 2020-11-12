@@ -26,12 +26,32 @@ button {
   background: transparent;
 }
 
+input {
+  outline: none;
+  border: none;
+}
+
 .default-btn {
   border: 2px solid #f05454;
-  padding: 12px 40px;
+  padding: 11px 63px;
   color: #fcf1f1;
   font-weight: 400;
   font-size: 18px;
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.default-modal-overlay {
+  // z-index: 100;
+  // position: absolute;
+  // top: 0;
+  // right: 0;
+  // bottom: 0;
+  // left: 0;
+  background: rgba(0, 0, 0, 0.8);
 }
 
 body {

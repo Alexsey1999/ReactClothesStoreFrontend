@@ -7,5 +7,23 @@
     &:not(:first-child) {
       margin: 0 5px;
     }
+    a {
+      &:hover {
+        svg {
+          g {
+            path {
+              fill: rgb(170, 166, 166);
+            }
+          }
+        }
+      }
+      svg {
+        g {
+          path {
+            transition: all 0.2s;
+          }
+        }
+      }
+    }
   }
 }

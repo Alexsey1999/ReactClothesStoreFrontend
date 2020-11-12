@@ -1,0 +1,21 @@
+.menu-item {
+  .menu-link {
+    position: relative;
+    &::before {
+      content: '';
+      width: 100%;
+      transform: scalex(0);
+      position: absolute;
+      bottom: 0;
+      height: 1px;
+      background: #fff;
+      transition: all 0.5s;
+    }
+    color: #fcf1f1;
+    &:hover {
+      &::before {
+        transform: scalex(1);
+      }
+    }
+  }
+}

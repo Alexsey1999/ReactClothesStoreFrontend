@@ -1,0 +1,143 @@
+// .auth-modal {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   bottom: 0;
+//   left: 0;
+//   z-index: 100;
+// }
+
+.auth {
+  max-width: 360px;
+  width: 100%;
+  background: #fff;
+  border-radius: 25px;
+  padding: 10px 0;
+  position: relative;
+}
+
+.auth-title {
+  font-weight: 400;
+  text-align: center;
+  font-size: 22px;
+  position: relative;
+  padding-bottom: 20px;
+  color: #000;
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #f05454;
+  }
+}
+
+.auth-main {
+  padding: 0 40px;
+}
+
+.auth-header {
+  margin-bottom: 20px;
+}
+
+.auth-fields {
+  margin-bottom: 30px;
+}
+
+.auth-field {
+  position: relative;
+  margin-bottom: 20px;
+  svg {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 20px;
+  }
+  input {
+    padding: 15px 15px 15px 50px;
+    width: 100%;
+    height: 56px;
+    background: #d8d1d1;
+    border-radius: 32px;
+    font-family: SourceSansPro;
+    font-weight: 400;
+    font-size: 18px;
+  }
+
+  // color: #5a5a5a;
+  // &::placeholder {
+  //   width: 10px;
+  //   height: 10px;
+  //   background: green;
+  // }
+}
+
+.auth-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+.forgot-password {
+  cursor: pointer;
+  color: #5a5a5a;
+  font-size: 16px;
+  font-family: SourceSansPro;
+  font-weight: 400;
+  border-bottom: 1px dashed #5a5a5a;
+}
+
+.rememberme {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-family: SourceSansPro;
+  font-weight: 400;
+  color: #5a5a5a;
+  .custom-checkbox {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+  }
+  .custom-checkbox + label {
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+  }
+  label {
+    cursor: pointer;
+  }
+
+  label::before {
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .custom-checkbox + label::before {
+    content: '';
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border: 1px solid #5a5a5a;
+    margin-right: 0.5em;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50% 50%;
+  }
+
+  .custom-checkbox:checked + label::before {
+    border-color: #000000;
+    background-color: #000000;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
+  }
+  .custom-checkbox:not(:disabled):not(:checked) + label:hover::before {
+    border-color: rgba(0, 0, 0, 0.8);
+  }
+}

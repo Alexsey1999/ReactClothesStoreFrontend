@@ -1,0 +1,19 @@
+.start-buy-btn {
+  &:hover {
+    box-shadow: 0 0 10px 0 #f05454 inset, 0 0 20px 2px #f05454;
+    border-color: #f05454;
+  }
+  transition: all 0.2s;
+}
+
+.sign-in {
+  background: #000000;
+  border: none !important;
+  font-size: 18px;
+  font-weight: 400;
+  font-family: SourceSansPro;
+  border-radius: 30px;
+  padding: 10px 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
