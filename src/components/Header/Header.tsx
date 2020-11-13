@@ -12,6 +12,10 @@ import AuthModal from '../AuthModal'
 
 const Header = () => {
   const [isAuthModalOpened, setIsAuthModalOpened] = React.useState(false)
+
+  const [signUpModalOpened, setSignUpModalOpened] = React.useState(false)
+
+  const [signInModalOpened, setSignInModalOpened] = React.useState(true)
   const MenuLinks = [
     'Футболки',
     'Рубашки',
@@ -25,9 +29,31 @@ const Header = () => {
     'FAQ',
   ]
 
+  // Open Auth modal window
   const openAuthModal = () => {
     setIsAuthModalOpened(true)
   }
+
+  // Close Auth modal window
+  const closeAuthModal = () => {
+    setIsAuthModalOpened(false)
+  }
+
+  // Open Sign-in modal window
+  const openSignInModal = () => {
+    setSignUpModalOpened(false)
+    setSignInModalOpened(true)
+  }
+
+  // Open Sign-up modal window
+  const openSignUpModal = () => {
+    setSignInModalOpened(false)
+    setSignUpModalOpened(true)
+  }
+
+  React.useEffect(() => {
+    ReactModal.setAppElement('body')
+  }, [])
 
   return (
     <>
@@ -95,13 +121,29 @@ const Header = () => {
         <div className="pink-line"></div>
       </header>
       <ReactModal
-        isOpen={true}
+        isOpen={isAuthModalOpened}
+        shouldCloseOnOverlayClick={true}
         shouldCloseOnEsc={true}
+        closeTimeoutMS={500}
+        htmlOpenClassName="auth-modal-opened"
         className="auth-modal"
+        onRequestClose={closeAuthModal}
         overlayClassName="default-modal-overlay"
         shouldCloseOnOverlayClick={true}
       >
-        <AuthModal title="Авторизация" isPinkLine={true} />
+        {signInModalOpened ? (
+          <AuthModal
+            title="Авторизация"
+            signInModal={true}
+            openSignUpModal={openSignUpModal}
+          />
+        ) : signUpModalOpened ? (
+          <AuthModal
+            title="Регистрация"
+            signUpModal={true}
+            openSignInModal={openSignInModal}
+          />
+        ) : null}
       </ReactModal>
     </>
   )

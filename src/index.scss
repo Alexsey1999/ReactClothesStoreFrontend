@@ -39,18 +39,25 @@ input {
   font-size: 18px;
 }
 
+.auth-modal-opened {
+  overflow: hidden;
+}
+
 .btn-wrapper {
   display: flex;
   justify-content: center;
 }
 
 .default-modal-overlay {
-  // z-index: 100;
-  // position: absolute;
-  // top: 0;
-  // right: 0;
-  // bottom: 0;
-  // left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background: rgba(0, 0, 0, 0.8);
 }
 
