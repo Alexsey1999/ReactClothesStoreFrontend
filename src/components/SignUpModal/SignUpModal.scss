@@ -1,0 +1,25 @@
+.signUp-field {
+  .repeat-password {
+    padding: 15px !important;
+  }
+}
+
+.exists-account {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  span {
+    font-family: SourceSansPro;
+    font-size: 18px;
+    font-weight: 400;
+    color: #000;
+    text-align: center;
+  }
+  .sign-in-title {
+    margin-left: 5px;
+    cursor: pointer;
+    border-bottom: 1px dashed #000;
+  }
+}

@@ -26,7 +26,20 @@ const Home = (props) => {
 
   return (
     <div className="home">
-      <Header />
+      <Header
+        menuLinks={[
+          'Футболки',
+          'Рубашки',
+          'Худи',
+          'Свитшоты',
+          'Шапки',
+          'Кепки',
+          'Поло',
+          'Рюкзаки',
+          'Сувениры',
+          'FAQ',
+        ]}
+      />
       <div className="home-container">
         <div className="home-box">
           <HomeText />

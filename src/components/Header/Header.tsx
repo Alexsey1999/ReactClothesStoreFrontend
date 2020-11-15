@@ -7,48 +7,65 @@ import ReactModal from 'react-modal'
 import './Header.scss'
 
 import logo from '../../assets/images/logo.png'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
+
 import MenuLink from '../MenuLink'
-import AuthModal from '../AuthModal'
+import SignInModal from '../SignInModal'
+import SignUpModal from '../SignUpModal'
+import PasswordRecovery from '../PasswordRecovery'
+import Cart from '../Cart'
 
-const Header = () => {
-  const [isAuthModalOpened, setIsAuthModalOpened] = React.useState(false)
+const Header = ({ menuLinks }) => {
+  const [isSignInOpened, setIsSignInOpened] = React.useState(false)
 
-  const [signUpModalOpened, setSignUpModalOpened] = React.useState(false)
+  const [isSignUpOpened, setIsSignUpOpened] = React.useState(false)
 
-  const [signInModalOpened, setSignInModalOpened] = React.useState(true)
-  const MenuLinks = [
-    'Футболки',
-    'Рубашки',
-    'Худи',
-    'Свитшоты',
-    'Шапки',
-    'Кепки',
-    'Поло',
-    'Рюкзаки',
-    'Сувениры',
-    'FAQ',
-  ]
+  const [
+    isPasswordRecoveryOpened,
+    setIsPasswordRecoveryOpened,
+  ] = React.useState(false)
 
-  // Open Auth modal window
-  const openAuthModal = () => {
-    setIsAuthModalOpened(true)
-  }
-
-  // Close Auth modal window
-  const closeAuthModal = () => {
-    setIsAuthModalOpened(false)
-  }
+  const [isShoppingCartOpened, setIsShoppingCartOpened] = React.useState(false)
 
   // Open Sign-in modal window
   const openSignInModal = () => {
-    setSignUpModalOpened(false)
-    setSignInModalOpened(true)
+    setIsSignUpOpened(false)
+    setIsPasswordRecoveryOpened(false)
+    setIsSignInOpened(true)
+  }
+
+  // Close Sign-in modal window
+  const closeSignInModal = () => {
+    setIsSignInOpened(false)
   }
 
   // Open Sign-up modal window
   const openSignUpModal = () => {
-    setSignInModalOpened(false)
-    setSignUpModalOpened(true)
+    setIsSignInOpened(false)
+    setIsSignUpOpened(true)
+  }
+
+  // Close Sign-up modal window
+  const closeSignUpModal = () => {
+    // setSignInModalOpened(false)
+    setIsSignUpOpened(false)
+  }
+
+  // Open Password-recovery modal window
+  const openPasswordRecoveryModal = () => {
+    setIsSignInOpened(false)
+    setIsPasswordRecoveryOpened(true)
+  }
+
+  // Close Password-recovery modal window
+  const closePasswordRecoveryModal = () => {
+    setIsPasswordRecoveryOpened(false)
+    // setIsSignInOpened(true)
+  }
+
+  const openShoppingCart = () => {
+    // document.body.classList.add('shopping-cart-opened')
+    setIsShoppingCartOpened(true)
   }
 
   React.useEffect(() => {
@@ -67,7 +84,7 @@ const Header = () => {
               </a>
               <div className="account-and-cart">
                 <svg
-                  onClick={openAuthModal}
+                  onClick={openSignInModal}
                   className="account-icon"
                   width="30"
                   height="30"
@@ -85,6 +102,7 @@ const Header = () => {
                   />
                 </svg>
                 <svg
+                  onClick={openShoppingCart}
                   className="cart-icon"
                   width="30"
                   height="30"
@@ -111,7 +129,7 @@ const Header = () => {
           <div className="header-bottom">
             <nav className="navigation">
               <ul className="menu">
-                {MenuLinks.map((menuLink, index) => (
+                {menuLinks.map((menuLink, index) => (
                   <MenuLink key={menuLink + index} linkName={menuLink} />
                 ))}
               </ul>
@@ -121,30 +139,58 @@ const Header = () => {
         <div className="pink-line"></div>
       </header>
       <ReactModal
-        isOpen={isAuthModalOpened}
+        className="signIn-modal"
+        overlayClassName="default-modal-overlay"
+        htmlOpenClassName="auth-modal-opened"
+        isOpen={isSignInOpened}
         shouldCloseOnOverlayClick={true}
         shouldCloseOnEsc={true}
         closeTimeoutMS={500}
-        htmlOpenClassName="auth-modal-opened"
-        className="auth-modal"
-        onRequestClose={closeAuthModal}
-        overlayClassName="default-modal-overlay"
-        shouldCloseOnOverlayClick={true}
+        onRequestClose={closeSignInModal}
       >
-        {signInModalOpened ? (
-          <AuthModal
-            title="Авторизация"
-            signInModal={true}
-            openSignUpModal={openSignUpModal}
-          />
-        ) : signUpModalOpened ? (
-          <AuthModal
-            title="Регистрация"
-            signUpModal={true}
-            openSignInModal={openSignInModal}
-          />
-        ) : null}
+        <SignInModal
+          openSignUpModal={openSignUpModal}
+          openPasswordRecoveryModal={openPasswordRecoveryModal}
+        />
       </ReactModal>
+      <ReactModal
+        className="signUp-modal"
+        overlayClassName="default-modal-overlay"
+        htmlOpenClassName="auth-modal-opened"
+        isOpen={isSignUpOpened}
+        shouldCloseOnOverlayClick={true}
+        shouldCloseOnEsc={true}
+        closeTimeoutMS={500}
+        onRequestClose={closeSignUpModal}
+      >
+        <SignUpModal openSignInModal={openSignInModal} />
+      </ReactModal>
+      <ReactModal
+        className="passwordRecovery-modal"
+        overlayClassName="default-modal-overlay"
+        htmlOpenClassName="auth-modal-opened"
+        isOpen={isPasswordRecoveryOpened}
+        shouldCloseOnOverlayClick={true}
+        shouldCloseOnEsc={true}
+        closeTimeoutMS={500}
+        onRequestClose={closePasswordRecoveryModal}
+      >
+        <PasswordRecovery openSignInModal={openSignInModal} />
+      </ReactModal>
+
+      {/* <TransitionGroup> */}
+      {/* {isShoppingCartOpened && ( */}
+      <CSSTransition
+        in={isShoppingCartOpened}
+        timeout={500}
+        unmountOnExit={true}
+        classNames="my-node"
+      >
+        {/* <div className="shopping-cart-overlay"></div> */}
+        <Cart />
+      </CSSTransition>
+      {/* )} */}
+      {/* </TransitionGroup> */}
     </>
   )
 }

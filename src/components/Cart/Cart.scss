@@ -1,0 +1,213 @@
+.cart {
+  overflow-y: scroll;
+  padding-bottom: 20px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  max-width: 445px;
+  width: 100%;
+  background: #fff;
+  position: absolute;
+  right: -445px;
+  top: 0;
+  bottom: 0;
+  z-index: 1000;
+  &-return-buying {
+    cursor: pointer;
+    min-height: 115px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(90deg, #232526 24.04%, #414345 82.02%);
+    box-shadow: 0px 0px 0px #000000;
+    img {
+      margin-right: 20px;
+      width: 40px;
+    }
+    span {
+      font-size: 23px;
+      font-family: Oswald;
+      font-weight: 400;
+      color: #fcf1f1;
+    }
+  }
+  &-bottom {
+    padding: 20px 25px 10px 25px;
+    position: relative;
+
+    div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      span {
+        font-size: 18px;
+      }
+    }
+  }
+  &-my-goods {
+    font-size: 34px;
+    font-family: Oswald;
+    min-height: 115px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 20px;
+    &::before {
+      content: '';
+      height: 3px;
+      width: 100%;
+      bottom: 0;
+      position: absolute;
+      background: #f05454;
+    }
+  }
+  &-items {
+  }
+  &-item {
+    padding: 10px 25px;
+    position: relative;
+    margin-bottom: 10px;
+    &::before {
+      content: '';
+      height: 3px;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      background: #f05454;
+    }
+    &-content {
+      display: flex;
+      justify-content: space-between;
+    }
+    &-img {
+      border-radius: 5px;
+      padding: 10px;
+      border: 1px solid #cdc5c5;
+      position: relative;
+      margin-right: 15px;
+      img {
+        width: 64px;
+        height: 83px;
+      }
+    }
+    &-remove {
+      cursor: pointer;
+      background: #fff;
+      z-index: 1000;
+      position: absolute;
+      top: -13px;
+      left: -12px;
+      border-radius: 50%;
+      border: 1px solid #9ca4ab;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &-descr {
+      margin-top: 8px;
+    }
+    &-info {
+      display: flex;
+    }
+    &-name {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    &-size {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    &-size-list {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      li {
+        cursor: pointer;
+        font-size: 16px;
+        &.active {
+          color: #f05454;
+        }
+        &:not(:first-child) {
+          margin: 0 2px;
+        }
+      }
+    }
+    &-quantity-block {
+      max-width: 118px;
+      width: 100%;
+      h4 {
+        font-size: 18px;
+        font-family: Oswald;
+        font-weight: 400;
+        margin: 0;
+        text-align: center;
+        margin-bottom: 18px;
+      }
+      svg {
+        cursor: pointer;
+      }
+    }
+    &-quantity-calc {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    &-quantity {
+      border-radius: 50px;
+      background: #393838;
+      max-width: 71px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f1f1f1;
+      font-size: 21px;
+      font-family: SourceSansPro;
+      font-weight: 400;
+      // margin-bottom: 10px;
+    }
+    &-price {
+      text-align: center;
+      font-size: 18px;
+    }
+  }
+}
+
+.shopping-cart-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  opacity: 1;
+  transition: all 5s;
+}
+
+.my-node-enter {
+  overflow-x: hidden;
+  right: -445px;
+}
+
+.my-node-enter-active {
+  right: 0;
+  transition: all 500ms;
+}
+.my-node-enter-done {
+  right: 0;
+}
+.my-node-exit {
+  opacity: 1;
+}
+.my-node-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
