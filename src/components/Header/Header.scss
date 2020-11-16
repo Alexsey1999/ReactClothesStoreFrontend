@@ -4,9 +4,19 @@
   padding: 0 10px;
 }
 
+.navigation {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
 .header {
   position: relative;
   padding-bottom: 15px;
+
+  @media (max-width: 768px) {
+    height: 75px;
+  }
 
   .logo {
     margin-right: 20px;
@@ -18,6 +28,12 @@
       -o-user-select: none;
       user-select: none;
       width: 120px;
+      @media (max-width: 768px) {
+        width: 60px;
+      }
+    }
+    @media (max-width: 768px) {
+      order: -1;
     }
   }
 
@@ -26,9 +42,17 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      @media (max-width: 768px) {
+        height: 75px;
+      }
     }
 
     .account-and-cart {
+      @media (max-width: 768px) {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
       svg {
         &:hover {
           path {
@@ -37,6 +61,9 @@
         }
         path {
           transition: all 0.2s;
+        }
+        @media (max-width: 768px) {
+          margin: 0 20px;
         }
       }
       .account-icon {
@@ -67,5 +94,20 @@
   justify-content: space-between;
 }
 
-.auth-modal {
+.burger {
+  width: 45px;
+  display: none;
+  margin-left: 30px;
+  @media (max-width: 768px) {
+    display: block;
+  }
+  span {
+    height: 2px;
+    width: 100%;
+    display: block;
+    background: #f1f1f1;
+    &:not(:last-child) {
+      margin-bottom: 6px;
+    }
+  }
 }

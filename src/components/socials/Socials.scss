@@ -3,6 +3,9 @@
   align-items: center;
   justify-content: space-between;
   max-width: 160px;
+  @media (max-width: 768px) {
+    display: none;
+  }
   .social-network {
     &:not(:first-child) {
       margin: 0 5px;

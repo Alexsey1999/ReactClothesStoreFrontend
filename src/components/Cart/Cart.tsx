@@ -9,10 +9,11 @@ import leftArrow from '../../assets/icons/left-arrow.svg'
 
 import './Cart.scss'
 
-const Cart = () => {
+const Cart = ({ closeShoppingCart }) => {
   return (
+    // <div className="shopping-cart-overlay">
     <div className="cart">
-      <div className="cart-return-buying">
+      <div onClick={closeShoppingCart} className="cart-return-buying">
         <img src={leftArrow} alt="" />
         <span>Вернуться к покупкам</span>
       </div>
@@ -40,6 +41,7 @@ const Cart = () => {
         <Button className="cart-btn">Оформить заказ</Button>
       </div>
     </div>
+    // </div>
   )
 }
 

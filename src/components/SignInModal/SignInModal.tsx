@@ -11,7 +11,6 @@ const SignInModal = ({ openSignUpModal, openPasswordRecoveryModal }) => {
         <div className="signIn-header">
           <h3 className="signIn-title">Авторизация</h3>
         </div>
-
         <div className="signIn-main">
           <form action="">
             <div className="signIn-fields">

@@ -1,6 +1,12 @@
 @import './assets/scss/normalize.scss';
 @import './assets/scss/fonts.scss';
 
+html {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 *,
 *::before,
 *::after {

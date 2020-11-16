@@ -4,7 +4,7 @@ import classNames from 'classnames'
 
 // Components
 import Header from '../Header'
-import HomeText from '../HomeContent'
+import HomeContent from '../HomeContent'
 
 // Scss
 import './Home.scss'
@@ -42,7 +42,7 @@ const Home = (props) => {
       />
       <div className="home-container">
         <div className="home-box">
-          <HomeText />
+          <HomeContent />
           <div className="home-slider-dots">
             <div
               ref={navigationPrevRef}

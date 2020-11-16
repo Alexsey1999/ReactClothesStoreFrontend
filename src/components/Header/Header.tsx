@@ -5,15 +5,14 @@ import Socials from '../Socials'
 import ReactModal from 'react-modal'
 
 import './Header.scss'
-
 import logo from '../../assets/images/logo.png'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 import MenuLink from '../MenuLink'
 import SignInModal from '../SignInModal'
 import SignUpModal from '../SignUpModal'
 import PasswordRecovery from '../PasswordRecovery'
 import Cart from '../Cart'
+import BurgerMenu from '../BurgerMenu'
 
 const Header = ({ menuLinks }) => {
   const [isSignInOpened, setIsSignInOpened] = React.useState(false)
@@ -26,6 +25,8 @@ const Header = ({ menuLinks }) => {
   ] = React.useState(false)
 
   const [isShoppingCartOpened, setIsShoppingCartOpened] = React.useState(false)
+
+  const [isBurgerMenuOpened, setIsBurgerMenuOpened] = React.useState(false)
 
   // Open Sign-in modal window
   const openSignInModal = () => {
@@ -63,9 +64,24 @@ const Header = ({ menuLinks }) => {
     // setIsSignInOpened(true)
   }
 
+  // Open Shopping-cart
   const openShoppingCart = () => {
-    // document.body.classList.add('shopping-cart-opened')
     setIsShoppingCartOpened(true)
+  }
+
+  // Close Shopping-cart
+  const closeShoppingCart = () => {
+    setIsShoppingCartOpened(false)
+  }
+
+  // Open Burger-menu
+  const openBurgerMenu = () => {
+    setIsBurgerMenuOpened(true)
+  }
+
+  // Close Burger-menu
+  const closeBurgerMenu = () => {
+    setIsBurgerMenuOpened(false)
   }
 
   React.useEffect(() => {
@@ -123,6 +139,11 @@ const Header = ({ menuLinks }) => {
                     fill="#FCF1F1"
                   />
                 </svg>
+                <button onClick={openBurgerMenu} className="burger">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </button>
               </div>
             </div>
           </div>
@@ -134,6 +155,22 @@ const Header = ({ menuLinks }) => {
                 ))}
               </ul>
             </nav>
+            <BurgerMenu
+              burgerLinks={[
+                'Футболки',
+                'Рубашки',
+                'Худи',
+                'Свитшоты',
+                'Шапки',
+                'Кепки',
+                'Поло',
+                'Рюкзаки',
+                'Сувениры',
+                'FAQ',
+              ]}
+              isBurgerMenuOpened={isBurgerMenuOpened}
+              closeBurgerMenu={closeBurgerMenu}
+            />
           </div>
         </div>
         <div className="pink-line"></div>
@@ -148,10 +185,12 @@ const Header = ({ menuLinks }) => {
         closeTimeoutMS={500}
         onRequestClose={closeSignInModal}
       >
-        <SignInModal
-          openSignUpModal={openSignUpModal}
-          openPasswordRecoveryModal={openPasswordRecoveryModal}
-        />
+        <div className="signIn-wrapper">
+          <SignInModal
+            openSignUpModal={openSignUpModal}
+            openPasswordRecoveryModal={openPasswordRecoveryModal}
+          />
+        </div>
       </ReactModal>
       <ReactModal
         className="signUp-modal"
@@ -178,19 +217,18 @@ const Header = ({ menuLinks }) => {
         <PasswordRecovery openSignInModal={openSignInModal} />
       </ReactModal>
 
-      {/* <TransitionGroup> */}
-      {/* {isShoppingCartOpened && ( */}
-      <CSSTransition
-        in={isShoppingCartOpened}
-        timeout={500}
-        unmountOnExit={true}
-        classNames="my-node"
+      <ReactModal
+        className="shoppingCart-modal"
+        overlayClassName="default-modal-overlay"
+        htmlOpenClassName="auth-modal-opened"
+        isOpen={isShoppingCartOpened}
+        shouldCloseOnOverlayClick={true}
+        shouldCloseOnEsc={true}
+        closeTimeoutMS={500}
+        onRequestClose={closeShoppingCart}
       >
-        {/* <div className="shopping-cart-overlay"></div> */}
-        <Cart />
-      </CSSTransition>
-      {/* )} */}
-      {/* </TransitionGroup> */}
+        <Cart closeShoppingCart={closeShoppingCart} />
+      </ReactModal>
     </>
   )
 }

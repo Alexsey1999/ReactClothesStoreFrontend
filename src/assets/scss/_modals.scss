@@ -1,19 +1,25 @@
+.auth-modal-opened {
+  overflow: hidden;
+}
 .default-modal-overlay {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.8);
-  opacity: 0;
-  transition: all 300ms;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  overflow-y: scroll;
 }
 
 .ReactModal__Overlay--after-open {
+  // overflow-y: scroll;
   opacity: 1;
   .signIn-modal {
     transform: scale(1);
@@ -21,22 +27,46 @@
   .signUp-modal {
     transform: scale(1);
   }
+  .shoppingCart-modal {
+    .cart {
+      right: 0;
+    }
+  }
 }
 
 .ReactModal__Overlay--before-close {
   opacity: 0;
-}
-
-.auth-modal-opened {
-  overflow: hidden;
+  .shoppingCart-modal {
+    .cart {
+      right: -445px;
+    }
+  }
 }
 
 .signIn-modal,
-.signUp-modal,
-.passwordRecovery-modal {
+.signUp-modal {
+  // max-width: 360px;
   outline: none;
   transition: all 300ms ease;
   transform: scale(1);
+  // margin: 20px auto 20px auto;
+  margin: 20px;
+}
+
+.passwordRecovery-modal {
+  outline: none;
+  transition: all 300ms ease;
+  // transform: scale(1) translate(-50%, -50%);
+  // margin: 20px;
+  // position: absolute;
+  // left: 50%;
+  // top: 50%;
+}
+
+.shoppingCart-modal {
+  .cart {
+    transition: all 500ms ease;
+  }
 }
 
 .signIn-main,
@@ -51,12 +81,16 @@
 
 .signIn,
 .signUp {
-  max-width: 360px;
-  width: 100%;
   background: #fff;
   border-radius: 25px;
   padding: 10px 0;
   position: relative;
+}
+
+.passwordRecovery-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .signIn-title,
@@ -127,4 +161,15 @@
     margin-right: 15px;
   }
   margin-bottom: 15px;
+}
+.signIn-wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

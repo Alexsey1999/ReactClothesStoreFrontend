@@ -48,6 +48,10 @@
   align-self: flex-end;
   display: flex !important;
   align-items: center;
+  @media (max-width: 500px) {
+    width: 100%;
+    justify-content: center;
+  }
   .left-control,
   .right-control {
     transition: all 0.5s;
@@ -67,4 +71,7 @@
 .home-box {
   display: flex;
   justify-content: space-between;
+  @media (max-width: 500px) {
+    flex-wrap: wrap;
+  }
 }
