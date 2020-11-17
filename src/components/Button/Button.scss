@@ -1,3 +1,11 @@
+.default-btn {
+  border: 2px solid #f05454;
+  padding: 11px 63px;
+  color: #fcf1f1;
+  font-weight: 400;
+  font-size: 18px;
+}
+
 .start-buy-btn {
   &:hover {
     box-shadow: 0 0 10px 0 #f05454 inset, 0 0 20px 2px #f05454;
@@ -16,6 +24,7 @@
   border-radius: 30px;
   padding: 10px 20px;
   text-align: center;
+  width: 70%;
 }
 
 .signUp-btn {
@@ -27,6 +36,8 @@
   border-radius: 30px;
   padding: 10px 20px;
   text-align: center;
+  width: 100%;
+  color: #fcf1f1;
 }
 
 .password-recovery-btn {
@@ -38,6 +49,10 @@
   border-radius: 30px;
   padding: 10px 15px !important;
   text-align: center;
+  @media (max-width: 360px) {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 }
 
 .cart-btn {
@@ -48,4 +63,22 @@
   font-size: 20px;
   font-weight: 400;
   border: none !important;
+}
+
+.burger-btn {
+  width: 45px;
+  display: none;
+  margin-left: 30px;
+  @media (max-width: 768px) {
+    display: block;
+  }
+  span {
+    height: 2px;
+    width: 100%;
+    display: block;
+    background: #f1f1f1;
+    &:not(:last-child) {
+      margin-bottom: 6px;
+    }
+  }
 }

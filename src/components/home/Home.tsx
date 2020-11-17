@@ -1,4 +1,4 @@
-// @ts-nocheck
+// Libs
 import React from 'react'
 import classNames from 'classnames'
 
@@ -6,10 +6,10 @@ import classNames from 'classnames'
 import Header from '../Header'
 import HomeContent from '../HomeContent'
 
-// Scss
+// Styles
 import './Home.scss'
 
-// Slider images
+// Images
 import homeSliderImage1 from '../../assets/images/clothes1.jpg'
 import homeSliderImage2 from '../../assets/images/clothes2.jpg'
 
@@ -20,26 +20,13 @@ import 'swiper/swiper.scss'
 
 SwiperCore.use([Navigation])
 
-const Home = (props) => {
+const Home = () => {
   const navigationPrevRef = React.useRef<HTMLDivElement>(null)
   const navigationNextRef = React.useRef<HTMLDivElement>(null)
 
   return (
     <div className="home">
-      <Header
-        menuLinks={[
-          'Футболки',
-          'Рубашки',
-          'Худи',
-          'Свитшоты',
-          'Шапки',
-          'Кепки',
-          'Поло',
-          'Рюкзаки',
-          'Сувениры',
-          'FAQ',
-        ]}
-      />
+      <Header />
       <div className="home-container">
         <div className="home-box">
           <HomeContent />
@@ -60,7 +47,7 @@ const Home = (props) => {
           className="home-slider"
           slidesPerView={1}
           speed={0}
-          onInit={(swiper) => {
+          onInit={(swiper: any) => {
             swiper.params.navigation.prevEl = navigationPrevRef.current
             swiper.params.navigation.nextEl = navigationNextRef.current
             swiper.navigation.init()

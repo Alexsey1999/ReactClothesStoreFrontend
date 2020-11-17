@@ -1,11 +1,13 @@
-// @ts-nocheck
+// Libs
 import React from 'react'
 
+// Components
 import Button from '../Button'
 
+// Styles
 import './HomeContent.scss'
 
-const HomeText = () => {
+const HomeText: React.FC = () => {
   return (
     <div className="home-content">
       <h2 className="home-title">Магазин одежды</h2>

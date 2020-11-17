@@ -1,5 +1,8 @@
+// Libs
 import React from 'react'
+import ClothesSizes from '../ClothesSizes'
 
+// Styles
 import './CartItem.scss'
 
 const CartItem = () => {
@@ -38,15 +41,7 @@ const CartItem = () => {
           <div className="cart-item-descr">
             <div className="cart-item-name">Рубашка Black</div>
             <div className="cart-item-size">Размер:</div>
-            <ul className="cart-item-size-list">
-              <li className="active">XS</li>
-              <li>S</li>
-              <li>M</li>
-              <li>L</li>
-              <li>XL</li>
-              <li>2XL</li>
-              <li>3XL</li>
-            </ul>
+            <ClothesSizes sizes={['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL']} />
           </div>
         </div>
         <div className="cart-item-quantity-block">

@@ -33,8 +33,17 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 /* Individual item */
 .bm-item {
-  display: inline-block;
-  margin-bottom: 10px;
+}
+
+.burger-links {
+  outline: none;
+  margin: 0;
+  li {
+    margin-bottom: 10px;
+  }
+}
+
+.burger-link {
   font-size: 18px;
   color: #000;
   outline: none;

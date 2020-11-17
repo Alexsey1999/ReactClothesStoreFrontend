@@ -67,22 +67,6 @@
     font-size: 18px;
     margin-bottom: 10px;
   }
-  &-size-list {
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    li {
-      cursor: pointer;
-      font-size: 16px;
-      &.active {
-        color: #f05454;
-      }
-      &:not(:first-child) {
-        margin: 0 2px;
-      }
-    }
-  }
   &-quantity-block {
     max-width: 118px;
     width: 100%;
@@ -99,9 +83,6 @@
       margin: 0;
       text-align: center;
       margin-bottom: 18px;
-      // @media (max-width: 410px) {
-      //   margin-bottom: 10px;
-      // }
       @media (max-width: 355px) {
         margin-bottom: 0;
       }
@@ -115,10 +96,6 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
-    // @media (max-width: 410px) {
-    //   margin-bottom: 15px;
-    //   justify-content: center;
-    // }
     @media (max-width: 355px) {
       margin-bottom: 0;
     }

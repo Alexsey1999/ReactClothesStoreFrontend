@@ -1,20 +1,36 @@
-// @ts-nocheck
+// Libs
 import React from 'react'
-
-import Socials from '../Socials'
 import ReactModal from 'react-modal'
 
-import './Header.scss'
-import logo from '../../assets/images/logo.png'
-
-import MenuLink from '../MenuLink'
+// Components
+import Socials from '../Socials'
 import SignInModal from '../SignInModal'
 import SignUpModal from '../SignUpModal'
 import PasswordRecovery from '../PasswordRecovery'
 import Cart from '../Cart'
 import BurgerMenu from '../BurgerMenu'
+import Navigation from '../Navigation'
+import Logo from '../Logo'
+import Button from '../Button'
 
-const Header = ({ menuLinks }) => {
+// Styles
+import './Header.scss'
+import 'react-responsive-modal/styles.css'
+
+const menuLinks = [
+  'Футболки',
+  'Рубашки',
+  'Худи',
+  'Свитшоты',
+  'Шапки',
+  'Кепки',
+  'Поло',
+  'Рюкзаки',
+  'Сувениры',
+  'FAQ',
+]
+
+const Header: React.FC = () => {
   const [isSignInOpened, setIsSignInOpened] = React.useState(false)
 
   const [isSignUpOpened, setIsSignUpOpened] = React.useState(false)
@@ -95,9 +111,7 @@ const Header = ({ menuLinks }) => {
           <div className="header-top">
             <div className="header-row">
               <Socials />
-              <a href="/" className="logo">
-                <img src={logo} alt="Магазин одежды - логотип" />
-              </a>
+              <Logo />
               <div className="account-and-cart">
                 <svg
                   onClick={openSignInModal}
@@ -139,35 +153,22 @@ const Header = ({ menuLinks }) => {
                     fill="#FCF1F1"
                   />
                 </svg>
-                <button onClick={openBurgerMenu} className="burger">
+                <Button
+                  onClick={openBurgerMenu}
+                  className="burger-btn"
+                  disableDefaultStyles={true}
+                >
                   <span></span>
                   <span></span>
                   <span></span>
-                </button>
+                </Button>
               </div>
             </div>
           </div>
           <div className="header-bottom">
-            <nav className="navigation">
-              <ul className="menu">
-                {menuLinks.map((menuLink, index) => (
-                  <MenuLink key={menuLink + index} linkName={menuLink} />
-                ))}
-              </ul>
-            </nav>
+            <Navigation menuLinks={menuLinks} />
             <BurgerMenu
-              burgerLinks={[
-                'Футболки',
-                'Рубашки',
-                'Худи',
-                'Свитшоты',
-                'Шапки',
-                'Кепки',
-                'Поло',
-                'Рюкзаки',
-                'Сувениры',
-                'FAQ',
-              ]}
+              burgerLinks={menuLinks}
               isBurgerMenuOpened={isBurgerMenuOpened}
               closeBurgerMenu={closeBurgerMenu}
             />
@@ -175,60 +176,30 @@ const Header = ({ menuLinks }) => {
         </div>
         <div className="pink-line"></div>
       </header>
-      <ReactModal
-        className="signIn-modal"
-        overlayClassName="default-modal-overlay"
-        htmlOpenClassName="auth-modal-opened"
-        isOpen={isSignInOpened}
-        shouldCloseOnOverlayClick={true}
-        shouldCloseOnEsc={true}
-        closeTimeoutMS={500}
-        onRequestClose={closeSignInModal}
-      >
-        <div className="signIn-wrapper">
-          <SignInModal
-            openSignUpModal={openSignUpModal}
-            openPasswordRecoveryModal={openPasswordRecoveryModal}
-          />
-        </div>
-      </ReactModal>
-      <ReactModal
-        className="signUp-modal"
-        overlayClassName="default-modal-overlay"
-        htmlOpenClassName="auth-modal-opened"
-        isOpen={isSignUpOpened}
-        shouldCloseOnOverlayClick={true}
-        shouldCloseOnEsc={true}
-        closeTimeoutMS={500}
-        onRequestClose={closeSignUpModal}
-      >
-        <SignUpModal openSignInModal={openSignInModal} />
-      </ReactModal>
-      <ReactModal
-        className="passwordRecovery-modal"
-        overlayClassName="default-modal-overlay"
-        htmlOpenClassName="auth-modal-opened"
-        isOpen={isPasswordRecoveryOpened}
-        shouldCloseOnOverlayClick={true}
-        shouldCloseOnEsc={true}
-        closeTimeoutMS={500}
-        onRequestClose={closePasswordRecoveryModal}
-      >
-        <PasswordRecovery openSignInModal={openSignInModal} />
-      </ReactModal>
 
-      <ReactModal
-        className="shoppingCart-modal"
-        overlayClassName="default-modal-overlay"
-        htmlOpenClassName="auth-modal-opened"
-        isOpen={isShoppingCartOpened}
-        shouldCloseOnOverlayClick={true}
-        shouldCloseOnEsc={true}
-        closeTimeoutMS={500}
-        onRequestClose={closeShoppingCart}
-      >
-        <Cart closeShoppingCart={closeShoppingCart} />
-      </ReactModal>
+      <SignInModal
+        openSignUpModal={openSignUpModal}
+        openPasswordRecoveryModal={openPasswordRecoveryModal}
+        isSignInOpened={isSignInOpened}
+        closeSignInModal={closeSignInModal}
+      />
+
+      <SignUpModal
+        openSignInModal={openSignInModal}
+        isSignUpOpened={isSignUpOpened}
+        closeSignUpModal={closeSignUpModal}
+      />
+
+      <PasswordRecovery
+        openSignInModal={openSignInModal}
+        isPasswordRecoveryOpened={isPasswordRecoveryOpened}
+        closePasswordRecoveryModal={closePasswordRecoveryModal}
+      />
+
+      <Cart
+        closeShoppingCart={closeShoppingCart}
+        isShoppingCartOpened={isShoppingCartOpened}
+      />
     </>
   )
 }

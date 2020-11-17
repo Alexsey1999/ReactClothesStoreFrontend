@@ -1,8 +1,11 @@
+// Libs
 import React from 'react'
 
-import shoppingCart from '../../assets/icons/shopping-cart.svg'
-
+// Styles
 import './CartEmpty.scss'
+
+// Images
+import shoppingCart from '../../assets/icons/shopping-cart.svg'
 
 const CartEmpty = () => {
   return (
