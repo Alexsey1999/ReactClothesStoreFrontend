@@ -1,0 +1,28 @@
+.squares {
+}
+
+.square-left,
+.square-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fcf1f1;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+}
+
+.square-left {
+  position: absolute;
+  top: 50%;
+  left: -60px;
+  transform: translateY(-50%);
+}
+
+.square-right {
+  position: absolute;
+  top: 50%;
+  right: -60px;
+  transform: translateY(-50%);
+  z-index: 1000;
+}

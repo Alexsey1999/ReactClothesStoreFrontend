@@ -1,0 +1,27 @@
+.hits {
+  background: #212121;
+  padding: 40px 0;
+  &-container {
+    max-width: 1070px;
+    padding: 0 15px;
+    margin: 0px auto;
+  }
+  &-title {
+    margin-bottom: 70px;
+  }
+  &-cards {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &-slider {
+    position: relative;
+    .swiper-slide {
+      max-width: 300px;
+      width: 100%;
+    }
+    .swiper-wrapper {
+      transition: transform 1.2s cubic-bezier(0.15, 0.6, 0.2, 1) !important ;
+    }
+  }
+}
