@@ -1,0 +1,82 @@
+.feedback {
+  background: #212121;
+  &-title {
+    padding-bottom: 40px;
+  }
+  &-slide {
+    position: relative;
+    background: #fcf1f1;
+    max-width: 857px;
+    width: 100%;
+    margin: 0px auto;
+    padding: 35px;
+    &::before {
+      content: '';
+      border: 2px solid #f05454;
+      width: 98%;
+      height: 95%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 35px;
+    }
+    &-name,
+    &-date {
+      font-size: 18px;
+      font-weight: 400;
+      color: #000;
+    }
+
+    &-name {
+      margin-bottom: 10px;
+    }
+
+    &-person {
+      img {
+        margin-right: 20px;
+      }
+      &-wrapper {
+        margin-top: 20px;
+      }
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &-text {
+      font-family: SourceSansPro;
+      font-size: 18px;
+      font-weight: 400;
+    }
+    &-buyings {
+      &-title {
+        text-align: center;
+        font-size: 18px;
+        font-weight: 400;
+        color: #000;
+        margin-bottom: 15px;
+      }
+      &-item {
+        border-radius: 5px;
+        background: #1b1919;
+        padding: 15px;
+        margin: 0 5px;
+        img {
+          width: 43px;
+          height: 47px;
+          object-fit: contain;
+        }
+      }
+    }
+    &-goods {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}

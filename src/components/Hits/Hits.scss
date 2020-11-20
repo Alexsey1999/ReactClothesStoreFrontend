@@ -10,18 +10,30 @@
     margin-bottom: 70px;
   }
   &-cards {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
   }
   &-slider {
     position: relative;
     .swiper-slide {
-      max-width: 300px;
-      width: 100%;
+      height: auto;
     }
     .swiper-wrapper {
       transition: transform 1.2s cubic-bezier(0.15, 0.6, 0.2, 1) !important ;
+      align-items: stretch !important;
+    }
+    .swiper-container {
+      width: 100%;
+      height: 100%;
+      margin-bottom: 25px;
+    }
+    @media (max-width: 1165px) {
+      .squares {
+        display: none;
+      }
+    }
+    @media (min-width: 1166px) {
+      .slider-dots {
+        display: none;
+      }
     }
   }
 }

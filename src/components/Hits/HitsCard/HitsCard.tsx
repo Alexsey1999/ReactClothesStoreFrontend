@@ -1,15 +1,21 @@
+// Libs
 import React from 'react'
 
+// Styles
 import './HitsCard.scss'
 
-const HitsCard = () => {
+// HitsCard props interface
+interface IHitsCardProps {
+  image: string
+  price: string
+  name: string
+}
+
+const HitsCard: React.FC<IHitsCardProps> = ({ image, price, name }) => {
   return (
     <div className="hits-card">
       <div className="hits-card-image">
-        <img
-          src="https://jolybell.com/storage/3z7hyxd15u.webp?preview=&width=765&height=841&quality=100"
-          alt=""
-        />
+        <img src={image} alt="item" />
       </div>
       <div className="btn-wrapper">
         <button className="hits-card-btn">
@@ -35,8 +41,8 @@ const HitsCard = () => {
           </svg>
         </button>
       </div>
-      <div className="hits-card-item-name">Футболка Стандарт Black</div>
-      <div className="hits-card-price">4099 RUB</div>
+      <div className="hits-card-item-name">{name}</div>
+      <div className="hits-card-price">{price} RUB</div>
     </div>
   )
 }

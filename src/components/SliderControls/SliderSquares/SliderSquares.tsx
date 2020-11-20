@@ -1,11 +1,20 @@
-// @ts-nocheck
-import React from 'react'
+// Libs
+import React, { RefObject } from 'react'
+
+// Styles
 import './SliderSquares.scss'
 
+// Images
 import leftArrow from '../../../assets/icons/left-arrow-slider.svg'
 import rightArrow from '../../../assets/icons/right-arrow-slider.svg'
 
-const Squares = ({ prevRef, nextRef }) => {
+// SliderSquares props interface
+interface ISliderSquaresProps {
+  prevRef: RefObject<HTMLDivElement>
+  nextRef: RefObject<HTMLDivElement>
+}
+
+const Squares: React.FC<ISliderSquaresProps> = ({ prevRef, nextRef }) => {
   return (
     <div className="squares">
       <div ref={prevRef} className="square-left">
