@@ -1,4 +1,41 @@
-.squares {
+.squares-hits {
+  @media (max-width: 1165px) {
+    display: none;
+  }
+  .square-left {
+    position: absolute;
+    top: 50%;
+    left: -60px;
+    transform: translateY(-50%);
+  }
+
+  .square-right {
+    position: absolute;
+    top: 50%;
+    right: -60px;
+    transform: translateY(-50%);
+    z-index: 1000;
+  }
+}
+
+.squares-feedback {
+  @media (max-width: 980px) {
+    display: none;
+  }
+  .square-left {
+    position: absolute;
+    left: -60px;
+    transform: translateY(-50%);
+    top: 50%;
+    z-index: 1000;
+  }
+  .square-right {
+    position: absolute;
+    right: -60px;
+    transform: translateY(-50%);
+    top: 50%;
+    z-index: 1000;
+  }
 }
 
 .square-left,
@@ -10,19 +47,4 @@
   width: 60px;
   height: 60px;
   cursor: pointer;
-}
-
-.square-left {
-  position: absolute;
-  top: 50%;
-  left: -60px;
-  transform: translateY(-50%);
-}
-
-.square-right {
-  position: absolute;
-  top: 50%;
-  right: -60px;
-  transform: translateY(-50%);
-  z-index: 1000;
 }

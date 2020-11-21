@@ -1,9 +1,20 @@
-// @ts-nocheck
-
+// Libs
 import React from 'react'
+
+// Styles
 import './FeedbackSlide.scss'
 
-const FeedbackSlide = ({ avatar, name, date, text, boughtItems }) => {
+// FeedbackSlide props interface
+import { IFeedbackSlideItem } from '../Feedback/Feedback'
+
+const FeedbackSlide: React.FC<IFeedbackSlideItem> = ({
+  avatar,
+  name,
+  date,
+  text,
+  boughtItems,
+  sex,
+}) => {
   return (
     <div className="feedback-slide">
       <div className="feedback-slide-row">
@@ -15,7 +26,9 @@ const FeedbackSlide = ({ avatar, name, date, text, boughtItems }) => {
           </div>
         </div>
         <div className="feedback-slide-buyings">
-          <div className="feedback-slide-buyings-title">Заказывал:</div>
+          <div className="feedback-slide-buyings-title">
+            {sex === 'male' ? 'Заказывал:' : 'Заказывала:'}
+          </div>
           <div className="feedback-slide-goods">
             {boughtItems.map((item, index) => (
               <div key={item + index} className="feedback-slide-buyings-item">

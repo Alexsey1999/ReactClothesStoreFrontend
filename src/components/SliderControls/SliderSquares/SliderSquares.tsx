@@ -1,5 +1,8 @@
+// @ts-nocheck
+
 // Libs
 import React, { RefObject } from 'react'
+import classNames from 'classnames'
 
 // Styles
 import './SliderSquares.scss'
@@ -12,11 +15,23 @@ import rightArrow from '../../../assets/icons/right-arrow-slider.svg'
 interface ISliderSquaresProps {
   prevRef: RefObject<HTMLDivElement>
   nextRef: RefObject<HTMLDivElement>
+  hitsBlock?: boolean
+  feedbackBlock?: boolean
 }
 
-const Squares: React.FC<ISliderSquaresProps> = ({ prevRef, nextRef }) => {
+const Squares: React.FC<ISliderSquaresProps> = ({
+  prevRef,
+  nextRef,
+  hitsBlock,
+  feedbackBlock,
+}) => {
   return (
-    <div className="squares">
+    <div
+      className={classNames({
+        'squares-hits': hitsBlock,
+        'squares-feedback': feedbackBlock,
+      })}
+    >
       <div ref={prevRef} className="square-left">
         <img src={leftArrow} alt="" />
       </div>

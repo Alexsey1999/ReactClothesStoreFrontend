@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Libs
 import React from 'react'
 
@@ -24,7 +25,7 @@ const Hits: React.FC = () => {
         <div className="default-title hits-title">Хиты продаж</div>
 
         <div className="hits-slider">
-          <SliderSquares prevRef={prevRef} nextRef={nextRef} />
+          <SliderSquares prevRef={prevRef} nextRef={nextRef} hitsBlock={true} />
           <Swiper
             className="hits-cards"
             spaceBetween={70}

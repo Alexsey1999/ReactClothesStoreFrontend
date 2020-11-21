@@ -1,7 +1,12 @@
-.slider-dots {
+.slider-dots,
+.feedback-dots {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.feedback-dots {
+  padding: 15px 0;
 }
 
 .slider-dot {
