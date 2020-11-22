@@ -8,11 +8,24 @@ import MenuLink from '../MenuLink'
 import './Navigation.scss'
 
 // Navigation props interface
-interface INavigationProps {
-  menuLinks: string[]
-}
+// interface INavigationProps {
+//   menuLinks: string[]
+// }
 
-const Navigation: React.FC<INavigationProps> = ({ menuLinks }) => {
+const Navigation: React.FC = () => {
+  const menuLinks: string[] = [
+    'Футболки',
+    'Рубашки',
+    'Худи',
+    'Свитшоты',
+    'Шапки',
+    'Кепки',
+    'Поло',
+    'Рюкзаки',
+    'Сувениры',
+    'FAQ',
+  ]
+
   return (
     <nav className="navigation">
       <ul className="menu">

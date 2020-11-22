@@ -82,3 +82,14 @@
     }
   }
 }
+
+.ask-question-btn {
+  border: 2px solid #f1f1f1;
+  font-size: 18px;
+  font-weight: 400;
+  transition: all 0.2s;
+  margin-bottom: 20px;
+  &:hover {
+    box-shadow: 0 0 10px 0 #f1f1f1 inset, 0 0 20px 2px #f1f1f1;
+  }
+}

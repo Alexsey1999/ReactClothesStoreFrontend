@@ -8,11 +8,17 @@ import './Socials.scss'
 // Socials props interface
 interface ISocialsProps {
   inBurger?: boolean
+  inFooter?: boolean
 }
 
-const Socials: React.FC<ISocialsProps> = ({ inBurger }) => {
+const Socials: React.FC<ISocialsProps> = ({ inBurger, inFooter }) => {
   return (
-    <ul className={classNames('socials', { 'socials-in-burger': inBurger })}>
+    <ul
+      className={classNames('socials', {
+        'socials-in-burger': inBurger,
+        'socials-in-footer': inFooter,
+      })}
+    >
       <li className="social-network">
         <a href="https://www.messenger.com/" target="_blank" rel="noreferrer">
           <svg

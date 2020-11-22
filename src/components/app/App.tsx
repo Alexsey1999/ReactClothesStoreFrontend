@@ -5,6 +5,8 @@ import React from 'react'
 import Home from '../Home'
 import Hits from '../Hits'
 import Feedback from '../Feedback'
+import Question from '../Question'
+import Footer from '../Footer'
 
 // Styles
 import './App.scss'
@@ -15,6 +17,8 @@ const App: React.FC = () => {
       <Home />
       <Hits />
       <Feedback />
+      <Question />
+      <Footer />
     </div>
   )
 }

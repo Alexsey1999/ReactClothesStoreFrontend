@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 // Libs
 import React, { RefObject } from 'react'
 import classNames from 'classnames'

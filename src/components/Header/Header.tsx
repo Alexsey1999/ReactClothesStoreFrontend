@@ -17,19 +17,6 @@ import Button from '../Button'
 import './Header.scss'
 import 'react-responsive-modal/styles.css'
 
-const menuLinks = [
-  'Футболки',
-  'Рубашки',
-  'Худи',
-  'Свитшоты',
-  'Шапки',
-  'Кепки',
-  'Поло',
-  'Рюкзаки',
-  'Сувениры',
-  'FAQ',
-]
-
 const Header: React.FC = () => {
   const [isSignInOpened, setIsSignInOpened] = React.useState(false)
 
@@ -111,7 +98,7 @@ const Header: React.FC = () => {
           <div className="header-top">
             <div className="header-row">
               <Socials />
-              <Logo />
+              <Logo headerLogo={true} />
               <div className="account-and-cart">
                 <svg
                   onClick={openSignInModal}
@@ -166,9 +153,8 @@ const Header: React.FC = () => {
             </div>
           </div>
           <div className="header-bottom">
-            <Navigation menuLinks={menuLinks} />
+            <Navigation />
             <BurgerMenu
-              burgerLinks={menuLinks}
               isBurgerMenuOpened={isBurgerMenuOpened}
               closeBurgerMenu={closeBurgerMenu}
             />

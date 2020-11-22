@@ -1,4 +1,4 @@
-.logo {
+.logo-in-header {
   margin-right: 20px;
   img {
     pointer-events: none;
@@ -14,5 +14,12 @@
   }
   @media (max-width: 768px) {
     order: -1;
+  }
+}
+
+.logo-in-footer {
+  img {
+    width: 150px;
+    // margin-bottom: 20px;
   }
 }

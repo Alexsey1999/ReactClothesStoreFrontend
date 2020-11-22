@@ -1,0 +1,140 @@
+.footer {
+  background: #131313;
+  padding: 20px 0;
+  margin-top: 40px;
+}
+
+.footer-container {
+  max-width: 1170px;
+  padding: 0 15px;
+  margin: 0px auto;
+}
+
+.footer-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-logo-and-socials {
+  @media (max-width: 700px) {
+    width: 60%;
+  }
+  @media (max-width: 500px) {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media (max-width: 700px) {
+    flex-wrap: wrap;
+  }
+}
+
+.footer-contacts-and-payment {
+  @media (max-width: 700px) {
+    width: 40%;
+    padding-top: 50px;
+  }
+
+  @media (max-width: 500px) {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  @media (max-width: 390px) {
+    display: block;
+    text-align: center;
+    padding-top: 20px;
+  }
+}
+
+.contacts-title,
+.footer-payment-title {
+  font-size: 22px;
+  font-weight: 400;
+  color: #f1f1f1;
+}
+
+.footer-contacts {
+  margin-bottom: 30px;
+  .e-mail {
+    a {
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      font-family: SourceSansPro;
+      font-weight: 600;
+      color: #f1f1f1;
+      @media (max-width: 600px) {
+        img {
+          display: none;
+        }
+      }
+      @media (max-width: 390px) {
+        justify-content: center;
+      }
+      img {
+        margin-right: 10px;
+      }
+    }
+
+    margin-bottom: 10px;
+  }
+  .address {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-family: SourceSansPro;
+    font-weight: 600;
+    color: #f1f1f1;
+    @media (max-width: 600px) {
+      img {
+        display: none;
+      }
+    }
+    @media (max-width: 390px) {
+      justify-content: center;
+    }
+    img {
+      margin-right: 10px;
+    }
+  }
+}
+
+.contacts-title {
+  margin-bottom: 20px;
+}
+
+.footer-payment-title {
+  margin-bottom: 10px;
+}
+
+.payments {
+  display: flex;
+  align-items: center;
+  @media (max-width: 390px) {
+    justify-content: center;
+  }
+  img {
+    margin-right: 20px;
+  }
+}
+
+.copyright {
+  font-family: SourceSansPro;
+  font-size: 14px;
+  font-weight: 400;
+  color: #f1f1f1;
+  @media (max-width: 700px) {
+    margin-top: 40px;
+    text-align: center;
+  }
+  @media (max-width: 390px) {
+    margin-top: 20px;
+  }
+}

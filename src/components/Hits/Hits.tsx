@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Libs
 import React from 'react'
 
@@ -20,7 +19,7 @@ const Hits: React.FC = () => {
   const nextRef = React.useRef<HTMLDivElement>(null)
 
   return (
-    <div className="hits">
+    <div className="hits" id="hitsBlock">
       <div className="hits-container">
         <div className="default-title hits-title">Хиты продаж</div>
 

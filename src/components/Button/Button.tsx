@@ -10,6 +10,7 @@ interface IButtonProps {
   className: string
   onClick?: () => void
   disableDefaultStyles?: boolean
+  scrollTo?: string
 }
 
 const Button: React.FC<IButtonProps> = ({
@@ -17,17 +18,33 @@ const Button: React.FC<IButtonProps> = ({
   className,
   onClick,
   disableDefaultStyles,
+  scrollTo,
 }) => {
   return (
-    <button
-      onClick={onClick}
-      className={classNames(
-        { 'default-btn': !disableDefaultStyles },
-        className
+    <>
+      {scrollTo ? (
+        <a href={scrollTo}>
+          <button
+            className={classNames(
+              { 'default-btn': !disableDefaultStyles },
+              className
+            )}
+          >
+            {children}
+          </button>
+        </a>
+      ) : (
+        <button
+          onClick={onClick}
+          className={classNames(
+            { 'default-btn': !disableDefaultStyles },
+            className
+          )}
+        >
+          {children}
+        </button>
       )}
-    >
-      {children}
-    </button>
+    </>
   )
 }
 

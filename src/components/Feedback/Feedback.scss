@@ -1,5 +1,12 @@
 .feedback {
   background: #212121;
+  margin-bottom: 140px;
+  @media (max-width: 981px) {
+    margin-bottom: 80px;
+  }
+  @media (max-width: 470px) {
+    margin-bottom: 40px;
+  }
   &-title {
     padding-bottom: 40px;
   }

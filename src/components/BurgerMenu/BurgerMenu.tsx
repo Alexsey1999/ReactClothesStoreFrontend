@@ -12,14 +12,25 @@ import './BurgerMenu.scss'
 interface IBurgerMenuProps {
   isBurgerMenuOpened: boolean
   closeBurgerMenu: () => void
-  burgerLinks: string[]
 }
 
 const BurgerMenu: React.FC<IBurgerMenuProps> = ({
   isBurgerMenuOpened,
   closeBurgerMenu,
-  burgerLinks,
 }) => {
+  const burgerLinks: string[] = [
+    'Футболки',
+    'Рубашки',
+    'Худи',
+    'Свитшоты',
+    'Шапки',
+    'Кепки',
+    'Поло',
+    'Рюкзаки',
+    'Сувениры',
+    'FAQ',
+  ]
+
   return (
     <Menu
       right={true}

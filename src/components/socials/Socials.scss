@@ -34,3 +34,10 @@
 .socials-in-burger {
   display: flex;
 }
+
+.socials-in-footer {
+  display: flex;
+  @media (max-width: 500px) {
+    margin: 10px auto 10px auto;
+  }
+}

@@ -15,7 +15,9 @@ const HomeText: React.FC = () => {
         Выбери свой уникальный стиль на каждый день. Покупай одежду в нашем
         интернет магазине по низким ценам
       </div>
-      <Button className="start-buy-btn">Начать покупки</Button>
+      <Button className="start-buy-btn" scrollTo="#hitsBlock">
+        Начать покупки
+      </Button>
     </div>
   )
 }
