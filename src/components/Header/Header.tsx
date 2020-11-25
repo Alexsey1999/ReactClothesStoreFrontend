@@ -1,6 +1,7 @@
 // Libs
 import React from 'react'
 import ReactModal from 'react-modal'
+import classNames from 'classnames'
 
 // Components
 import Socials from '../Socials'
@@ -17,7 +18,11 @@ import Button from '../Button'
 import './Header.scss'
 import 'react-responsive-modal/styles.css'
 
-const Header: React.FC = () => {
+interface IHeaderProps {
+  goodsLayoutHeader?: boolean
+}
+
+const Header: React.FC<IHeaderProps> = ({ goodsLayoutHeader }) => {
   const [isSignInOpened, setIsSignInOpened] = React.useState(false)
 
   const [isSignUpOpened, setIsSignUpOpened] = React.useState(false)
@@ -64,7 +69,6 @@ const Header: React.FC = () => {
   // Close Password-recovery modal window
   const closePasswordRecoveryModal = () => {
     setIsPasswordRecoveryOpened(false)
-    // setIsSignInOpened(true)
   }
 
   // Open Shopping-cart
@@ -93,7 +97,11 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <header className="header">
+      <header
+        className={classNames('header', {
+          'header-goods-layout': goodsLayoutHeader,
+        })}
+      >
         <div className="header-container">
           <div className="header-top">
             <div className="header-row">

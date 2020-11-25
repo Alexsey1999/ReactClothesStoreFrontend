@@ -12,25 +12,34 @@ import './Navigation.scss'
 //   menuLinks: string[]
 // }
 
+interface IMenuLink {
+  category: string
+  url: string
+}
+
 const Navigation: React.FC = () => {
-  const menuLinks: string[] = [
-    'Футболки',
-    'Рубашки',
-    'Худи',
-    'Свитшоты',
-    'Шапки',
-    'Кепки',
-    'Поло',
-    'Рюкзаки',
-    'Сувениры',
-    'FAQ',
+  const menuLinks: IMenuLink[] = [
+    { category: 'Футболки', url: 't-shirts' },
+    { category: 'Рубашки', url: 'shirts' },
+    { category: 'Худи', url: 'hoodies' },
+    { category: 'Свитшоты', url: 'sweatshirts' },
+    { category: 'Шапки', url: 'hats' },
+    { category: 'Кепки', url: 'caps' },
+    { category: 'Поло', url: 'polo' },
+    { category: 'Рюкзаки', url: 'bags' },
+    { category: 'Сувениры', url: 'souvenirs' },
+    { category: 'FAQ', url: 'faq' },
   ]
 
   return (
     <nav className="navigation">
       <ul className="menu">
         {menuLinks.map((menuLink, index) => (
-          <MenuLink key={menuLink + index} linkName={menuLink} />
+          <MenuLink
+            key={menuLink.category}
+            linkName={menuLink.category}
+            linkurl={menuLink.url}
+          />
         ))}
       </ul>
     </nav>

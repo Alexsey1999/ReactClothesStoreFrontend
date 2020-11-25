@@ -1,6 +1,7 @@
 // Libs
 import React from 'react'
 import classNames from 'classnames'
+import { Link } from 'react-router-dom'
 
 // Styles
 import './Logo.scss'
@@ -16,15 +17,15 @@ interface ILogoProps {
 
 const Logo: React.FC<ILogoProps> = ({ headerLogo, footerLogo }) => {
   return (
-    <a
-      href="/"
+    <Link
+      to="/"
       className={classNames({
         'logo-in-header': headerLogo,
         'logo-in-footer': footerLogo,
       })}
     >
       <img src={logo} alt="Магазин одежды - логотип" />
-    </a>
+    </Link>
   )
 }
 

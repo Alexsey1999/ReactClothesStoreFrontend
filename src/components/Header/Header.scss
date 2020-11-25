@@ -59,3 +59,13 @@
     background: #f05454;
   }
 }
+
+.header-goods-layout {
+  background: rgb(5, 5, 5);
+  .pink-line {
+    display: none;
+  }
+  .header-container {
+    max-width: 1120px;
+  }
+}

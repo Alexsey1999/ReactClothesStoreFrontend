@@ -1,0 +1,24 @@
+.accordion-btn {
+  border-radius: 30px;
+  border: 2px solid #000;
+  display: inline-block;
+  padding: 10px 25px;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 40px;
+  max-width: 300px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  img {
+    width: 12px;
+  }
+  font-size: 18px;
+  font-family: SourceSansPro;
+}
+
+.accordion__item {
+  margin-bottom: 40px;
+}
