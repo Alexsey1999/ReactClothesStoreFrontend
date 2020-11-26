@@ -3,6 +3,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import axios from '../../axios'
 
+// Redux
+import { useDispatch } from 'react-redux'
+import { FETCH_GOODS_REQUEST } from '../../store/goods/actions'
+
+import { setCurrentCategory } from '../../store/categories/actions'
+
 // Styles
 import './MenuLink.scss'
 
@@ -19,11 +25,16 @@ function defineRoute(linkurl: string): string {
   return `/category/${linkurl}`
 }
 
+// function fetchGoodsRequest(linkurl: string) {
+//   return axios.get('/category/:categoryName')
+// }
+
 const MenuLink: React.FC<IMenuLinkProps> = ({ linkName, linkurl }) => {
+  const dispatch = useDispatch()
+
   const fetchGoods = (linkurl: string) => {
-    axios.get('/category/shirts').then((resp) => {
-      console.log(resp)
-    })
+    dispatch({ type: FETCH_GOODS_REQUEST, linkurl })
+    dispatch(setCurrentCategory(linkurl))
   }
 
   return (
