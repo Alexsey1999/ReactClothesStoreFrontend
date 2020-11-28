@@ -1,0 +1,17 @@
+.goods-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.goods-container {
+  max-width: 1000px;
+  margin: 0px auto;
+  padding: 0 10px;
+}
+
+.goods-category {
+  text-align: center;
+  margin-bottom: 60px;
+}

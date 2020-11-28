@@ -57,6 +57,8 @@
 .goods-item-image {
   img {
     width: 200px;
+    height: 220px;
+    object-fit: contain;
   }
 }
 

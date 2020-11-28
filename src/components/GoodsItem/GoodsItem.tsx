@@ -1,5 +1,8 @@
 // Libs
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { PRODUCT_ITEM_REQUEST } from '../../store/product/actions'
 
 // Components
 import Button from '../Button'
@@ -13,11 +16,29 @@ interface IGoodsItem {
   imageUrl: string
   price: number
   name: string
+  id: string
+  category: string
 }
 
-const GoodsItem: React.FC<IGoodsItem> = ({ imageUrl, price, name }) => {
+const GoodsItem: React.FC<IGoodsItem> = ({
+  id,
+  imageUrl,
+  price,
+  name,
+  category,
+}) => {
+  const dispatch = useDispatch()
+
+  const fetchProduct = () => {
+    dispatch({ type: PRODUCT_ITEM_REQUEST, id, category })
+  }
+
   return (
-    <a className="goods-item">
+    <Link
+      className="goods-item"
+      to={`/product/${id}?category=shirts`}
+      onClick={fetchProduct}
+    >
       <div className="goods-item-top">
         <div className="goods-item-price">{price} RUB</div>
         <div className="goods-item-image">
@@ -51,7 +72,7 @@ const GoodsItem: React.FC<IGoodsItem> = ({ imageUrl, price, name }) => {
           {name}
         </Button>
       </div>
-    </a>
+    </Link>
   )
 }
 

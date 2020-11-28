@@ -32,17 +32,17 @@ function defineRoute(linkurl: string): string {
 const MenuLink: React.FC<IMenuLinkProps> = ({ linkName, linkurl }) => {
   const dispatch = useDispatch()
 
-  const fetchGoods = (linkurl: string) => {
+  const fetchGoods = (linkurl: string, linkName: string) => {
     dispatch({ type: FETCH_GOODS_REQUEST, linkurl })
-    dispatch(setCurrentCategory(linkurl))
+    dispatch(setCurrentCategory({ linkName, linkurl }))
   }
 
   return (
     <li className="menu-item">
       <Link
-        to={(location) => ({ ...location, pathname: defineRoute(linkurl) })}
         className="menu-link"
-        onClick={() => fetchGoods(linkurl)}
+        to={(location) => ({ ...location, pathname: defineRoute(linkurl) })}
+        onClick={() => fetchGoods(linkurl, linkName)}
       >
         {linkName}
       </Link>

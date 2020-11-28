@@ -12,8 +12,7 @@ function* fetchGoodsSaga(action: any) {
   try {
     const response = yield call(() => fetchGoods(action.linkurl))
     const data = response.data
-    console.log(data)
-    // yield put(setFetchedGoods(data))
+    yield put(setFetchedGoods(data))
   } catch (error) {
     console.error(error)
   }

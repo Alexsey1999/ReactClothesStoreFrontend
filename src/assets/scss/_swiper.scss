@@ -1,5 +1,6 @@
 .slider-dots,
-.feedback-dots {
+.feedback-dots,
+.product-dots {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7,6 +8,21 @@
 
 .feedback-dots {
   padding: 15px 0;
+}
+
+.product-dots {
+  margin-top: 20px;
+  .slider-dot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &::before {
+      position: static;
+      width: 9px;
+      height: 9px;
+      transition: all 0.4s;
+    }
+  }
 }
 
 .slider-dot {

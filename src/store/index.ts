@@ -10,6 +10,7 @@ import rootSaga from '../sagas/index'
 import modalsReducer from './modals/reducers'
 import goodsReducer from './goods/reducers'
 import categoriesReducer from './categories/reducers'
+import productReducer from './product/reducers'
 
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware()
@@ -19,13 +20,27 @@ const rootReducer = combineReducers({
   modals: modalsReducer,
   goods: goodsReducer,
   categories: categoriesReducer,
+  product: productReducer,
 })
+
+function saveToLocalStorage(state: any) {
+  if (Object.keys(state.product.product).length) {
+    const serializedState = JSON.stringify(state.product.product)
+    localStorage.setItem('product', serializedState)
+    try {
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
 // Store
 const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(sagaMiddleware))
 )
+
+store.subscribe(() => saveToLocalStorage(store.getState()))
 
 sagaMiddleware.run(rootSaga)
 

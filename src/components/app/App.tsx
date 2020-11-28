@@ -1,22 +1,24 @@
 // Libs
 import React from 'react'
-import { BrowserRouter as Router, NavLink, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 // Layouts
 import HomeLayout from '../../layouts/HomeLayout'
 
 // Components
-import Home from '../Home'
+// import Home from '../Home'
 import Hits from '../Hits'
 import Feedback from '../Feedback'
 import Question from '../Question'
-import Footer from '../Footer'
+// import Footer from '../Footer'
+import GoodsLayout from '../../layouts/GoodsLayout'
+// import GoodsItem from '../GoodsItem'
+import FaqAccordion from '../FaqAccordion'
+import Goods from '../Goods'
+import ProductItem from '../ProductItem'
 
 // Styles
 import './App.scss'
-import GoodsLayout from '../../layouts/GoodsLayout'
-import GoodsItem from '../GoodsItem'
-import FaqAccordion from '../FaqAccordion'
 
 const App: React.FC = () => {
   return (
@@ -32,15 +34,13 @@ const App: React.FC = () => {
 
         <Route path="/category/:categoryName">
           <GoodsLayout>
-            <div className="goods-container">
-              <div className="goods-row">
-                <GoodsItem
-                  imageUrl="https://jolybell.com/storage/3z7hyxd15u.png?preview=&width=369&height=405"
-                  price={2500}
-                  name="Рубашка Black"
-                />
-              </div>
-            </div>
+            <Goods />
+          </GoodsLayout>
+        </Route>
+
+        <Route path="/product/:id">
+          <GoodsLayout>
+            <ProductItem />
           </GoodsLayout>
         </Route>
 
