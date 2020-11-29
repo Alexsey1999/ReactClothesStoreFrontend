@@ -9,6 +9,8 @@ import { useSelector } from 'react-redux'
 import SwiperCore, { Navigation } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/swiper.scss'
+import Button from '../Button'
+import SizeModal from '../SizeModal'
 
 SwiperCore.use([Navigation])
 
@@ -21,20 +23,28 @@ const ProductItem = () => {
     isWhite,
     deliveryInfo,
     description,
+    size,
   } = useSelector((store) => store.product.product)
-  const [isActiveSlider, setIsActiveSlider] = React.useState(false)
 
   const prevRef = React.useRef<HTMLDivElement>(null)
   const nextRef = React.useRef<HTMLDivElement>(null)
-  // const swiperReference = React.useRef(null)
 
-  // const descriptionParse = (description) => {
-  //   return description.map((text) => <p>{text}</p>)
-  // }
-
-  // React.useLayoutEffect(() => {
-  //   setIsActiveSlider(true)
-  // }, [])
+  const descriptionParse = (elem, index) => {
+    if ('p' in elem) {
+      return elem['p'].map((p) => <p key={p}>{p}</p>)
+    } else {
+      return (
+        <React.Fragment key={elem.ulTitle + index}>
+          <p>{elem.ulTitle}</p>
+          <ul>
+            {elem['li'].map((li) => (
+              <li key={li}>{li}</li>
+            ))}
+          </ul>
+        </React.Fragment>
+      )
+    }
+  }
 
   return (
     <div
@@ -122,11 +132,15 @@ const ProductItem = () => {
               <div className="product-price">{price} RUB</div>
               <div className="product-delivery">{deliveryInfo}</div>
               <div className="product-description">
-                {/* {descriptionParse(description)}
-                 */}
-                {description &&
-                  description.map((text) => <p key={text}>{text}</p>)}
+                {description.map(descriptionParse)}
               </div>
+
+              <div className="size-and-care">
+                <Button disableDefaultStyles={true}>Размерная сетка</Button>
+                <Button disableDefaultStyles={true}>Уход за вещью</Button>
+              </div>
+
+              <SizeModal />
             </div>
           </div>
         </div>

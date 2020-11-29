@@ -9,8 +9,8 @@ import App from './components/App'
 import './index.scss'
 
 // Redux
+import store from './store'
 import { Provider } from 'react-redux'
-import store from './store/index'
 
 ReactDOM.render(
   <React.StrictMode>

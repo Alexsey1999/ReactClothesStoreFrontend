@@ -20,9 +20,10 @@ import 'react-responsive-modal/styles.css'
 
 interface IHeaderProps {
   goodsLayoutHeader?: boolean
+  isProduct?: boolean
 }
 
-const Header: React.FC<IHeaderProps> = ({ goodsLayoutHeader }) => {
+const Header: React.FC<IHeaderProps> = ({ goodsLayoutHeader, isProduct }) => {
   const [isSignInOpened, setIsSignInOpened] = React.useState(false)
 
   const [isSignUpOpened, setIsSignUpOpened] = React.useState(false)
@@ -100,6 +101,7 @@ const Header: React.FC<IHeaderProps> = ({ goodsLayoutHeader }) => {
       <header
         className={classNames('header', {
           'header-goods-layout': goodsLayoutHeader,
+          'header-product': isProduct,
         })}
       >
         <div className="header-container">

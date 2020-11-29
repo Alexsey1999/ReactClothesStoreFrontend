@@ -10,16 +10,16 @@ import Header from '../components/Header'
 
 import './layouts.scss'
 
-const GoodsLayout: React.FC<ReactNode> = ({ children }) => {
+const GoodsLayout: React.FC<ReactNode> = ({ isProduct, children }) => {
   const { isBlack, isWhite } = useSelector((store) => store.product.product)
 
   return (
     <>
-      <Header goodsLayoutHeader={true} />
+      <Header goodsLayoutHeader={true} isProduct={isProduct} />
       <div
-        className={classNames({
-          'goods-page-black': isBlack,
-          'goods-page-white': isWhite,
+        className={classNames('goods-default-page', {
+          'goods-page-black': isProduct && isBlack,
+          'goods-page-white': isProduct && isWhite,
         })}
       >
         {children}
