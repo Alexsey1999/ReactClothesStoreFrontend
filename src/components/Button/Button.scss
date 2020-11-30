@@ -56,13 +56,13 @@
 }
 
 .cart-btn {
-  padding: 14px 60px !important;
+  padding: 14px 60px;
   background: #1e1c1d;
   border-radius: 50px;
   color: #fcf1f1;
   font-size: 20px;
   font-weight: 400;
-  border: none !important;
+  border: none;
 }
 
 .burger-btn {
@@ -103,4 +103,18 @@
   transition: all 0.4s;
   width: 100%;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+}
+
+.product-item-add-to-cart-btn {
+  background: #fff;
+  font-family: SourceSansPro;
+  color: #000;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  padding: 14px 40px;
+  margin-right: 45px;
+  span {
+    margin-right: 12px;
+  }
 }

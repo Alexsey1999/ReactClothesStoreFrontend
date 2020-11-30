@@ -4,9 +4,9 @@ import { Modal } from 'react-responsive-modal'
 
 import './SizeModal.scss'
 
-const SizeModal = () => {
+const SizeModal = ({ isSizeModalOpened, closeSizeModal }) => {
   return (
-    <Modal open={true} center={true}>
+    <Modal open={isSizeModalOpened} onClose={closeSizeModal} center={true}>
       <div className="size-modal">
         <div className="size-modal-wrapper">
           <p>Как правильно выбрать размер</p>
