@@ -17,15 +17,21 @@ SwiperCore.use([Navigation])
 
 const ProductItem = () => {
   const {
-    name,
-    price,
-    swiperImages,
-    isBlack,
-    isWhite,
-    deliveryInfo,
-    description,
-    sizes,
+    product: {
+      name,
+      price,
+      swiperImages,
+      isBlack,
+      isWhite,
+      category,
+      deliveryInfo,
+      description,
+      sizes,
+      sizeAndCare: { size, care },
+    },
+    recommendations,
   } = useSelector((store) => store.product.product)
+
   const [isSizeModalOpened, setIsSizeModalOpened] = React.useState(false)
   const [isCareModalOpened, setIsCareModalOpened] = React.useState(false)
   const [activeSize, setActiveSize] = React.useState(0)
@@ -65,6 +71,30 @@ const ProductItem = () => {
       )
     }
   }
+
+  const chooseSizeParse = (size, index) => (
+    <li
+      key={size + index}
+      onClick={() => setActiveSize(index)}
+      className={classNames('size-item', {
+        active: index === activeSize,
+      })}
+    >
+      {size}
+    </li>
+  )
+
+  const recommendationsParse = (el, index) => (
+    <SwiperSlide key={el + index.toString()}>
+      <div className="recomendation-content">
+        <div className="recomendation-img">
+          <img src={el.imageUrl} alt={el.name} />
+        </div>
+        <div className="recomendation-price">{el.price} RUB</div>
+        <div className="recomendation-product-name">{el.name}</div>
+      </div>
+    </SwiperSlide>
+  )
 
   const openSizeModal = () => {
     setIsSizeModalOpened(true)
@@ -170,30 +200,21 @@ const ProductItem = () => {
                 {description.map(descriptionParse)}
               </div>
 
-              <div className="size-and-care">
-                <Button onClick={openSizeModal} disableDefaultStyles={true}>
-                  Размерная сетка
-                </Button>
-                <Button onClick={openCareModal} disableDefaultStyles={true}>
-                  Уход за вещью
-                </Button>
-              </div>
+              {category !== 'souvenirs' && (
+                <div className="size-and-care">
+                  <Button onClick={openSizeModal} disableDefaultStyles={true}>
+                    Размерная сетка
+                  </Button>
+                  <Button onClick={openCareModal} disableDefaultStyles={true}>
+                    Уход за вещью
+                  </Button>
+                </div>
+              )}
 
               <div className="product-size">
                 <h4>Выберите размер:</h4>
                 <ul className="size-list">
-                  {sizes &&
-                    sizes.map((size, index) => (
-                      <li
-                        key={size + index}
-                        onClick={() => setActiveSize(index)}
-                        className={classNames('size-item', {
-                          active: index === activeSize,
-                        })}
-                      >
-                        {size}
-                      </li>
-                    ))}
+                  {sizes && sizes.map(chooseSizeParse)}
                 </ul>
               </div>
 
@@ -259,10 +280,13 @@ const ProductItem = () => {
               </div>
 
               <SizeModal
+                sizeInfo={size}
                 isSizeModalOpened={isSizeModalOpened}
                 closeSizeModal={closeSizeModal}
+                name={name}
               />
               <CareModal
+                careInfo={care}
                 isCareModalOpened={isCareModalOpened}
                 closeCareModal={closeCareModal}
               />
@@ -324,24 +348,7 @@ const ProductItem = () => {
                 swiper.navigation.update()
               }}
             >
-              {Array(8)
-                .fill(1)
-                .map((el, index) => (
-                  <SwiperSlide key={el + index.toString()}>
-                    <div className="recomendation-content">
-                      <div className="recomendation-img">
-                        <img
-                          src="https://jolybell.com/storage/673dmnx9xi.png?preview=&width=110&height=142"
-                          alt=""
-                        />
-                      </div>
-                      <div className="recomendation-price">1080 RUB</div>
-                      <div className="recomendation-product-name">
-                        Термочашка
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
+              {recommendations && recommendations.map(recommendationsParse)}
             </Swiper>
           </div>
         </div>

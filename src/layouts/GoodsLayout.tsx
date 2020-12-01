@@ -11,7 +11,9 @@ import Header from '../components/Header'
 import './layouts.scss'
 
 const GoodsLayout: React.FC<ReactNode> = ({ isProduct, children }) => {
-  const { isBlack, isWhite } = useSelector((store) => store.product.product)
+  const {
+    product: { isBlack, isWhite },
+  } = useSelector((store) => store.product.product)
 
   return (
     <>
