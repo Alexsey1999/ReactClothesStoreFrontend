@@ -1,4 +1,7 @@
 // @ts-nocheck
+import produce from 'immer'
+import { OPEN_SHOPPING_CART, CLOSE_SHOPPING_CART } from './actions'
+
 const initialState = {
   isSignInOpened: false,
   isSignUpOpened: false,
@@ -7,17 +10,17 @@ const initialState = {
   isBurgerMenuOpened: false,
 }
 
-const modalsReducer = (state = initialState, action) => {
+const modalsReducer = produce((draft = initialState, action) => {
   switch (action.type) {
-    case 'SET_IS_SIGNIN_OPENED':
-      return {
-        ...state,
-        isSignInOpened: true,
-      }
-
+    case OPEN_SHOPPING_CART:
+      draft.isShoppingCartOpened = true
+      break
+    case CLOSE_SHOPPING_CART:
+      draft.isShoppingCartOpened = false
+      break
     default:
-      return state
+      return draft
   }
-}
+})
 
 export default modalsReducer

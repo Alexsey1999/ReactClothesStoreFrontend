@@ -1,0 +1,20 @@
+.product-slider {
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.product-swiper-image {
+  position: relative;
+  img {
+    width: 350px;
+  }
+}
+
+.product-swiper-controls {
+  svg {
+    cursor: pointer;
+  }
+}

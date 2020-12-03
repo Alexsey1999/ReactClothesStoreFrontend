@@ -1,7 +1,9 @@
+// @ts-nocheck
 // Libs
 import React from 'react'
 import ReactModal from 'react-modal'
 import classNames from 'classnames'
+import { Link } from 'react-router-dom'
 
 // Components
 import Socials from '../Socials'
@@ -18,6 +20,10 @@ import Button from '../Button'
 import './Header.scss'
 import 'react-responsive-modal/styles.css'
 
+// Redux
+import { useSelector, useDispatch } from 'react-redux'
+import { openShoppingCart, closeShoppingCart } from '../../store/modals/actions'
+
 interface IHeaderProps {
   goodsLayoutHeader?: boolean
   isProduct?: boolean
@@ -28,12 +34,15 @@ const Header: React.FC<IHeaderProps> = ({ goodsLayoutHeader, isProduct }) => {
 
   const [isSignUpOpened, setIsSignUpOpened] = React.useState(false)
 
+  const isShoppingCartOpened = useSelector(
+    (state) => state.modals.isShoppingCartOpened
+  )
+  const dispatch = useDispatch()
+
   const [
     isPasswordRecoveryOpened,
     setIsPasswordRecoveryOpened,
   ] = React.useState(false)
-
-  const [isShoppingCartOpened, setIsShoppingCartOpened] = React.useState(false)
 
   const [isBurgerMenuOpened, setIsBurgerMenuOpened] = React.useState(false)
 
@@ -72,16 +81,6 @@ const Header: React.FC<IHeaderProps> = ({ goodsLayoutHeader, isProduct }) => {
     setIsPasswordRecoveryOpened(false)
   }
 
-  // Open Shopping-cart
-  const openShoppingCart = () => {
-    setIsShoppingCartOpened(true)
-  }
-
-  // Close Shopping-cart
-  const closeShoppingCart = () => {
-    setIsShoppingCartOpened(false)
-  }
-
   // Open Burger-menu
   const openBurgerMenu = () => {
     setIsBurgerMenuOpened(true)
@@ -110,26 +109,28 @@ const Header: React.FC<IHeaderProps> = ({ goodsLayoutHeader, isProduct }) => {
               <Socials />
               <Logo headerLogo={true} />
               <div className="account-and-cart">
+                <Link to="/login">
+                  <svg
+                    onClick={openSignInModal}
+                    className="account-icon"
+                    width="30"
+                    height="30"
+                    viewBox="0 0 30 30"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M25.3104 25.5078C25.2564 22.0511 24.1795 18.908 22.2648 16.6324C20.3613 14.3706 17.7815 13.125 15 13.125C12.2184 13.125 9.63866 14.3706 7.73513 16.6324C5.82228 18.9056 4.74608 22.0443 4.68983 25.4967C5.77147 26.0385 10.2474 28.125 15 28.125C20.1391 28.125 24.3073 26.0508 25.3104 25.5078Z"
+                      fill="#FCF1F1"
+                    />
+                    <path
+                      d="M15 12.1875C17.8477 12.1875 20.1562 9.87897 20.1562 7.03125C20.1562 4.18353 17.8477 1.875 15 1.875C12.1523 1.875 9.84375 4.18353 9.84375 7.03125C9.84375 9.87897 12.1523 12.1875 15 12.1875Z"
+                      fill="#FCF1F1"
+                    />
+                  </svg>
+                </Link>
                 <svg
-                  onClick={openSignInModal}
-                  className="account-icon"
-                  width="30"
-                  height="30"
-                  viewBox="0 0 30 30"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M25.3104 25.5078C25.2564 22.0511 24.1795 18.908 22.2648 16.6324C20.3613 14.3706 17.7815 13.125 15 13.125C12.2184 13.125 9.63866 14.3706 7.73513 16.6324C5.82228 18.9056 4.74608 22.0443 4.68983 25.4967C5.77147 26.0385 10.2474 28.125 15 28.125C20.1391 28.125 24.3073 26.0508 25.3104 25.5078Z"
-                    fill="#FCF1F1"
-                  />
-                  <path
-                    d="M15 12.1875C17.8477 12.1875 20.1562 9.87897 20.1562 7.03125C20.1562 4.18353 17.8477 1.875 15 1.875C12.1523 1.875 9.84375 4.18353 9.84375 7.03125C9.84375 9.87897 12.1523 12.1875 15 12.1875Z"
-                    fill="#FCF1F1"
-                  />
-                </svg>
-                <svg
-                  onClick={openShoppingCart}
+                  onClick={() => dispatch(openShoppingCart(true))}
                   className="cart-icon"
                   width="30"
                   height="30"
@@ -193,7 +194,7 @@ const Header: React.FC<IHeaderProps> = ({ goodsLayoutHeader, isProduct }) => {
       />
 
       <Cart
-        closeShoppingCart={closeShoppingCart}
+        closeShoppingCart={() => dispatch(closeShoppingCart(false))}
         isShoppingCartOpened={isShoppingCartOpened}
       />
     </>

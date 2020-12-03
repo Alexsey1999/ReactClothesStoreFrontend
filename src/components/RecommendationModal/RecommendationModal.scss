@@ -1,0 +1,25 @@
+.recommendation-modal {
+  max-width: 900px;
+  width: 100%;
+  padding: 40px;
+  .product-size {
+    ul {
+      li.size-item {
+        background: #f4f6f8 !important;
+      }
+    }
+  }
+
+  .product-item-add-to-cart-btn {
+    margin-right: 0;
+  }
+}
+
+.recommendation-image {
+  margin-right: 70px;
+  img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+  }
+}
