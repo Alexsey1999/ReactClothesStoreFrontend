@@ -1,6 +1,8 @@
+// @ts-nocheck
 // Libs
 import React from 'react'
 import { Modal } from 'react-responsive-modal'
+import axios from '../../axios'
 
 // Components
 import Button from '../Button'
@@ -22,6 +24,21 @@ const SignInModal: React.FC<ISignInModalProps> = ({
   isSignInOpened,
   closeSignInModal,
 }) => {
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+
+  const loginUser = (e) => {
+    e.preventDefault()
+    axios({
+      method: 'post',
+      url: '/user/login',
+      data: {
+        email,
+        password,
+      },
+      withCredentials: true,
+    })
+  }
   return (
     <Modal open={isSignInOpened} onClose={closeSignInModal}>
       <div className="signIn">
@@ -30,7 +47,7 @@ const SignInModal: React.FC<ISignInModalProps> = ({
             <h3 className="signIn-title">Авторизация</h3>
           </div>
           <div className="signIn-main">
-            <form action="">
+            <form action="/user/login" onSubmit={loginUser} method="POST">
               <div className="signIn-fields">
                 <div className="signIn-field">
                   <svg
@@ -45,7 +62,14 @@ const SignInModal: React.FC<ISignInModalProps> = ({
                       fill="#5A5A5A"
                     />
                   </svg>
-                  <input type="email" placeholder="Почта" required />
+                  <input
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    type="email"
+                    name="email"
+                    placeholder="Почта"
+                    required
+                  />
                 </div>
                 <div className="signIn-field">
                   <svg
@@ -79,7 +103,14 @@ const SignInModal: React.FC<ISignInModalProps> = ({
                       </clipPath>
                     </defs>
                   </svg>
-                  <input type="password" placeholder="Пароль" required />
+                  <input
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
+                    type="password"
+                    name="password"
+                    placeholder="Пароль"
+                    required
+                  />
                 </div>
               </div>
 

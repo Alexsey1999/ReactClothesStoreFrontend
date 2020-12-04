@@ -1,6 +1,8 @@
+// @ts-nocheck
 // Libs
 import React from 'react'
 import { Modal } from 'react-responsive-modal'
+import axios from '../../axios'
 
 // Components
 import Button from '../Button'
@@ -20,6 +22,28 @@ const SignUpModal: React.FC<ISignUpModalProps> = ({
   isSignUpOpened,
   closeSignUpModal,
 }) => {
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const [repeatPassword, setRepeatPassword] = React.useState('')
+
+  const registerUser = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await axios({
+        method: 'post',
+        url: '/user/register',
+        data: {
+          email,
+          password,
+          repeatPassword,
+        },
+        withCredentials: true,
+      })
+    } catch (error) {
+      console.log(error.response.data.errors)
+    }
+  }
+
   return (
     <Modal open={isSignUpOpened} onClose={closeSignUpModal}>
       <div className="signUp">
@@ -29,7 +53,7 @@ const SignUpModal: React.FC<ISignUpModalProps> = ({
           </div>
 
           <div className="signUp-main">
-            <form action="">
+            <form action="" onSubmit={registerUser} method="post">
               <div className="signUp-fields">
                 <div className="signUp-field">
                   <svg
@@ -44,7 +68,14 @@ const SignUpModal: React.FC<ISignUpModalProps> = ({
                       fill="#5A5A5A"
                     />
                   </svg>
-                  <input type="email" placeholder="Почта" required />
+                  <input
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    type="text"
+                    name="email"
+                    placeholder="Почта"
+                    // required
+                  />
                 </div>
                 <div className="signUp-field">
                   <svg
@@ -78,15 +109,25 @@ const SignUpModal: React.FC<ISignUpModalProps> = ({
                       </clipPath>
                     </defs>
                   </svg>
-                  <input type="password" placeholder="Пароль" required />
+                  <input
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
+                    type="text"
+                    name="password"
+                    placeholder="Пароль"
+                    // required
+                  />
                 </div>
 
                 <div className="signUp-field">
                   <input
+                    onChange={(e) => setRepeatPassword(e.target.value)}
+                    value={repeatPassword}
                     className="repeat-password"
                     placeholder="Подтвердите пароль"
-                    type="password"
-                    required
+                    name="repeatPassword"
+                    type="text"
+                    // required
                   />
                 </div>
               </div>
