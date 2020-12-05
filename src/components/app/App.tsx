@@ -20,6 +20,7 @@ import ProductItem from '../ProductItem'
 
 // Styles
 import './App.scss'
+import Account from '../Account'
 
 const App: React.FC = () => {
   return (
@@ -50,6 +51,12 @@ const App: React.FC = () => {
             <div className="faq-container">
               <FaqAccordion />
             </div>
+          </GoodsLayout>
+        </Route>
+
+        <Route path="/account">
+          <GoodsLayout>
+            <Account />
           </GoodsLayout>
         </Route>
       </div>

@@ -1,6 +1,9 @@
+// @ts-nocheck
 // Libs
 import React from 'react'
 import ReactModal from 'react-modal'
+import { useSelector, useDispatch } from 'react-redux'
+import { closeShoppingCart } from '../../store/modals/actions'
 
 // Components
 import Button from '../Button'
@@ -12,16 +15,12 @@ import './Cart.scss'
 // Images
 import leftArrow from '../../assets/icons/left-arrow.svg'
 
-// Cart props interface
-interface ICartProps {
-  closeShoppingCart: () => void
-  isShoppingCartOpened: boolean
-}
+const Cart: React.FC<ICartProps> = () => {
+  const isShoppingCartOpened = useSelector(
+    (state) => state.modals.isShoppingCartOpened
+  )
+  const dispatch = useDispatch()
 
-const Cart: React.FC<ICartProps> = ({
-  closeShoppingCart,
-  isShoppingCartOpened,
-}) => {
   return (
     <ReactModal
       className="shoppingCart-modal"
@@ -31,10 +30,13 @@ const Cart: React.FC<ICartProps> = ({
       shouldCloseOnOverlayClick={true}
       shouldCloseOnEsc={true}
       closeTimeoutMS={500}
-      onRequestClose={closeShoppingCart}
+      onRequestClose={() => dispatch(closeShoppingCart())}
     >
       <div className="cart">
-        <div onClick={closeShoppingCart} className="cart-return-buying">
+        <div
+          onClick={() => dispatch(closeShoppingCart())}
+          className="cart-return-buying"
+        >
           <img src={leftArrow} alt="" />
           <span>Вернуться к покупкам</span>
         </div>

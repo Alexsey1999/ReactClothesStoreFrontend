@@ -1,6 +1,9 @@
+// @ts-nocheck
 // Libs
 import React from 'react'
 import { Modal } from 'react-responsive-modal'
+import { useSelector, useDispatch } from 'react-redux'
+import { closePasswordRecovery, openSignIn } from '../../store/modals/actions'
 
 // Components
 import Button from '../Button'
@@ -8,22 +11,14 @@ import Button from '../Button'
 // Styles
 import './PasswordRecovery.scss'
 
-// PasswordRecovery props interface
-interface IPasswordRecoveryProps {
-  openSignInModal: () => void
-  isPasswordRecoveryOpened: boolean
-  closePasswordRecoveryModal: () => void
-}
+const PasswordRecovery: React.FC = () => {
+  const { isPasswordRecoveryOpened } = useSelector((state) => state.modals)
+  const dispatch = useDispatch()
 
-const PasswordRecovery: React.FC<IPasswordRecoveryProps> = ({
-  openSignInModal,
-  isPasswordRecoveryOpened,
-  closePasswordRecoveryModal,
-}) => {
   return (
     <Modal
       open={isPasswordRecoveryOpened}
-      onClose={closePasswordRecoveryModal}
+      onClose={() => dispatch(closePasswordRecovery())}
       center={true}
     >
       <div className="password-recovery">
@@ -53,7 +48,7 @@ const PasswordRecovery: React.FC<IPasswordRecoveryProps> = ({
                 Восстановить пароль
               </Button>
               <span
-                onClick={openSignInModal}
+                onClick={() => dispatch(openSignIn())}
                 className="password-recovery-cancel"
               >
                 Отмена

@@ -3,6 +3,12 @@
 import React from 'react'
 import { Modal } from 'react-responsive-modal'
 import axios from '../../axios'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  openSuccessSignUp,
+  closeSignUp,
+  openSignIn,
+} from '../../store/modals/actions'
 
 // Components
 import Button from '../Button'
@@ -10,21 +16,13 @@ import Button from '../Button'
 // Styles
 import './SignUpModal.scss'
 
-// SignUpModal props interface
-interface ISignUpModalProps {
-  openSignInModal: () => void
-  isSignUpOpened: boolean
-  closeSignUpModal: () => void
-}
-
-const SignUpModal: React.FC<ISignUpModalProps> = ({
-  openSignInModal,
-  isSignUpOpened,
-  closeSignUpModal,
-}) => {
+const SignUpModal: React.FC = () => {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [repeatPassword, setRepeatPassword] = React.useState('')
+
+  const dispatch = useDispatch()
+  const { isSignUpOpened } = useSelector((state) => state.modals)
 
   const registerUser = async (e) => {
     e.preventDefault()
@@ -39,13 +37,15 @@ const SignUpModal: React.FC<ISignUpModalProps> = ({
         },
         withCredentials: true,
       })
+      dispatch(openSuccessSignUp())
+      dispatch(closeSignUp())
     } catch (error) {
       console.log(error.response.data.errors)
     }
   }
 
   return (
-    <Modal open={isSignUpOpened} onClose={closeSignUpModal}>
+    <Modal open={isSignUpOpened} onClose={() => dispatch(closeSignUp())}>
       <div className="signUp">
         <div className="signUp-content">
           <div className="signUp-header">
@@ -71,10 +71,10 @@ const SignUpModal: React.FC<ISignUpModalProps> = ({
                   <input
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
-                    type="text"
+                    type="email"
                     name="email"
                     placeholder="Почта"
-                    // required
+                    required
                   />
                 </div>
                 <div className="signUp-field">
@@ -112,10 +112,10 @@ const SignUpModal: React.FC<ISignUpModalProps> = ({
                   <input
                     onChange={(e) => setPassword(e.target.value)}
                     value={password}
-                    type="text"
+                    type="password"
                     name="password"
                     placeholder="Пароль"
-                    // required
+                    required
                   />
                 </div>
 
@@ -126,8 +126,8 @@ const SignUpModal: React.FC<ISignUpModalProps> = ({
                     className="repeat-password"
                     placeholder="Подтвердите пароль"
                     name="repeatPassword"
-                    type="text"
-                    // required
+                    type="password"
+                    required
                   />
                 </div>
               </div>
@@ -173,7 +173,10 @@ const SignUpModal: React.FC<ISignUpModalProps> = ({
 
             <div className="exists-account">
               <span>Уже есть аккаунт?</span>
-              <span className="sign-in-title" onClick={openSignInModal}>
+              <span
+                className="sign-in-title"
+                onClick={() => dispatch(openSignIn())}
+              >
                 Войти
               </span>
             </div>

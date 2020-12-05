@@ -3,6 +3,12 @@
 import React from 'react'
 import { Modal } from 'react-responsive-modal'
 import axios from '../../axios'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  closeSignIn,
+  openSignUp,
+  openPasswordRecovery,
+} from '../../store/modals/actions'
 
 // Components
 import Button from '../Button'
@@ -10,22 +16,12 @@ import Button from '../Button'
 // Styles
 import './SignInModal.scss'
 
-// SignInModal props interface
-interface ISignInModalProps {
-  openSignUpModal: () => void
-  openPasswordRecoveryModal: () => void
-  closeSignInModal: () => void
-  isSignInOpened: boolean
-}
-
-const SignInModal: React.FC<ISignInModalProps> = ({
-  openSignUpModal,
-  openPasswordRecoveryModal,
-  isSignInOpened,
-  closeSignInModal,
-}) => {
+const SignInModal: React.FC = () => {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
+
+  const { isSignInOpened } = useSelector((state) => state.modals)
+  const dispatch = useDispatch()
 
   const loginUser = (e) => {
     e.preventDefault()
@@ -40,7 +36,7 @@ const SignInModal: React.FC<ISignInModalProps> = ({
     })
   }
   return (
-    <Modal open={isSignInOpened} onClose={closeSignInModal}>
+    <Modal open={isSignInOpened} onClose={() => dispatch(closeSignIn())}>
       <div className="signIn">
         <div className="signIn-content">
           <div className="signIn-header">
@@ -124,7 +120,7 @@ const SignInModal: React.FC<ISignInModalProps> = ({
                   <label htmlFor="remember">Запомнить</label>
                 </div>
                 <div
-                  onClick={openPasswordRecoveryModal}
+                  onClick={() => dispatch(openPasswordRecovery())}
                   className="forgot-password"
                 >
                   Забыли пароль?
@@ -166,7 +162,10 @@ const SignInModal: React.FC<ISignInModalProps> = ({
               </div>
             </div>
 
-            <div className="signIn-register" onClick={openSignUpModal}>
+            <div
+              className="signIn-register"
+              onClick={() => dispatch(openSignUp())}
+            >
               <span>Зарегестрироваться</span>
             </div>
           </div>

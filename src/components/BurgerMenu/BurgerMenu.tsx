@@ -1,6 +1,9 @@
+// @ts-nocheck
 // Libs
 import React from 'react'
 import { slide as Menu } from 'react-burger-menu'
+import { useSelector, useDispatch } from 'react-redux'
+import { closeBurgerMenu } from '../../store/modals/actions'
 
 // Components
 import Socials from '../Socials'
@@ -8,16 +11,9 @@ import Socials from '../Socials'
 // Styles
 import './BurgerMenu.scss'
 
-// BurgerMenu Props interface
-interface IBurgerMenuProps {
-  isBurgerMenuOpened: boolean
-  closeBurgerMenu: () => void
-}
-
-const BurgerMenu: React.FC<IBurgerMenuProps> = ({
-  isBurgerMenuOpened,
-  closeBurgerMenu,
-}) => {
+const BurgerMenu: React.FC = () => {
+  const { isBurgerMenuOpened } = useSelector((state) => state.modals)
+  const dispatch = useDispatch()
   const burgerLinks: string[] = [
     'Футболки',
     'Рубашки',
@@ -38,7 +34,7 @@ const BurgerMenu: React.FC<IBurgerMenuProps> = ({
       customBurgerIcon={false}
       burgerBarClassName={'burger'}
       isOpen={isBurgerMenuOpened}
-      onClose={closeBurgerMenu}
+      onClose={() => dispatch(closeBurgerMenu())}
       width={280}
     >
       <ul className="burger-links">

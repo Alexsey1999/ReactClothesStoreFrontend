@@ -3,7 +3,6 @@
 import React from 'react'
 import ReactModal from 'react-modal'
 import classNames from 'classnames'
-import { Link } from 'react-router-dom'
 
 // Components
 import Socials from '../Socials'
@@ -21,8 +20,13 @@ import './Header.scss'
 import 'react-responsive-modal/styles.css'
 
 // Redux
-import { useSelector, useDispatch } from 'react-redux'
-import { openShoppingCart, closeShoppingCart } from '../../store/modals/actions'
+import { useDispatch } from 'react-redux'
+import {
+  openShoppingCart,
+  openSignIn,
+  openBurgerMenu,
+} from '../../store/modals/actions'
+import SuccessSignUpModal from '../SuccessSignUpModal'
 
 interface IHeaderProps {
   goodsLayoutHeader?: boolean
@@ -30,67 +34,7 @@ interface IHeaderProps {
 }
 
 const Header: React.FC<IHeaderProps> = ({ goodsLayoutHeader, isProduct }) => {
-  const [isSignInOpened, setIsSignInOpened] = React.useState(false)
-
-  const [isSignUpOpened, setIsSignUpOpened] = React.useState(false)
-
-  const isShoppingCartOpened = useSelector(
-    (state) => state.modals.isShoppingCartOpened
-  )
   const dispatch = useDispatch()
-
-  const [
-    isPasswordRecoveryOpened,
-    setIsPasswordRecoveryOpened,
-  ] = React.useState(false)
-
-  const [isBurgerMenuOpened, setIsBurgerMenuOpened] = React.useState(false)
-
-  // Open Sign-in modal window
-  const openSignInModal = () => {
-    setIsSignUpOpened(false)
-    setIsPasswordRecoveryOpened(false)
-    setIsSignInOpened(true)
-  }
-
-  // Close Sign-in modal window
-  const closeSignInModal = () => {
-    setIsSignInOpened(false)
-  }
-
-  // Open Sign-up modal window
-  const openSignUpModal = () => {
-    setIsSignInOpened(false)
-    setIsSignUpOpened(true)
-  }
-
-  // Close Sign-up modal window
-  const closeSignUpModal = () => {
-    // setSignInModalOpened(false)
-    setIsSignUpOpened(false)
-  }
-
-  // Open Password-recovery modal window
-  const openPasswordRecoveryModal = () => {
-    setIsSignInOpened(false)
-    setIsPasswordRecoveryOpened(true)
-  }
-
-  // Close Password-recovery modal window
-  const closePasswordRecoveryModal = () => {
-    setIsPasswordRecoveryOpened(false)
-  }
-
-  // Open Burger-menu
-  const openBurgerMenu = () => {
-    setIsBurgerMenuOpened(true)
-  }
-
-  // Close Burger-menu
-  const closeBurgerMenu = () => {
-    setIsBurgerMenuOpened(false)
-  }
-
   React.useEffect(() => {
     ReactModal.setAppElement('body')
   }, [])
@@ -110,7 +54,7 @@ const Header: React.FC<IHeaderProps> = ({ goodsLayoutHeader, isProduct }) => {
               <Logo headerLogo={true} />
               <div className="account-and-cart">
                 <svg
-                  onClick={openSignInModal}
+                  onClick={() => dispatch(openSignIn())}
                   className="account-icon"
                   width="30"
                   height="30"
@@ -127,7 +71,6 @@ const Header: React.FC<IHeaderProps> = ({ goodsLayoutHeader, isProduct }) => {
                     fill="#FCF1F1"
                   />
                 </svg>
-
                 <svg
                   onClick={() => dispatch(openShoppingCart(true))}
                   className="cart-icon"
@@ -151,7 +94,7 @@ const Header: React.FC<IHeaderProps> = ({ goodsLayoutHeader, isProduct }) => {
                   />
                 </svg>
                 <Button
-                  onClick={openBurgerMenu}
+                  onClick={() => dispatch(openBurgerMenu())}
                   className="burger-btn"
                   disableDefaultStyles={true}
                 >
@@ -164,38 +107,21 @@ const Header: React.FC<IHeaderProps> = ({ goodsLayoutHeader, isProduct }) => {
           </div>
           <div className="header-bottom">
             <Navigation />
-            <BurgerMenu
-              isBurgerMenuOpened={isBurgerMenuOpened}
-              closeBurgerMenu={closeBurgerMenu}
-            />
+            <BurgerMenu />
           </div>
         </div>
         <div className="pink-line"></div>
       </header>
 
-      <SignInModal
-        openSignUpModal={openSignUpModal}
-        openPasswordRecoveryModal={openPasswordRecoveryModal}
-        isSignInOpened={isSignInOpened}
-        closeSignInModal={closeSignInModal}
-      />
+      <SignInModal />
 
-      <SignUpModal
-        openSignInModal={openSignInModal}
-        isSignUpOpened={isSignUpOpened}
-        closeSignUpModal={closeSignUpModal}
-      />
+      <SignUpModal />
 
-      <PasswordRecovery
-        openSignInModal={openSignInModal}
-        isPasswordRecoveryOpened={isPasswordRecoveryOpened}
-        closePasswordRecoveryModal={closePasswordRecoveryModal}
-      />
+      <SuccessSignUpModal />
 
-      <Cart
-        closeShoppingCart={() => dispatch(closeShoppingCart(false))}
-        isShoppingCartOpened={isShoppingCartOpened}
-      />
+      <PasswordRecovery />
+
+      <Cart />
     </>
   )
 }

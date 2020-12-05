@@ -118,3 +118,49 @@
     margin-right: 12px;
   }
 }
+
+.fill-profile-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  background: #000;
+  color: #fff;
+  padding: 10px 30px;
+  max-width: 280px;
+  width: 100%;
+  svg {
+    path {
+      fill: #fff;
+    }
+    margin: 5px 0 0 10px;
+  }
+  margin-bottom: 20px;
+}
+
+.continue-buying-btn {
+  border: 1px solid #000;
+  border-radius: 30px;
+  padding: 10px 30px;
+  max-width: 280px;
+  width: 100%;
+}
+
+.account-logout {
+  background: #000;
+  color: #fff;
+  padding: 10px 30px;
+  border-radius: 30px;
+  font-family: SourceSansPro;
+  font-size: 18px;
+  width: 100%;
+}
+
+.save-account-settings-btn {
+  background: #000;
+  color: #fff;
+  font-family: SourceSansPro;
+  font-size: 18px;
+  border-radius: 30px;
+  padding: 8px 20px;
+}
