@@ -9,6 +9,7 @@ import {
   openSignUp,
   openPasswordRecovery,
 } from '../../store/modals/actions'
+import { useHistory } from 'react-router-dom'
 
 // Components
 import Button from '../Button'
@@ -22,18 +23,25 @@ const SignInModal: React.FC = () => {
 
   const { isSignInOpened } = useSelector((state) => state.modals)
   const dispatch = useDispatch()
+  const history = useHistory()
 
-  const loginUser = (e) => {
+  const loginUser = async (e) => {
     e.preventDefault()
-    axios({
-      method: 'post',
-      url: '/user/login',
-      data: {
-        email,
-        password,
-      },
-      withCredentials: true,
-    })
+    try {
+      await axios({
+        method: 'post',
+        url: '/user/login',
+        data: {
+          email,
+          password,
+        },
+        withCredentials: true,
+      })
+      dispatch(closeSignIn())
+      history.push('/account')
+    } catch (error) {
+      console.log(error.response.data.errors)
+    }
   }
   return (
     <Modal open={isSignInOpened} onClose={() => dispatch(closeSignIn())}>
