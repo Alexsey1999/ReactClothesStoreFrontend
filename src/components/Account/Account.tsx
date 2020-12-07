@@ -5,6 +5,8 @@ import classNames from 'classnames'
 import { NavLink } from 'react-router-dom'
 import axios from '../../axios'
 import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { removeJwt } from '../../store/users/actions'
 
 import './Account.scss'
 
@@ -13,6 +15,7 @@ const Account = () => {
   const [name, setName] = React.useState('')
   const [isDeliveryChanging, setIsDeliveryChanging] = React.useState(false)
   const history = useHistory()
+  const dispatch = useDispatch()
 
   const toggleChanging = () => {
     setIsChanging((prevVal) => !prevVal)
@@ -28,6 +31,10 @@ const Account = () => {
         url: '/user/logout',
         method: 'GET',
       })
+      if (localStorage.getItem('jwt')) {
+        localStorage.removeItem('jwt')
+      }
+      dispatch(removeJwt())
       history.push('/')
     } catch (error) {
       console.log(error)

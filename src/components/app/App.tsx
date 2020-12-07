@@ -2,6 +2,7 @@
 // Libs
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+// import Cookies from 'universal-cookie'
 
 // Layouts
 import HomeLayout from '../../layouts/HomeLayout'
@@ -17,51 +18,57 @@ import GoodsLayout from '../../layouts/GoodsLayout'
 import FaqAccordion from '../FaqAccordion'
 import Goods from '../Goods'
 import ProductItem from '../ProductItem'
+import ProtectedRoute from '../ProtectedRoute'
+import { withCookies, CookiesProvider } from 'react-cookie'
 
 // Styles
 import './App.scss'
 import Account from '../Account'
+import { useSelector } from 'react-redux'
 
-const App: React.FC = () => {
+const App: React.FC = (props) => {
+  const { jwt } = useSelector((state) => state.users)
+
   return (
-    <Router>
-      <div className="app">
-        <Route exact path="/">
-          <HomeLayout>
-            <Hits />
-            <Feedback />
-            <Question />
-          </HomeLayout>
-        </Route>
+    <CookiesProvider>
+      <Router>
+        <div className="app">
+          <Route exact path="/">
+            <HomeLayout>
+              <Hits />
+              <Feedback />
+              <Question />
+            </HomeLayout>
+          </Route>
 
-        <Route path="/category/:categoryName">
-          <GoodsLayout>
-            <Goods />
-          </GoodsLayout>
-        </Route>
+          <Route path="/category/:categoryName">
+            <GoodsLayout>
+              <Goods />
+            </GoodsLayout>
+          </Route>
 
-        <Route path="/product/:id">
-          <GoodsLayout isProduct={true}>
-            <ProductItem />
-          </GoodsLayout>
-        </Route>
+          <Route path="/product/:id">
+            <GoodsLayout isProduct={true}>
+              <ProductItem />
+            </GoodsLayout>
+          </Route>
 
-        <Route path="/faq">
-          <GoodsLayout>
-            <div className="faq-container">
-              <FaqAccordion />
-            </div>
-          </GoodsLayout>
-        </Route>
-
-        <Route path="/account">
-          <GoodsLayout>
-            <Account />
-          </GoodsLayout>
-        </Route>
-      </div>
-    </Router>
+          <Route path="/faq">
+            <GoodsLayout>
+              <div className="faq-container">
+                <FaqAccordion />
+              </div>
+            </GoodsLayout>
+          </Route>
+          <ProtectedRoute
+            path="/account"
+            isAuthenticated={jwt}
+            component={Account}
+          />
+        </div>
+      </Router>
+    </CookiesProvider>
   )
 }
 
-export default App
+export default withCookies(App)

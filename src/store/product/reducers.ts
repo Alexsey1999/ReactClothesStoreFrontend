@@ -28,13 +28,6 @@ const initialState = {
 }
 
 const productReducer = produce((draft = initialState, action) => {
-  // if (action.type === SET_PRODUCT_ITEM) {
-  //   draft.product = action.payload
-  // } else if (action.type === SET_PRODUCT_SIZE) {
-  //   draft.productSize = action.payload
-  // }
-  // return draft
-
   switch (action.type) {
     case SET_PRODUCT_ITEM:
       draft.product = action.payload

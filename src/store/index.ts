@@ -11,6 +11,7 @@ import modalsReducer from './modals/reducers'
 import goodsReducer from './goods/reducers'
 import categoriesReducer from './categories/reducers'
 import productReducer from './product/reducers'
+import usersReducer from './users/reducers'
 
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware()
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   goods: goodsReducer,
   categories: categoriesReducer,
   product: productReducer,
+  users: usersReducer,
 })
 
 function saveToLocalStorage(state: any) {

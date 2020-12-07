@@ -9,6 +9,7 @@ import {
   openSignUp,
   openPasswordRecovery,
 } from '../../store/modals/actions'
+import { setJwt } from '../../store/users/actions'
 import { useHistory } from 'react-router-dom'
 
 // Components
@@ -28,7 +29,7 @@ const SignInModal: React.FC = () => {
   const loginUser = async (e) => {
     e.preventDefault()
     try {
-      await axios({
+      const response = await axios({
         method: 'post',
         url: '/user/login',
         data: {
@@ -38,6 +39,9 @@ const SignInModal: React.FC = () => {
         withCredentials: true,
       })
       dispatch(closeSignIn())
+      localStorage.setItem('jwt', response.data.token)
+      dispatch(setJwt(response.data.token))
+
       history.push('/account')
     } catch (error) {
       console.log(error.response.data.errors)
