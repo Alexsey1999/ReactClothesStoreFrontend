@@ -3,13 +3,15 @@ import { PRODUCT_ITEM_REQUEST, setProductItem } from '../store/product/actions'
 
 import axios from '../axios'
 
-function fetchProduct(id: string, category: string) {
-  return axios.get(`/product/${id}?category=${category}`)
+function fetchProduct(productId: string, productCategory: string) {
+  return axios.get(`/product/${productId}?category=${productCategory}`)
 }
 
 function* fetchProductSaga(action: any) {
   try {
-    const response = yield call(() => fetchProduct(action.id, action.category))
+    const response = yield call(() =>
+      fetchProduct(action.productId, action.productCategory)
+    )
     const data = response.data
     yield put(setProductItem(data))
   } catch (error) {

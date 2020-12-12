@@ -1,11 +1,58 @@
+// @ts-nocheck
 // Libs
 import React from 'react'
 import ClothesSizes from '../ClothesSizes'
+import axios from '../../axios'
+import { useParams, useLocation, useRouteMatch } from 'react-router-dom'
+import { removeItem, increaseItem, reduceItem } from '../../store/cart/actions'
+import { useDispatch } from 'react-redux'
 
 // Styles
 import './CartItem.scss'
 
-const CartItem = () => {
+const CartItem = ({
+  price,
+  quantity,
+  item: { _id, sizes, name, imageUrl, category },
+}) => {
+  const dispatch = useDispatch()
+
+  const removeItemFromCart = async () => {
+    try {
+      const response = await axios({
+        method: 'GET',
+        url: `/cart/remove/${_id}?category=${category}`,
+      })
+      dispatch(removeItem(response.data.cart))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const reduceByOne = async () => {
+    try {
+      const response = await axios({
+        method: 'GET',
+        url: `/cart/reduce/${_id}?category=${category}`,
+      })
+      dispatch(reduceItem(response.data.cart))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const increaseByOne = async () => {
+    try {
+      const response = await axios({
+        method: 'GET',
+        url: `/cart/increase/${_id}?category=${category}`,
+      })
+      dispatch(increaseItem(response.data.cart))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className="cart-item">
       <div className="cart-item-content">
@@ -13,6 +60,7 @@ const CartItem = () => {
           <div className="cart-item-img">
             <div className="cart-item-remove">
               <svg
+                onClick={removeItemFromCart}
                 width="8"
                 height="8"
                 viewBox="0 0 8 8"
@@ -32,22 +80,20 @@ const CartItem = () => {
                 </defs>
               </svg>
             </div>
-            <img
-              src="https://jolybell.com/storage/211v3fbj7d.webp?preview=&width=765&height=985&quality=100"
-              alt=""
-            />
+            <img src={imageUrl} alt="" />
           </div>
 
           <div className="cart-item-descr">
-            <div className="cart-item-name">Рубашка Black</div>
+            <div className="cart-item-name">{name}</div>
             <div className="cart-item-size">Размер:</div>
-            <ClothesSizes sizes={['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL']} />
+            <ClothesSizes sizes={sizes} />
           </div>
         </div>
         <div className="cart-item-quantity-block">
           <h4>Количество:</h4>
           <div className="cart-item-quantity-calc">
             <svg
+              onClick={reduceByOne}
               height="8pt"
               viewBox="0 -192 469.33333 469"
               width="8pt"
@@ -55,8 +101,9 @@ const CartItem = () => {
             >
               <path d="m437.332031.167969h-405.332031c-17.664062 0-32 14.335937-32 32v21.332031c0 17.664062 14.335938 32 32 32h405.332031c17.664063 0 32-14.335938 32-32v-21.332031c0-17.664063-14.335937-32-32-32zm0 0" />
             </svg>
-            <div className="cart-item-quantity">1</div>
+            <div className="cart-item-quantity">{quantity}</div>
             <svg
+              onClick={increaseByOne}
               height="8pt"
               viewBox="0 0 448 448"
               width="8pt"
@@ -65,7 +112,7 @@ const CartItem = () => {
               <path d="m408 184h-136c-4.417969 0-8-3.582031-8-8v-136c0-22.089844-17.910156-40-40-40s-40 17.910156-40 40v136c0 4.417969-3.582031 8-8 8h-136c-22.089844 0-40 17.910156-40 40s17.910156 40 40 40h136c4.417969 0 8 3.582031 8 8v136c0 22.089844 17.910156 40 40 40s40-17.910156 40-40v-136c0-4.417969 3.582031-8 8-8h136c22.089844 0 40-17.910156 40-40s-17.910156-40-40-40zm0 0" />
             </svg>
           </div>
-          <div className="cart-item-price">4099 RUB</div>
+          <div className="cart-item-price">{price} RUB</div>
         </div>
       </div>
     </div>

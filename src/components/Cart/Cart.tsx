@@ -19,6 +19,7 @@ const Cart: React.FC<ICartProps> = () => {
   const isShoppingCartOpened = useSelector(
     (state) => state.modals.isShoppingCartOpened
   )
+  const { cart } = useSelector((state) => state.cart)
   const dispatch = useDispatch()
 
   return (
@@ -42,21 +43,22 @@ const Cart: React.FC<ICartProps> = () => {
         </div>
         <div className="cart-my-goods">Мои покупки</div>
         <div className="cart-items">
-          <CartItem />
-          <CartItem />
+          {cart.items.map((cartItem) => (
+            <CartItem key={cartItem.item._id} {...cartItem} />
+          ))}
         </div>
         <div className="cart-bottom">
           <div className="cart-total-price">
             <span>Общая стоимость:</span>
-            <span>0 RUB</span>
+            <span>{cart.purePrice} RUB</span>
           </div>
           <div className="cart-delivery">
             <span>Стоимость доставки:</span>
-            <span>0 RUB</span>
+            <span>{cart.deliveryPrice} RUB</span>
           </div>
           <div className="cart-counted-price">
             <span>Итого:</span>
-            <span>0 RUB</span>
+            <span>{cart.totalPrice} RUB</span>
           </div>
         </div>
         <div className="btn-wrapper">

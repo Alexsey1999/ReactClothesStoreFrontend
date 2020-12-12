@@ -47,11 +47,16 @@ const App: React.FC = (props) => {
             </GoodsLayout>
           </Route>
 
-          <Route path="/product/:id">
-            <GoodsLayout isProduct={true}>
-              <ProductItem />
-            </GoodsLayout>
-          </Route>
+          <Route
+            path="/product/:id"
+            render={(routeProps) => {
+              return (
+                <GoodsLayout isProduct={true}>
+                  <ProductItem {...routeProps} />
+                </GoodsLayout>
+              )
+            }}
+          />
 
           <Route path="/faq">
             <GoodsLayout>

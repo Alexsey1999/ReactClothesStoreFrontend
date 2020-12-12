@@ -1,5 +1,7 @@
+// @ts-nocheck
 // Libs
 import React from 'react'
+import links from './links'
 
 // Components
 import MenuLink from '../MenuLink'
@@ -18,23 +20,23 @@ interface IMenuLink {
 }
 
 const Navigation: React.FC = () => {
-  const menuLinks: IMenuLink[] = [
-    { category: 'Футболки', url: 't-shirts' },
-    { category: 'Рубашки', url: 'shirts' },
-    { category: 'Худи', url: 'hoodies' },
-    { category: 'Свитшоты', url: 'sweatshirts' },
-    { category: 'Шапки', url: 'hats' },
-    { category: 'Кепки', url: 'caps' },
-    { category: 'Поло', url: 'polo' },
-    { category: 'Рюкзаки', url: 'bags' },
-    { category: 'Сувениры', url: 'souvenirs' },
-    { category: 'FAQ', url: 'faq' },
-  ]
+  // const menuLinks: IMenuLink[] = [
+  //   { category: 'Футболки', url: 't-shirts' },
+  //   { category: 'Рубашки', url: 'shirts' },
+  //   { category: 'Худи', url: 'hoodies' },
+  //   { category: 'Свитшоты', url: 'sweatshirts' },
+  //   { category: 'Шапки', url: 'hats' },
+  //   { category: 'Кепки', url: 'caps' },
+  //   { category: 'Поло', url: 'polo' },
+  //   { category: 'Рюкзаки', url: 'bags' },
+  //   { category: 'Сувениры', url: 'souvenirs' },
+  //   { category: 'FAQ', url: 'faq' },
+  // ]
 
   return (
     <nav className="navigation">
       <ul className="menu">
-        {menuLinks.map((menuLink, index) => (
+        {links.map((menuLink, index) => (
           <MenuLink
             key={menuLink.category}
             linkName={menuLink.category}

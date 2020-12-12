@@ -7,16 +7,19 @@ import ProductQuantity from '../ProductQuantity'
 import ProductSizes from '../ProductSizes'
 import SizeAndCare from '../SizeAndCare'
 import classNames from 'classnames'
+import axios from '../../../axios'
 
 import './ProductInfo.scss'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { openShoppingCart } from '../../../store/modals/actions'
+import { setCart } from '../../../store/cart/actions'
 
 const ProductInfo = ({
+  productId,
   price,
-  deliveryInfo,
-  description,
+  deliveryInfo = '',
+  description = [],
   category,
   sizes,
   size,
@@ -63,8 +66,18 @@ const ProductInfo = ({
     }
   }
 
-  const addProductItemToCart = () => {
+  const addProductItemToCart = async (productId, category) => {
     dispatch(openShoppingCart(true))
+
+    try {
+      const response = await axios({
+        method: 'GET',
+        url: `/cart/add/${productId}?category=${category}`,
+      })
+      dispatch(setCart(response.data.cart))
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -94,7 +107,7 @@ const ProductInfo = ({
         <ProductQuantity />
 
         <Button
-          onClick={addProductItemToCart}
+          onClick={() => addProductItemToCart(productId, category)}
           disableDefaultStyles={true}
           className="cart-btn product-item-add-to-cart-btn"
         >

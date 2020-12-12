@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Libs
 import React from 'react'
 import { useDispatch } from 'react-redux'
@@ -29,15 +30,24 @@ const GoodsItem: React.FC<IGoodsItem> = ({
 }) => {
   const dispatch = useDispatch()
 
-  const fetchProduct = () => {
-    dispatch({ type: PRODUCT_ITEM_REQUEST, id, category })
-  }
+  // const fetchProduct = () => {
+  //   dispatch({ type: PRODUCT_ITEM_REQUEST, id, category })
+  // }
 
   return (
     <Link
       className="goods-item"
-      to={`/product/${id}?category=shirts`}
-      onClick={fetchProduct}
+      // to={`/product/${id}?category=shirts`}
+      to={(location) => ({
+        pathname: `/product/${id}`,
+        search: '?category=shirts',
+      })}
+      // to={{
+      //   pathname: `/product/${id}?category=shirts`,
+      //   // state: { oo: 123 },
+      //   props: { ss: 1 },
+      // }}
+      // onClick={fetchProduct}
     >
       <div className="goods-item-top">
         <div className="goods-item-price">{price} RUB</div>

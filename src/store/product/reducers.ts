@@ -6,23 +6,23 @@ import {
   SET_PRODUCT_QUANTITY,
 } from './actions'
 
-function loadFromLocalStorage() {
-  try {
-    const serializedState = localStorage.getItem('product')
-    if (serializedState === null) {
-      return {}
-    }
-    return JSON.parse(serializedState)
-  } catch (error) {
-    console.log(error)
-    return undefined
-  }
-}
+// function loadFromLocalStorage() {
+//   try {
+//     const serializedState = localStorage.getItem('product')
+//     if (serializedState === null) {
+//       return {}
+//     }
+//     return JSON.parse(serializedState)
+//   } catch (error) {
+//     console.log(error)
+//     return undefined
+//   }
+// }
 
-const persistedState = loadFromLocalStorage()
+// const persistedState = loadFromLocalStorage()
 
 const initialState = {
-  product: persistedState,
+  product: {},
   productSize: 'XS',
   productQuantity: 1,
 }
