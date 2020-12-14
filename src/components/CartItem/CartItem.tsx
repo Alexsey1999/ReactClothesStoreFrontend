@@ -13,6 +13,8 @@ import './CartItem.scss'
 const CartItem = ({
   price,
   quantity,
+  size,
+  productIndex,
   item: { _id, sizes, name, imageUrl, category },
 }) => {
   const dispatch = useDispatch()
@@ -20,8 +22,9 @@ const CartItem = ({
   const removeItemFromCart = async () => {
     try {
       const response = await axios({
-        method: 'GET',
+        method: 'POST',
         url: `/cart/remove/${_id}?category=${category}`,
+        data: { productSize: size, productIndex },
       })
       dispatch(removeItem(response.data.cart))
     } catch (error) {
@@ -32,8 +35,9 @@ const CartItem = ({
   const reduceByOne = async () => {
     try {
       const response = await axios({
-        method: 'GET',
+        method: 'POST',
         url: `/cart/reduce/${_id}?category=${category}`,
+        data: { productSize: size },
       })
       dispatch(reduceItem(response.data.cart))
     } catch (error) {
@@ -44,14 +48,16 @@ const CartItem = ({
   const increaseByOne = async () => {
     try {
       const response = await axios({
-        method: 'GET',
+        method: 'POST',
         url: `/cart/increase/${_id}?category=${category}`,
+        data: { productSize: size },
       })
       dispatch(increaseItem(response.data.cart))
     } catch (error) {
       console.log(error)
     }
   }
+  // console.log(sizes)
 
   return (
     <div className="cart-item">
@@ -86,7 +92,12 @@ const CartItem = ({
           <div className="cart-item-descr">
             <div className="cart-item-name">{name}</div>
             <div className="cart-item-size">Размер:</div>
-            <ClothesSizes sizes={sizes} />
+            <ClothesSizes
+              productIndex={productIndex}
+              currentSize={size}
+              sizes={sizes}
+              id={_id}
+            />
           </div>
         </div>
         <div className="cart-item-quantity-block">

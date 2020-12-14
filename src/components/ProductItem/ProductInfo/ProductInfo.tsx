@@ -29,6 +29,7 @@ const ProductInfo = ({
   isWhite,
   recommModal,
 }) => {
+  const productSize = useSelector((state) => state.product.productSize)
   const dispatch = useDispatch()
   const [isSizeModalOpened, setIsSizeModalOpened] = React.useState(false)
   const [isCareModalOpened, setIsCareModalOpened] = React.useState(false)
@@ -71,8 +72,9 @@ const ProductInfo = ({
 
     try {
       const response = await axios({
-        method: 'GET',
+        method: 'POST',
         url: `/cart/add/${productId}?category=${category}`,
+        data: productSize,
       })
       dispatch(setCart(response.data.cart))
     } catch (error) {

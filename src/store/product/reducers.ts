@@ -23,7 +23,7 @@ import {
 
 const initialState = {
   product: {},
-  productSize: 'XS',
+  productSize: { sizeIndex: 0, size: 'XS' },
   productQuantity: 1,
 }
 

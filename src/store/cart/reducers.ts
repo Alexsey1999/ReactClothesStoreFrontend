@@ -1,6 +1,12 @@
 import produce from 'immer'
 
-import { SET_CART, REMOVE_ITEM, REDUCE_ITEM, INCREASE_ITEM } from './actions'
+import {
+  SET_CART,
+  REMOVE_ITEM,
+  REDUCE_ITEM,
+  INCREASE_ITEM,
+  SET_SIZE,
+} from './actions'
 
 const initialState = {
   cart: {},
@@ -18,6 +24,9 @@ const cartReducer = produce((draft = initialState, action) => {
       draft.cart = action.payload
       break
     case INCREASE_ITEM:
+      draft.cart = action.payload
+      break
+    case SET_SIZE:
       draft.cart = action.payload
       break
     default:

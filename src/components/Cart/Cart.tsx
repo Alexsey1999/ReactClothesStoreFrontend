@@ -43,9 +43,14 @@ const Cart: React.FC<ICartProps> = () => {
         </div>
         <div className="cart-my-goods">Мои покупки</div>
         <div className="cart-items">
-          {cart.items.map((cartItem) => (
-            <CartItem key={cartItem.item._id} {...cartItem} />
-          ))}
+          {cart.items &&
+            cart.items.map((cartItem, index) => (
+              <CartItem
+                key={cartItem.item._id}
+                productIndex={index}
+                {...cartItem}
+              />
+            ))}
         </div>
         <div className="cart-bottom">
           <div className="cart-total-price">
