@@ -57,16 +57,14 @@ const CartItem = ({
       console.log(error)
     }
   }
-  // console.log(sizes)
 
   return (
     <div className="cart-item">
       <div className="cart-item-content">
         <div className="cart-item-info">
           <div className="cart-item-img">
-            <div className="cart-item-remove">
+            <div className="cart-item-remove" onClick={removeItemFromCart}>
               <svg
-                onClick={removeItemFromCart}
                 width="8"
                 height="8"
                 viewBox="0 0 8 8"

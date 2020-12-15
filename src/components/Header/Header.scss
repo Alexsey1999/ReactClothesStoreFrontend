@@ -23,6 +23,9 @@
     }
 
     .account-and-cart {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       @media (max-width: 768px) {
         display: flex;
         align-items: center;
@@ -72,4 +75,18 @@
 
 .header-product {
   background: #111113;
+}
+
+.cart-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.total-cart-price {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 400;
+  font-family: SourceSansPro;
+  margin-left: 5px;
 }

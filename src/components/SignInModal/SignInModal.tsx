@@ -9,7 +9,7 @@ import {
   openSignUp,
   openPasswordRecovery,
 } from '../../store/modals/actions'
-import { setJwt } from '../../store/users/actions'
+import { setJwt, loginUser } from '../../store/users/actions'
 import { useHistory } from 'react-router-dom'
 
 // Components

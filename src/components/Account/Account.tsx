@@ -6,14 +6,25 @@ import { NavLink } from 'react-router-dom'
 import axios from '../../axios'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { removeJwt } from '../../store/users/actions'
+import { removeJwt, logoutUser } from '../../store/users/actions'
 
 import './Account.scss'
 
 const Account = () => {
   const [isChanging, setIsChanging] = React.useState(false)
-  const [name, setName] = React.useState('')
   const [isDeliveryChanging, setIsDeliveryChanging] = React.useState(false)
+
+  const [name, setName] = React.useState('')
+  const [surname, setSurname] = React.useState('')
+  const [thirdname, setThirdname] = React.useState('')
+  const [phone, setPhone] = React.useState('')
+
+  const [country, setCountry] = React.useState('')
+  const [city, setCity] = React.useState('')
+  const [area, setArea] = React.useState('')
+  const [address, setAddress] = React.useState('')
+  const [mailindex, setMailindex] = React.useState('')
+
   const history = useHistory()
   const dispatch = useDispatch()
 
@@ -23,6 +34,75 @@ const Account = () => {
 
   const toggleDeliveryChanging = () => {
     setIsDeliveryChanging((prevVal) => !prevVal)
+  }
+
+  React.useEffect(() => {
+    const getAccountSettings = async () => {
+      try {
+        const response = await axios({
+          method: 'GET',
+          url: '/account/settings',
+        })
+
+        const user = response.data
+
+        setName(user.name)
+        setSurname(user.surname)
+        setThirdname(user.thirdname)
+        setPhone(user.phone)
+
+        setCountry(user.country)
+        setCity(user.city)
+        setArea(user.area)
+        setAddress(user.address)
+        setMailindex(user.mailindex)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getAccountSettings()
+  }, [])
+
+  const savePersonDataSettings = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await axios({
+        method: 'POST',
+        data: {
+          name,
+          surname,
+          thirdname,
+          phone,
+        },
+        url: '/account/persondata',
+      })
+
+      // setName(response.data.name)
+
+      setIsChanging(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const saveAddressDataSettings = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await axios({
+        method: 'POST',
+        data: {
+          country,
+          city,
+          area,
+          address,
+          mailindex,
+        },
+        url: '/account/addressdata',
+      })
+      setIsDeliveryChanging(false)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const logoutUser = () => {
@@ -75,6 +155,7 @@ const Account = () => {
               <div className="account-socials"></div>
               <form
                 action="/"
+                onSubmit={savePersonDataSettings}
                 className={classNames('personal-data', {
                   changing: isChanging,
                 })}
@@ -97,16 +178,31 @@ const Account = () => {
                   </div>
                   <div className="input-group">
                     <label htmlFor="surname">ФАМИЛИЯ</label>
-                    <input id="surname" type="text" />
+                    <input
+                      onChange={(e) => setSurname(e.target.value)}
+                      value={surname}
+                      id="surname"
+                      type="text"
+                    />
                   </div>
                   <div className="input-group">
                     <label htmlFor="thirdname">ОТЧЕСТВО</label>
-                    <input id="thirdname" type="text" />
+                    <input
+                      onChange={(e) => setThirdname(e.target.value)}
+                      value={thirdname}
+                      id="thirdname"
+                      type="text"
+                    />
                   </div>
                 </div>
                 <div className="input-group phone-group">
                   <label htmlFor="phone">ТЕЛЕФОН</label>
-                  <input id="phone" type="text" />
+                  <input
+                    onChange={(e) => setPhone(e.target.value)}
+                    value={phone}
+                    id="phone"
+                    type="text"
+                  />
                 </div>
                 {isChanging && (
                   <Button
@@ -120,6 +216,7 @@ const Account = () => {
 
               <form
                 action=""
+                onSubmit={saveAddressDataSettings}
                 className={classNames('account-delivery-settings', {
                   changing: isDeliveryChanging,
                 })}
@@ -133,25 +230,45 @@ const Account = () => {
                 <div className="personal-data-row">
                   <div className="input-group">
                     <label htmlFor="">СТРАНА</label>
-                    <input type="text" />
+                    <input
+                      onChange={(e) => setCountry(e.target.value)}
+                      value={country}
+                      type="text"
+                    />
                   </div>
                   <div className="input-group">
                     <label htmlFor="">ГОРОД</label>
-                    <input type="text" />
+                    <input
+                      onChange={(e) => setCity(e.target.value)}
+                      value={city}
+                      type="text"
+                    />
                   </div>
                   <div className="input-group">
                     <label htmlFor="">КРАЙ/ОБЛАСТЬ/РЕГИОН</label>
-                    <input type="text" />
+                    <input
+                      onChange={(e) => setArea(e.target.value)}
+                      value={area}
+                      type="text"
+                    />
                   </div>
                 </div>
                 <div className="account-delivery-row">
                   <div className="input-group">
                     <label htmlFor="">УЛИЦА, ДОМ, КВАРТИРА</label>
-                    <input type="text" />
+                    <input
+                      onChange={(e) => setAddress(e.target.value)}
+                      value={address}
+                      type="text"
+                    />
                   </div>
                   <div className="input-group">
                     <label htmlFor="">ПОЧТОВЫЙ ИНДЕКС</label>
-                    <input type="text" />
+                    <input
+                      onChange={(e) => setMailindex(e.target.value)}
+                      value={mailindex}
+                      type="text"
+                    />
                   </div>
                 </div>
                 {isDeliveryChanging && (

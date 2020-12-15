@@ -14,6 +14,7 @@ import './Cart.scss'
 
 // Images
 import leftArrow from '../../assets/icons/left-arrow.svg'
+import CartEmpty from '../CartEmpty'
 
 const Cart: React.FC<ICartProps> = () => {
   const isShoppingCartOpened = useSelector(
@@ -43,14 +44,17 @@ const Cart: React.FC<ICartProps> = () => {
         </div>
         <div className="cart-my-goods">Мои покупки</div>
         <div className="cart-items">
-          {cart.items &&
+          {cart.items.length ? (
             cart.items.map((cartItem, index) => (
               <CartItem
                 key={cartItem.item._id}
                 productIndex={index}
                 {...cartItem}
               />
-            ))}
+            ))
+          ) : (
+            <CartEmpty />
+          )}
         </div>
         <div className="cart-bottom">
           <div className="cart-total-price">
