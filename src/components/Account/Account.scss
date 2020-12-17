@@ -1,17 +1,14 @@
 .account-title {
   text-align: center;
   font-size: 30px;
-  // margin-bottom: 80px;
 }
 
 .account-menu-block {
   width: 260px;
   ul {
-    // max-width: 300px;
     width: 100%;
     height: 160px;
     display: flex;
-    // align-items: center;
     flex-direction: column;
     justify-content: center;
     background: #000;
@@ -55,12 +52,9 @@
 
 .account-row {
   display: flex;
-  // justify-content: space-between;
 }
 
 .account-settings {
-  margin-top: 50px;
-  margin-left: 100px;
   width: 100%;
   label {
     color: #818d92;
@@ -152,4 +146,20 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 30px;
+}
+
+.account-orders-title {
+  font-family: SourceSansPro;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.account-orders {
+  margin-top: 30px;
+  margin-left: 50px;
+}
+
+.account-person-data {
+  margin-top: 50px;
+  margin-left: 100px;
 }

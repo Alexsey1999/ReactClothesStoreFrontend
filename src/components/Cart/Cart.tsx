@@ -4,6 +4,9 @@ import React from 'react'
 import ReactModal from 'react-modal'
 import { useSelector, useDispatch } from 'react-redux'
 import { closeShoppingCart } from '../../store/modals/actions'
+import { setCart } from '../../store/cart/actions'
+import axios from '../../axios'
+import { Link, useHistory } from 'react-router-dom'
 
 // Components
 import Button from '../Button'
@@ -22,6 +25,43 @@ const Cart: React.FC<ICartProps> = () => {
   )
   const { cart } = useSelector((state) => state.cart)
   const dispatch = useDispatch()
+  const history = useHistory()
+
+  React.useEffect(() => {
+    axios({
+      method: 'GET',
+      url: '/cart/items',
+    }).then((response) => {
+      if (!response.data) {
+        dispatch(
+          setCart({
+            items: [],
+            purePrice: 0,
+            deliveryPrice: 0,
+            totalQuantity: 0,
+            totalPrice: 0,
+          })
+        )
+      }
+    })
+  }, [])
+
+  const makeOrder = async () => {
+    try {
+      const response = await axios({
+        method: 'GET',
+        url: 'booking',
+      })
+
+      dispatch(closeShoppingCart())
+
+      localStorage.setItem('ordertoken', response.data)
+
+      history.push(`/booking/${response.data}/details`)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <ReactModal
@@ -71,7 +111,9 @@ const Cart: React.FC<ICartProps> = () => {
           </div>
         </div>
         <div className="btn-wrapper">
-          <Button className="cart-btn">Оформить заказ</Button>
+          <Button onClick={makeOrder} className="cart-btn">
+            Оформить заказ
+          </Button>
         </div>
       </div>
     </ReactModal>

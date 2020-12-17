@@ -165,3 +165,24 @@
   padding: 8px 20px;
   margin-bottom: 40px;
 }
+
+.continue-ordering-btn {
+  font-family: SourceSansPro;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  background: #000;
+  color: #fff;
+  padding: 10px 30px;
+  max-width: 240px;
+  width: 100%;
+  font-size: 18px;
+  svg {
+    path {
+      fill: #fff;
+    }
+    margin: 5px 0 0 10px;
+  }
+  margin-bottom: 20px;
+}

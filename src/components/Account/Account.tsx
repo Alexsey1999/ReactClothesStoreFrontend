@@ -4,7 +4,7 @@ import Button from '../Button'
 import classNames from 'classnames'
 import { NavLink } from 'react-router-dom'
 import axios from '../../axios'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Route, withRouter } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { removeJwt, logoutUser } from '../../store/users/actions'
 
@@ -152,134 +152,144 @@ const Account = () => {
               </div>
             </div>
             <div className="account-settings">
-              <div className="account-socials"></div>
-              <form
-                action="/"
-                onSubmit={savePersonDataSettings}
-                className={classNames('personal-data', {
-                  changing: isChanging,
-                })}
-              >
-                <header className="personal-data-header">
-                  <span>Персональные данные</span>
-                  <span className="change" onClick={toggleChanging}>
-                    {isChanging ? 'Отменить' : 'Изменить'}
-                  </span>
-                </header>
-                <div className="personal-data-row">
-                  <div className="input-group">
-                    <label htmlFor="name">ИМЯ</label>
-                    <input
-                      onChange={(e) => setName(e.target.value)}
-                      value={name}
-                      id="name"
-                      type="text"
-                    />
-                  </div>
-                  <div className="input-group">
-                    <label htmlFor="surname">ФАМИЛИЯ</label>
-                    <input
-                      onChange={(e) => setSurname(e.target.value)}
-                      value={surname}
-                      id="surname"
-                      type="text"
-                    />
-                  </div>
-                  <div className="input-group">
-                    <label htmlFor="thirdname">ОТЧЕСТВО</label>
-                    <input
-                      onChange={(e) => setThirdname(e.target.value)}
-                      value={thirdname}
-                      id="thirdname"
-                      type="text"
-                    />
-                  </div>
-                </div>
-                <div className="input-group phone-group">
-                  <label htmlFor="phone">ТЕЛЕФОН</label>
-                  <input
-                    onChange={(e) => setPhone(e.target.value)}
-                    value={phone}
-                    id="phone"
-                    type="text"
-                  />
-                </div>
-                {isChanging && (
-                  <Button
-                    className="save-account-settings-btn"
-                    disableDefaultStyles={true}
+              <Route path="/account" exact>
+                <div className="account-person-data">
+                  <div className="account-socials"></div>
+                  <form
+                    action="/"
+                    onSubmit={savePersonDataSettings}
+                    className={classNames('personal-data', {
+                      changing: isChanging,
+                    })}
                   >
-                    Сохранить изменения
-                  </Button>
-                )}
-              </form>
+                    <header className="personal-data-header">
+                      <span>Персональные данные</span>
+                      <span className="change" onClick={toggleChanging}>
+                        {isChanging ? 'Отменить' : 'Изменить'}
+                      </span>
+                    </header>
+                    <div className="personal-data-row">
+                      <div className="input-group">
+                        <label htmlFor="name">ИМЯ</label>
+                        <input
+                          onChange={(e) => setName(e.target.value)}
+                          value={name}
+                          id="name"
+                          type="text"
+                        />
+                      </div>
+                      <div className="input-group">
+                        <label htmlFor="surname">ФАМИЛИЯ</label>
+                        <input
+                          onChange={(e) => setSurname(e.target.value)}
+                          value={surname}
+                          id="surname"
+                          type="text"
+                        />
+                      </div>
+                      <div className="input-group">
+                        <label htmlFor="thirdname">ОТЧЕСТВО</label>
+                        <input
+                          onChange={(e) => setThirdname(e.target.value)}
+                          value={thirdname}
+                          id="thirdname"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div className="input-group phone-group">
+                      <label htmlFor="phone">ТЕЛЕФОН</label>
+                      <input
+                        onChange={(e) => setPhone(e.target.value)}
+                        value={phone}
+                        id="phone"
+                        type="text"
+                      />
+                    </div>
+                    {isChanging && (
+                      <Button
+                        className="save-account-settings-btn"
+                        disableDefaultStyles={true}
+                      >
+                        Сохранить изменения
+                      </Button>
+                    )}
+                  </form>
 
-              <form
-                action=""
-                onSubmit={saveAddressDataSettings}
-                className={classNames('account-delivery-settings', {
-                  changing: isDeliveryChanging,
-                })}
-              >
-                <header className="personal-data-header">
-                  <span>Адрес доставки</span>
-                  <span className="change" onClick={toggleDeliveryChanging}>
-                    {isDeliveryChanging ? 'Отменить' : 'Изменить'}
-                  </span>
-                </header>
-                <div className="personal-data-row">
-                  <div className="input-group">
-                    <label htmlFor="">СТРАНА</label>
-                    <input
-                      onChange={(e) => setCountry(e.target.value)}
-                      value={country}
-                      type="text"
-                    />
-                  </div>
-                  <div className="input-group">
-                    <label htmlFor="">ГОРОД</label>
-                    <input
-                      onChange={(e) => setCity(e.target.value)}
-                      value={city}
-                      type="text"
-                    />
-                  </div>
-                  <div className="input-group">
-                    <label htmlFor="">КРАЙ/ОБЛАСТЬ/РЕГИОН</label>
-                    <input
-                      onChange={(e) => setArea(e.target.value)}
-                      value={area}
-                      type="text"
-                    />
-                  </div>
-                </div>
-                <div className="account-delivery-row">
-                  <div className="input-group">
-                    <label htmlFor="">УЛИЦА, ДОМ, КВАРТИРА</label>
-                    <input
-                      onChange={(e) => setAddress(e.target.value)}
-                      value={address}
-                      type="text"
-                    />
-                  </div>
-                  <div className="input-group">
-                    <label htmlFor="">ПОЧТОВЫЙ ИНДЕКС</label>
-                    <input
-                      onChange={(e) => setMailindex(e.target.value)}
-                      value={mailindex}
-                      type="text"
-                    />
-                  </div>
-                </div>
-                {isDeliveryChanging && (
-                  <Button
-                    className="save-account-settings-btn"
-                    disableDefaultStyles={true}
+                  <form
+                    action=""
+                    onSubmit={saveAddressDataSettings}
+                    className={classNames('account-delivery-settings', {
+                      changing: isDeliveryChanging,
+                    })}
                   >
-                    Сохранить изменения
-                  </Button>
-                )}
-              </form>
+                    <header className="personal-data-header">
+                      <span>Адрес доставки</span>
+                      <span className="change" onClick={toggleDeliveryChanging}>
+                        {isDeliveryChanging ? 'Отменить' : 'Изменить'}
+                      </span>
+                    </header>
+                    <div className="personal-data-row">
+                      <div className="input-group">
+                        <label htmlFor="">СТРАНА</label>
+                        <input
+                          onChange={(e) => setCountry(e.target.value)}
+                          value={country}
+                          type="text"
+                        />
+                      </div>
+                      <div className="input-group">
+                        <label htmlFor="">ГОРОД</label>
+                        <input
+                          onChange={(e) => setCity(e.target.value)}
+                          value={city}
+                          type="text"
+                        />
+                      </div>
+                      <div className="input-group">
+                        <label htmlFor="">КРАЙ/ОБЛАСТЬ/РЕГИОН</label>
+                        <input
+                          onChange={(e) => setArea(e.target.value)}
+                          value={area}
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div className="account-delivery-row">
+                      <div className="input-group">
+                        <label htmlFor="">УЛИЦА, ДОМ, КВАРТИРА</label>
+                        <input
+                          onChange={(e) => setAddress(e.target.value)}
+                          value={address}
+                          type="text"
+                        />
+                      </div>
+                      <div className="input-group">
+                        <label htmlFor="">ПОЧТОВЫЙ ИНДЕКС</label>
+                        <input
+                          onChange={(e) => setMailindex(e.target.value)}
+                          value={mailindex}
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    {isDeliveryChanging && (
+                      <Button
+                        className="save-account-settings-btn"
+                        disableDefaultStyles={true}
+                      >
+                        Сохранить изменения
+                      </Button>
+                    )}
+                  </form>
+                </div>
+              </Route>
+
+              <Route path="/account/orders">
+                <div className="account-orders">
+                  <div className="account-orders-title">История заказов</div>
+                </div>
+              </Route>
             </div>
           </div>
         </div>

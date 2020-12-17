@@ -1,14 +1,12 @@
 // @ts-nocheck
 import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import { Route, Redirect, withRouter } from 'react-router-dom'
 import GoodsLayout from '../../layouts/GoodsLayout'
 
-const ProtectedRoute = ({
-  component: Component,
-  isAuthenticated,
-  logout,
-  ...rest
-}) => {
+const ProtectedRoute = (
+  { component: Component, isAuthenticated, logout, ...rest },
+  props
+) => {
   return (
     <Route
       {...rest}
@@ -27,4 +25,4 @@ const ProtectedRoute = ({
   )
 }
 
-export default ProtectedRoute
+export default withRouter(ProtectedRoute)

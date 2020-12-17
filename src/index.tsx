@@ -13,6 +13,7 @@ import './index.scss'
 // Redux
 import { store, persistor } from './store'
 import { Provider } from 'react-redux'
+import Context from './Context'
 
 ReactDOM.render(
   <React.StrictMode>

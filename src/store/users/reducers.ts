@@ -27,7 +27,7 @@ const usersReducer = produce((draft = initialState, action) => {
       draft.jwt = action.payload
       break
     case REMOVE_JWT:
-      draft.jwt = ''
+      draft.jwt = null
       break
     default:
       return draft

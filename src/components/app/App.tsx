@@ -1,7 +1,7 @@
 // @ts-nocheck
 // Libs
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom'
 // import Cookies from 'universal-cookie'
 
 // Layouts
@@ -24,10 +24,27 @@ import { withCookies, CookiesProvider } from 'react-cookie'
 // Styles
 import './App.scss'
 import Account from '../Account'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { myContext } from '../../Context'
+import { setUser } from '../../store/users/actions'
+import axios from '../../axios'
+import { removeJwt } from '../../store/users/actions'
+import Booking from '../Booking'
 
 const App: React.FC = (props) => {
   const { jwt } = useSelector((state) => state.users)
+  const dispatch = useDispatch()
+
+  React.useEffect(() => {
+    axios({
+      method: 'GET',
+      url: '/user',
+    }).then((response) => {
+      if (!response.data) {
+        localStorage.removeItem('jwt')
+      }
+    })
+  }, [])
 
   return (
     <CookiesProvider>
@@ -65,6 +82,13 @@ const App: React.FC = (props) => {
               </div>
             </GoodsLayout>
           </Route>
+
+          <Route path="/booking/:orderid/details">
+            <GoodsLayout>
+              <Booking />
+            </GoodsLayout>
+          </Route>
+
           <ProtectedRoute
             path="/account"
             isAuthenticated={jwt}

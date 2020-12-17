@@ -4,6 +4,7 @@ import React from 'react'
 import { Modal } from 'react-responsive-modal'
 import { useSelector, useDispatch } from 'react-redux'
 import { closePasswordRecovery, openSignIn } from '../../store/modals/actions'
+import axios from '../../axios'
 
 // Components
 import Button from '../Button'
@@ -13,7 +14,21 @@ import './PasswordRecovery.scss'
 
 const PasswordRecovery: React.FC = () => {
   const { isPasswordRecoveryOpened } = useSelector((state) => state.modals)
+  const [email, setEmail] = React.useState('')
   const dispatch = useDispatch()
+
+  const resetPassword = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await axios({
+        method: 'POST',
+        data: { email },
+        url: '/user/resetpassword',
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <Modal
@@ -27,7 +42,7 @@ const PasswordRecovery: React.FC = () => {
           <div className="password-recovery-descr">
             Введите e-mail и мы пришлём ссылку для восстановления пароля.
           </div>
-          <form action="">
+          <form action="" onSubmit={resetPassword}>
             <div className="password-recovery-field">
               <svg
                 width="20"
@@ -41,7 +56,13 @@ const PasswordRecovery: React.FC = () => {
                   fill="#5A5A5A"
                 />
               </svg>
-              <input type="email" required placeholder="Почта" />
+              <input
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                type="email"
+                required
+                placeholder="Почта"
+              />
             </div>
             <div className="password-recovery-row">
               <Button className="password-recovery-btn">

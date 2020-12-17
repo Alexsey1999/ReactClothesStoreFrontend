@@ -9,16 +9,18 @@ import {
   openSignUp,
   openPasswordRecovery,
 } from '../../store/modals/actions'
-import { setJwt, loginUser } from '../../store/users/actions'
-import { useHistory } from 'react-router-dom'
+import { setUser, setJwt } from '../../store/users/actions'
+import { useHistory, Link } from 'react-router-dom'
 
 // Components
 import Button from '../Button'
 
 // Styles
 import './SignInModal.scss'
+import { myContext } from '../../Context'
 
 const SignInModal: React.FC = () => {
+  const [rememberme, setRememberme] = React.useState(false)
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
 
@@ -35,18 +37,31 @@ const SignInModal: React.FC = () => {
         data: {
           email,
           password,
+          rememberme,
         },
         withCredentials: true,
       })
+
       dispatch(closeSignIn())
       localStorage.setItem('jwt', response.data.token)
       dispatch(setJwt(response.data.token))
-
       history.push('/account')
     } catch (error) {
       console.log(error.response.data.errors)
     }
   }
+
+  const loginThroughGoogle = () => {
+    try {
+      axios({
+        method: 'GET',
+        url: '/user/google',
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Modal open={isSignInOpened} onClose={() => dispatch(closeSignIn())}>
       <div className="signIn">
@@ -127,6 +142,8 @@ const SignInModal: React.FC = () => {
                   <input
                     className="custom-checkbox"
                     id="remember"
+                    onChange={(e) => setRememberme(e.target.checked)}
+                    value={rememberme}
                     type="checkbox"
                   />
                   <label htmlFor="remember">Запомнить</label>
@@ -148,6 +165,7 @@ const SignInModal: React.FC = () => {
               <h4 className="signIn-through-title">Войти через:</h4>
               <div className="google-and-vk">
                 <svg
+                  onClick={loginThroughGoogle}
                   width="30"
                   height="30"
                   viewBox="0 0 30 30"
