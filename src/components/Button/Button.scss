@@ -63,6 +63,11 @@
   font-size: 20px;
   font-weight: 400;
   border: none;
+  width: 270px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
 }
 
 .burger-btn {
@@ -114,6 +119,9 @@
   align-items: center;
   padding: 14px 40px;
   margin-right: 45px;
+  width: 270px;
+  height: 48px;
+  justify-content: center;
   span {
     margin-right: 12px;
   }

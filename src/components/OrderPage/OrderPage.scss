@@ -1,0 +1,97 @@
+.order-page-header {
+  text-align: center;
+  margin: 50px 0 40px 0;
+}
+
+.order-page-container {
+  max-width: 920px;
+  margin: 0px auto;
+  padding: 0 15px;
+}
+
+.order-page-items {
+  background: #f4f6f8;
+  border-radius: 30px;
+  width: 350px;
+}
+
+.order-address-sidebar {
+  background: #f4f6f8;
+  border-radius: 30px;
+  padding: 30px;
+  width: 400px;
+}
+
+.order-page-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-page-pure-price,
+.order-page-delivery-price,
+.order-page-total-price {
+  letter-spacing: 0.4px;
+  font-family: SourceSansPro;
+  font-size: 15px;
+  color: #818d92;
+  margin-bottom: 10px;
+  span {
+    color: #000;
+    font-weight: 800;
+    font-size: 16px;
+    margin-left: 8px;
+  }
+}
+
+.order-page-title {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  letter-spacing: 1.5px;
+}
+
+.order-page-order-info {
+  font-family: SourceSansPro;
+  font-size: 14px;
+  letter-spacing: 1.7px;
+  color: #818d92;
+  text-transform: uppercase;
+}
+
+.order-page-items-cost {
+  padding: 30px;
+}
+
+.orderPageProduct {
+  padding: 30px;
+  margin-bottom: 10px;
+  .booking-order-product-title {
+    font-size: 18px;
+  }
+}
+
+.order-address-sidebar-delivery,
+.order-address-sidebar-person-info {
+  span {
+    letter-spacing: 0.4px;
+    font-family: SourceSansPro;
+    font-size: 15px;
+    color: #818d92;
+    margin-bottom: 5px;
+    display: block;
+  }
+}
+
+.order-address-sidebar-delivery {
+  margin-bottom: 20px;
+}
+
+.order-address-sidebar-person-address,
+.order-address-sidebar-person-contacts {
+  max-width: 300px;
+  font-family: SourceSansPro;
+  color: #000;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-size: 16px;
+}

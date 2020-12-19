@@ -1,0 +1,28 @@
+.loader {
+  width: 25px;
+  height: 25px;
+  background-color: transparent;
+  border-radius: 50%;
+  border-left: 4px solid transparent;
+  animation: rotate 0.8s linear infinite;
+  &.black {
+    border-top: 4px solid #000;
+    border-right: 4px solid #000;
+    border-bottom: 4px solid #000;
+  }
+
+  &.white {
+    border-top: 4px solid #fff;
+    border-right: 4px solid #fff;
+    border-bottom: 4px solid #fff;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

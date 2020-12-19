@@ -5,6 +5,9 @@ import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { PRODUCT_ITEM_REQUEST } from '../../store/product/actions'
 
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 // Components
 import Button from '../Button'
 

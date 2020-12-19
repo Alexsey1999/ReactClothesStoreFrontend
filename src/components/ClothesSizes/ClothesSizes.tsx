@@ -8,6 +8,7 @@ import { setSize } from '../../store/cart/actions'
 
 // Styles
 import './ClothesSizes.scss'
+import { notify } from '../../utils/notify'
 
 // ClothesSizes props interface
 interface IClothesSizesProps {
@@ -24,17 +25,22 @@ const ClothesSizes: React.FC<IClothesSizesProps> = ({
   const dispatch = useDispatch()
 
   const setProductItemSize = async (size, index) => {
-    try {
-      setActiveSize(index)
-      const response = await axios({
-        method: 'POST',
-        url: `/cart/size/${id}`,
-        data: { size, productIndex },
-      })
+    if (size.size === sizes[activeSize].size) {
+      notify('Сейчас уже выбран данный размер.')
+    } else {
+      try {
+        setActiveSize(index)
+        const response = await axios({
+          method: 'POST',
+          url: `/cart/size/${id}`,
+          data: { size, productIndex },
+        })
 
-      dispatch(setSize(response.data.cart))
-    } catch (error) {
-      console.log(error)
+        dispatch(setSize(response.data.cart))
+        notify(response.data.message)
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 

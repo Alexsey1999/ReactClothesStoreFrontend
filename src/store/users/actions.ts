@@ -1,7 +1,8 @@
 // @ts-nocheck
 export const SET_JWT = 'SET_JWT'
 export const REMOVE_JWT = 'REMOVE_JWT'
-// export const SET_USER = 'SET_USER'
+export const SET_USER = 'SET_USER'
+export const REMOVE_USER = 'REMOVE_USER'
 
 export const setJwt = (payload: string) => ({
   type: SET_JWT,
@@ -12,7 +13,11 @@ export const removeJwt = () => ({
   type: REMOVE_JWT,
 })
 
-// export const setUser = (payload) => ({
-//   type: SET_USER,
-//   payload,
-// })
+export const setUser = (payload) => ({
+  type: SET_USER,
+  payload,
+})
+
+export const removeUser = (payload) => ({
+  type: REMOVE_USER,
+})

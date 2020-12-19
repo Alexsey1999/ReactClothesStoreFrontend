@@ -45,6 +45,7 @@ const SignInModal: React.FC = () => {
       dispatch(closeSignIn())
       localStorage.setItem('jwt', response.data.token)
       dispatch(setJwt(response.data.token))
+      dispatch(setUser(response.data.user))
       history.push('/account')
     } catch (error) {
       console.log(error.response.data.errors)

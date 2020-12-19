@@ -2,11 +2,11 @@
 import React from 'react'
 import Button from '../Button'
 import classNames from 'classnames'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import axios from '../../axios'
 import { useHistory, Route, withRouter } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { removeJwt, logoutUser } from '../../store/users/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { removeJwt, logoutUser, removeUser } from '../../store/users/actions'
 
 import './Account.scss'
 
@@ -27,6 +27,8 @@ const Account = () => {
 
   const history = useHistory()
   const dispatch = useDispatch()
+
+  const { user } = useSelector((state) => state.users)
 
   const toggleChanging = () => {
     setIsChanging((prevVal) => !prevVal)
@@ -115,6 +117,7 @@ const Account = () => {
         localStorage.removeItem('jwt')
       }
       dispatch(removeJwt())
+      dispatch(removeUser())
       history.push('/')
     } catch (error) {
       console.log(error)
@@ -288,6 +291,26 @@ const Account = () => {
               <Route path="/account/orders">
                 <div className="account-orders">
                   <div className="account-orders-title">История заказов</div>
+
+                  <ul className="account-orders-list">
+                    {user.orders?.length &&
+                      user.orders.map((order) => (
+                        <li key={order.ordertoken}>
+                          <Link
+                            to={{
+                              pathname: `/order/browse/${order.ordertoken}`,
+                              state: order,
+                            }}
+                          >
+                            <div>
+                              <span className="ordertoken">
+                                {order.ordertoken}
+                              </span>
+                            </div>
+                          </Link>
+                        </li>
+                      ))}
+                  </ul>
                 </div>
               </Route>
             </div>

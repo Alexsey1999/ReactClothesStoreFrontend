@@ -1,0 +1,23 @@
+.booking {
+  .form-field {
+    margin-bottom: 30px;
+    label {
+      color: #818d92;
+      font-size: 15px;
+      font-family: SourceSansPro;
+      display: block;
+      margin-bottom: 5px;
+    }
+    input {
+      border: none;
+      border-radius: 30px;
+      height: 36px;
+      padding: 0 15px;
+      background: #f4f6f8;
+      font-family: SourceSansPro;
+      font-size: 14px;
+      font-weight: 800;
+      width: 100%;
+    }
+  }
+}

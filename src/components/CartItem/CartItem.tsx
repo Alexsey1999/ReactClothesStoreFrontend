@@ -5,10 +5,12 @@ import ClothesSizes from '../ClothesSizes'
 import axios from '../../axios'
 import { useParams, useLocation, useRouteMatch } from 'react-router-dom'
 import { removeItem, increaseItem, reduceItem } from '../../store/cart/actions'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // Styles
 import './CartItem.scss'
+import { notify } from '../../utils/notify'
+import Loader from '../Loader'
 
 const CartItem = ({
   price,
@@ -18,6 +20,7 @@ const CartItem = ({
   item: { _id, sizes, name, imageUrl, category },
 }) => {
   const dispatch = useDispatch()
+  const { cart } = useSelector((state) => state.cart)
 
   const removeItemFromCart = async () => {
     try {
@@ -27,6 +30,7 @@ const CartItem = ({
         data: { productSize: size, productIndex },
       })
       dispatch(removeItem(response.data.cart))
+      notify(response.data.message)
     } catch (error) {
       console.log(error)
     }
@@ -39,7 +43,14 @@ const CartItem = ({
         url: `/cart/reduce/${_id}?category=${category}`,
         data: { productSize: size },
       })
+
+      if (response.data.errorMessage) {
+        notify(response.data.errorMessage)
+        return
+      }
+
       dispatch(reduceItem(response.data.cart))
+      notify(response.data.message)
     } catch (error) {
       console.log(error)
     }
@@ -53,6 +64,7 @@ const CartItem = ({
         data: { productSize: size },
       })
       dispatch(increaseItem(response.data.cart))
+      notify(response.data.message)
     } catch (error) {
       console.log(error)
     }

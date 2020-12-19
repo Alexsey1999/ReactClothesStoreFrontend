@@ -31,25 +31,59 @@ import axios from '../../axios'
 import { removeJwt } from '../../store/users/actions'
 import Booking from '../Booking'
 
+import { Elements, CardElement } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
+import Payment from '../Payment'
+
+import { ToastContainer, Flip } from 'react-toastify'
+import OrderPage from '../OrderPage'
+
 const App: React.FC = (props) => {
   const { jwt } = useSelector((state) => state.users)
   const dispatch = useDispatch()
 
+  const stripe = loadStripe(
+    'pk_test_51Hzfg4EWaRj0TMbRs4RZRHlhStRRbqAltHfCMhcbAA6PKoAYxrSr7CrGIf5K1iBzVmY89UIpQSWltVEizRjxxLhc00xKvE7X6L'
+  )
+
   React.useEffect(() => {
-    axios({
-      method: 'GET',
-      url: '/user',
-    }).then((response) => {
-      if (!response.data) {
-        localStorage.removeItem('jwt')
+    const getUser = async () => {
+      try {
+        const response = await axios({
+          method: 'GET',
+          url: '/user',
+        })
+        if (!response.data) {
+          localStorage.removeItem('jwt')
+          return
+        }
+        dispatch(setUser(response.data))
+        console.log(data)
+      } catch (error) {
+        console.log(error)
       }
-    })
+    }
+
+    getUser()
   }, [])
 
   return (
     <CookiesProvider>
       <Router>
         <div className="app">
+          <ToastContainer
+            transition={Flip}
+            position="bottom-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+
           <Route exact path="/">
             <HomeLayout>
               <Hits />
@@ -86,6 +120,18 @@ const App: React.FC = (props) => {
           <Route path="/booking/:orderid/details">
             <GoodsLayout>
               <Booking />
+            </GoodsLayout>
+          </Route>
+
+          <Route path="/booking/:orderid/payment">
+            <GoodsLayout>
+              <Payment />
+            </GoodsLayout>
+          </Route>
+
+          <Route path="/order/browse/:ordertoken">
+            <GoodsLayout>
+              <OrderPage />
             </GoodsLayout>
           </Route>
 

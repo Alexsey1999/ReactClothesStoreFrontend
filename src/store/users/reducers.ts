@@ -1,6 +1,6 @@
 // @ts-nocheck
 import produce from 'immer'
-import { SET_JWT, REMOVE_JWT } from './actions'
+import { SET_JWT, REMOVE_JWT, SET_USER, REMOVE_USER } from './actions'
 
 function loadFromLocalStorage() {
   try {
@@ -18,6 +18,7 @@ function loadFromLocalStorage() {
 const persistedState = loadFromLocalStorage()
 
 const initialState = {
+  user: {},
   jwt: persistedState,
 }
 
@@ -28,6 +29,12 @@ const usersReducer = produce((draft = initialState, action) => {
       break
     case REMOVE_JWT:
       draft.jwt = null
+      break
+    case SET_USER:
+      draft.user = action.payload
+      break
+    case REMOVE_USER:
+      draft.user = {}
       break
     default:
       return draft

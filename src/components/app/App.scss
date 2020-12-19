@@ -3,3 +3,66 @@
   margin: 0px auto;
   padding: 0 10px;
 }
+
+.Toastify__toast--default {
+  background: #797b8c;
+  border-radius: 20px;
+  // padding: 20px;
+  color: #fff;
+}
+
+.Toastify__toast {
+  min-height: 85px;
+}
+
+.Toastify__close-button--default {
+  opacity: 0.5;
+}
+
+.Toastify__progress-bar--default {
+  background: #a2a3af;
+}
+
+.Toastify__close-button > svg {
+  fill: #fff !important;
+  margin-bottom: 5px;
+}
+
+.Toastify__toast-body {
+  font-size: 15px;
+  font-family: SourceSansPro;
+  letter-spacing: 0.8px;
+  text-align: center;
+  font-weight: 300;
+}
+
+// @keyframes #{$rt-namespace}__zoomIn {
+//   from {
+//     opacity: 0;
+//     transform: scale3d(0.3, 0.3, 0.3);
+//   }
+//   50% {
+//     opacity: 1;
+//   }
+// }
+
+// @keyframes #{$rt-namespace}__zoomOut {
+//   from {
+//     opacity: 1;
+//   }
+//   50% {
+//     opacity: 0;
+//     transform: scale3d(0.3, 0.3, 0.3);
+//   }
+//   to {
+//     opacity: 0;
+//   }
+// }
+
+// .#{$rt-namespace}__zoom-enter {
+//   animation-name: #{$rt-namespace}__zoomIn;
+// }
+
+// .#{$rt-namespace}__zoom-exit {
+//   animation-name: #{$rt-namespace}__zoomOut;
+// }

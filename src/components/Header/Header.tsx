@@ -129,7 +129,7 @@ const Header: React.FC<IHeaderProps> = ({ goodsLayoutHeader, isProduct }) => {
                     />
                   </svg>
                   <span className="total-cart-price">
-                    {cart.totalPrice} RUB
+                    {cart?.totalPrice} RUB
                   </span>
                 </div>
                 <Button

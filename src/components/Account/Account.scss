@@ -163,3 +163,22 @@
   margin-top: 50px;
   margin-left: 100px;
 }
+
+.account-orders-list {
+  li {
+    margin-bottom: 20px;
+    a {
+      div {
+        background: #f4f6f8;
+        border-radius: 30px;
+        padding: 15px;
+        max-width: 400px;
+      }
+    }
+    .ordertoken {
+      font-family: SourceSansPro;
+      font-size: 20px;
+      color: #000;
+    }
+  }
+}
