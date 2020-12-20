@@ -15,6 +15,9 @@ import Button from '../Button'
 
 // Styles
 import './SignUpModal.scss'
+import { setJwt, setUser } from '../../store/users/actions'
+import { useHistory } from 'react-router-dom'
+import { notify } from '../../utils/notify'
 
 const SignUpModal: React.FC = () => {
   const [email, setEmail] = React.useState('')
@@ -23,6 +26,8 @@ const SignUpModal: React.FC = () => {
 
   const dispatch = useDispatch()
   const { isSignUpOpened } = useSelector((state) => state.modals)
+
+  const history = useHistory()
 
   const registerUser = async (e) => {
     e.preventDefault()
@@ -37,10 +42,22 @@ const SignUpModal: React.FC = () => {
         },
         withCredentials: true,
       })
+
+      if (response.data.errorMessage) {
+        notify(response.data.errorMessage)
+        return
+      }
+      dispatch(setJwt(response.data.token))
+      localStorage.setItem('jwt', response.data.token)
+
+      console.log(response.data)
+
+      dispatch(setUser(response.data.user))
+
       dispatch(openSuccessSignUp())
       dispatch(closeSignUp())
     } catch (error) {
-      console.log(error.response.data.errors)
+      console.log(error)
     }
   }
 

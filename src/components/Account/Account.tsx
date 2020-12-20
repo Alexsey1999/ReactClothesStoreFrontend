@@ -116,6 +116,10 @@ const Account = () => {
       if (localStorage.getItem('jwt')) {
         localStorage.removeItem('jwt')
       }
+      if (localStorage.getItem('googleId')) {
+        localStorage.removeItem('googleId')
+      }
+
       dispatch(removeJwt())
       dispatch(removeUser())
       history.push('/')
@@ -293,23 +297,24 @@ const Account = () => {
                   <div className="account-orders-title">История заказов</div>
 
                   <ul className="account-orders-list">
-                    {user.orders?.length &&
-                      user.orders.map((order) => (
-                        <li key={order.ordertoken}>
-                          <Link
-                            to={{
-                              pathname: `/order/browse/${order.ordertoken}`,
-                              state: order,
-                            }}
-                          >
-                            <div>
-                              <span className="ordertoken">
-                                {order.ordertoken}
-                              </span>
-                            </div>
-                          </Link>
-                        </li>
-                      ))}
+                    {user && user.orders.length
+                      ? user.orders.map((order) => (
+                          <li key={order.ordertoken}>
+                            <Link
+                              to={{
+                                pathname: `/order/browse/${order.ordertoken}`,
+                                state: order,
+                              }}
+                            >
+                              <div>
+                                <span className="ordertoken">
+                                  {order.ordertoken}
+                                </span>
+                              </div>
+                            </Link>
+                          </li>
+                        ))
+                      : 'Заказов нет'}
                   </ul>
                 </div>
               </Route>

@@ -1,7 +1,13 @@
 // @ts-nocheck
 // Libs
 import React from 'react'
-import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  useLocation,
+  useHistory,
+} from 'react-router-dom'
 // import Cookies from 'universal-cookie'
 
 // Layouts
@@ -20,13 +26,18 @@ import Goods from '../Goods'
 import ProductItem from '../ProductItem'
 import ProtectedRoute from '../ProtectedRoute'
 import { withCookies, CookiesProvider } from 'react-cookie'
+import queryString from 'query-string'
 
 // Styles
 import './App.scss'
 import Account from '../Account'
 import { useSelector, useDispatch } from 'react-redux'
 import { myContext } from '../../Context'
-import { setUser } from '../../store/users/actions'
+import {
+  setLoginStatusToken,
+  setLoginToken,
+  setUser,
+} from '../../store/users/actions'
 import axios from '../../axios'
 import { removeJwt } from '../../store/users/actions'
 import Booking from '../Booking'
@@ -40,25 +51,41 @@ import OrderPage from '../OrderPage'
 
 const App: React.FC = (props) => {
   const { jwt } = useSelector((state) => state.users)
+  // const { user } = useSelector((state) => state.users)
   const dispatch = useDispatch()
+
+  const history = useHistory()
 
   const stripe = loadStripe(
     'pk_test_51Hzfg4EWaRj0TMbRs4RZRHlhStRRbqAltHfCMhcbAA6PKoAYxrSr7CrGIf5K1iBzVmY89UIpQSWltVEizRjxxLhc00xKvE7X6L'
   )
 
+  // const location = useLocation()
+  // console.log(location)
+
   React.useEffect(() => {
     const getUser = async () => {
       try {
+        const googleAuth =
+          queryString.parse(window.location.search).googleauth || null
+        if (googleAuth && !localStorage.getItem('googleId')) {
+          localStorage.setItem('googleId', googleAuth)
+          dispatch(setLoginToken(googleAuth))
+
+          window.location.href = 'http://localhost:3000/account'
+          return
+        }
         const response = await axios({
           method: 'GET',
           url: '/user',
         })
+
         if (!response.data) {
           localStorage.removeItem('jwt')
           return
         }
+
         dispatch(setUser(response.data))
-        console.log(data)
       } catch (error) {
         console.log(error)
       }
@@ -66,6 +93,10 @@ const App: React.FC = (props) => {
 
     getUser()
   }, [])
+
+  // React.useEffect(() => {
+  //   axios({ method: 'GET', url: '/user' })
+  // }, [])
 
   return (
     <CookiesProvider>
@@ -137,7 +168,10 @@ const App: React.FC = (props) => {
 
           <ProtectedRoute
             path="/account"
-            isAuthenticated={jwt}
+            isAuthenticated={{
+              jwt,
+              googleId: localStorage.getItem('googleId') || null,
+            }}
             component={Account}
           />
         </div>

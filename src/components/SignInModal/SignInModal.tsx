@@ -43,24 +43,26 @@ const SignInModal: React.FC = () => {
       })
 
       dispatch(closeSignIn())
-      localStorage.setItem('jwt', response.data.token)
       dispatch(setJwt(response.data.token))
+      localStorage.setItem('jwt', response.data.token)
+
       dispatch(setUser(response.data.user))
-      history.push('/account')
+      history.push('/account', response.data.user._id)
     } catch (error) {
       console.log(error.response.data.errors)
     }
   }
 
   const loginThroughGoogle = () => {
-    try {
-      axios({
-        method: 'GET',
-        url: '/user/google',
-      })
-    } catch (error) {
-      console.log(error)
-    }
+    // try {
+    //   axios({
+    //     method: 'GET',
+    //     url: '/user/google',
+    //   })
+    // } catch (error) {
+    //   console.log(error)
+    // }
+    // history.push('http://localhost:3001/user/google')
   }
 
   return (
@@ -165,19 +167,20 @@ const SignInModal: React.FC = () => {
             <div className="signIn-through-socials">
               <h4 className="signIn-through-title">Войти через:</h4>
               <div className="google-and-vk">
-                <svg
-                  onClick={loginThroughGoogle}
-                  width="30"
-                  height="30"
-                  viewBox="0 0 30 30"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M16.875 13.5V17.25H25.725C24.825 22.5 20.625 26.25 15.375 26.25C9.225 26.25 4.125 21.15 4.125 15C4.125 8.85 9.225 3.75 15.375 3.75C18.525 3.75 21.225 5.1 23.175 7.2L25.875 4.5C23.175 1.8 19.575 0 15.375 0C7.125 0 0.375 6.75 0.375 15C0.375 23.25 7.125 30 15.375 30C23.625 30 29.625 23.25 29.625 15V13.5H16.875Z"
-                    fill="black"
-                  />
-                </svg>
+                <a href="http://localhost:3001/user/google">
+                  <svg
+                    width="30"
+                    height="30"
+                    viewBox="0 0 30 30"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M16.875 13.5V17.25H25.725C24.825 22.5 20.625 26.25 15.375 26.25C9.225 26.25 4.125 21.15 4.125 15C4.125 8.85 9.225 3.75 15.375 3.75C18.525 3.75 21.225 5.1 23.175 7.2L25.875 4.5C23.175 1.8 19.575 0 15.375 0C7.125 0 0.375 6.75 0.375 15C0.375 23.25 7.125 30 15.375 30C23.625 30 29.625 23.25 29.625 15V13.5H16.875Z"
+                      fill="black"
+                    />
+                  </svg>
+                </a>
                 <svg
                   width="30"
                   height="30"

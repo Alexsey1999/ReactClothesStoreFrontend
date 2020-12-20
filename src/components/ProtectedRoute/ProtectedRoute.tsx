@@ -2,6 +2,7 @@
 import React from 'react'
 import { Route, Redirect, withRouter } from 'react-router-dom'
 import GoodsLayout from '../../layouts/GoodsLayout'
+import axios from '../../axios'
 
 const ProtectedRoute = (
   { component: Component, isAuthenticated, logout, ...rest },
@@ -11,7 +12,9 @@ const ProtectedRoute = (
     <Route
       {...rest}
       render={(props) => {
-        if (isAuthenticated) {
+        console.log(props)
+
+        if (isAuthenticated.jwt || isAuthenticated.googleId) {
           return (
             <GoodsLayout>
               <Component {...props} />

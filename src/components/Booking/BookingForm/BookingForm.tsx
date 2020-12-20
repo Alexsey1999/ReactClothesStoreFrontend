@@ -125,7 +125,6 @@ const BookingForm = () => {
           })
         )
         setIsLoading(false)
-        history.push('/')
       } catch (error) {
         setIsLoading(false)
         console.log(error)
@@ -145,6 +144,8 @@ const BookingForm = () => {
 
         localStorage.getItem('ordertoken') &&
           localStorage.removeItem('ordertoken')
+
+        window.location.href = 'http://localhost:3000'
       } catch (error) {
         console.log(error)
       }
