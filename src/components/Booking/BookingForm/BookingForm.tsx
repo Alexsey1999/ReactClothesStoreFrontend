@@ -23,10 +23,9 @@ const BookingForm = () => {
   const [isLoading, setIsLoading] = React.useState(false)
 
   const dispatch = useDispatch()
-  const history = useHistory()
 
   const [name, setName] = React.useState(() => {
-    return user.name
+    return user ? user.name : ''
   })
 
   const [surname, setSurname] = React.useState('')
@@ -172,169 +171,167 @@ const BookingForm = () => {
   }
 
   return (
-    <>
-      <form action="" onSubmit={buyProducts}>
+    <form action="" onSubmit={buyProducts}>
+      <div className="form-field">
+        <label htmlFor="name">ИМЯ</label>
+        <input
+          id="name"
+          defaultValue={user.name}
+          onChange={(e) => setName(e.target.value)}
+          onBlur={updateUserData}
+          type="text"
+          ref={nameRef}
+          name="name"
+          required
+        />
+      </div>
+
+      <div className="form-field">
+        <label htmlFor="surname">ФАМИЛИЯ</label>
+        <input
+          id="surname"
+          type="text"
+          defaultValue={user.surname}
+          onChange={(e) => setSurname(e.target.value)}
+          onBlur={updateUserData}
+          ref={surnameRef}
+          name="surname"
+          required
+        />
+      </div>
+
+      <div className="form-field">
+        <label htmlFor="thirdname">ОТЧЕСТВО</label>
+        <input
+          id="thirdname"
+          type="text"
+          name="thirdname"
+          defaultValue={user.thirdname}
+          onChange={(e) => setThirdname(e.target.value)}
+          onBlur={updateUserData}
+          ref={thirdnameRef}
+          required
+        />
+      </div>
+
+      <div className="form-fields-row">
         <div className="form-field">
-          <label htmlFor="name">ИМЯ</label>
+          <label htmlFor="phone">ТЕЛЕФОН</label>
           <input
-            id="name"
-            defaultValue={user.name}
-            onChange={(e) => setName(e.target.value)}
+            id="phone"
+            defaultValue={user.phone}
+            onChange={(e) => setPhone(e.target.value)}
             onBlur={updateUserData}
             type="text"
-            ref={nameRef}
-            name="name"
+            name="phone"
+            ref={phoneRef}
             required
           />
         </div>
-
         <div className="form-field">
-          <label htmlFor="surname">ФАМИЛИЯ</label>
+          <label htmlFor="email">ЭЛ.ПОЧТА</label>
           <input
-            id="surname"
-            type="text"
-            defaultValue={user.surname}
-            onChange={(e) => setSurname(e.target.value)}
+            id="email"
+            defaultValue={user.email}
+            onChange={(e) => setEmail(e.target.value)}
             onBlur={updateUserData}
-            ref={surnameRef}
-            name="surname"
+            type="email"
+            name="email"
+            ref={emailRef}
             required
           />
         </div>
+      </div>
 
-        <div className="form-field">
-          <label htmlFor="thirdname">ОТЧЕСТВО</label>
-          <input
-            id="thirdname"
-            type="text"
-            name="thirdname"
-            defaultValue={user.thirdname}
-            onChange={(e) => setThirdname(e.target.value)}
-            onBlur={updateUserData}
-            ref={thirdnameRef}
-            required
-          />
-        </div>
+      <div className="form-field">
+        <label htmlFor="country">СТРАНА</label>
+        <input
+          id="country"
+          defaultValue={user.country}
+          onChange={(e) => setCountry(e.target.value)}
+          onBlur={updateUserData}
+          type="text"
+          ref={countryRef}
+          name="country"
+          required
+        />
+      </div>
 
-        <div className="form-fields-row">
-          <div className="form-field">
-            <label htmlFor="phone">ТЕЛЕФОН</label>
-            <input
-              id="phone"
-              defaultValue={user.phone}
-              onChange={(e) => setPhone(e.target.value)}
-              onBlur={updateUserData}
-              type="text"
-              name="phone"
-              ref={phoneRef}
-              required
-            />
-          </div>
-          <div className="form-field">
-            <label htmlFor="email">ЭЛ.ПОЧТА</label>
-            <input
-              id="email"
-              defaultValue={user.email}
-              onChange={(e) => setEmail(e.target.value)}
-              onBlur={updateUserData}
-              type="email"
-              name="email"
-              ref={emailRef}
-              required
-            />
-          </div>
-        </div>
+      <div className="form-field">
+        <label htmlFor="city">ГОРОД</label>
+        <input
+          id="city"
+          defaultValue={user.city}
+          onChange={(e) => setCity(e.target.value)}
+          onBlur={updateUserData}
+          type="text"
+          ref={cityRef}
+          name="city"
+          required
+        />
+      </div>
 
-        <div className="form-field">
-          <label htmlFor="country">СТРАНА</label>
-          <input
-            id="country"
-            defaultValue={user.country}
-            onChange={(e) => setCountry(e.target.value)}
-            onBlur={updateUserData}
-            type="text"
-            ref={countryRef}
-            name="country"
-            required
-          />
-        </div>
+      <div className="form-field">
+        <label htmlFor="city">КРАЙ/ОБЛАСТЬ/РЕГИОН</label>
+        <input
+          id="area"
+          defaultValue={user.area}
+          onChange={(e) => setArea(e.target.value)}
+          onBlur={updateUserData}
+          type="text"
+          name="area"
+          ref={areaRef}
+          required
+        />
+      </div>
 
-        <div className="form-field">
-          <label htmlFor="city">ГОРОД</label>
-          <input
-            id="city"
-            defaultValue={user.city}
-            onChange={(e) => setCity(e.target.value)}
-            onBlur={updateUserData}
-            type="text"
-            ref={cityRef}
-            name="city"
-            required
-          />
-        </div>
+      <div className="form-field">
+        <label htmlFor="address">УЛИЦА, ДОМ, КВАРТИРА</label>
+        <input
+          id="address"
+          defaultValue={user.address}
+          onChange={(e) => setAddress(e.target.value)}
+          onBlur={updateUserData}
+          type="text"
+          name="address"
+          ref={addressRef}
+          required
+        />
+      </div>
 
-        <div className="form-field">
-          <label htmlFor="city">КРАЙ/ОБЛАСТЬ/РЕГИОН</label>
-          <input
-            id="area"
-            defaultValue={user.area}
-            onChange={(e) => setArea(e.target.value)}
-            onBlur={updateUserData}
-            type="text"
-            name="area"
-            ref={areaRef}
-            required
-          />
-        </div>
+      <div className="form-field">
+        <label htmlFor="mailindex">ПОЧТОВЫЙ ИНДЕКС</label>
+        <input
+          id="mailindex"
+          defaultValue={user.mailindex}
+          onChange={(e) => setMailindex(e.target.value)}
+          onBlur={updateUserData}
+          type="text"
+          name="mailindex"
+          ref={mailindexRef}
+          required
+        />
+      </div>
 
-        <div className="form-field">
-          <label htmlFor="address">УЛИЦА, ДОМ, КВАРТИРА</label>
-          <input
-            id="address"
-            defaultValue={user.address}
-            onChange={(e) => setAddress(e.target.value)}
-            onBlur={updateUserData}
-            type="text"
-            name="address"
-            ref={addressRef}
-            required
-          />
-        </div>
+      <div className="form-field">
+        <label htmlFor="note">ПРИМЕЧАНИЕ</label>
+        <input
+          id="note"
+          defaultValue={user.note}
+          onChange={(e) => setNote(e.target.value)}
+          onBlur={updateUserData}
+          type="text"
+          name="note"
+          ref={noteRef}
+          required
+        />
+      </div>
+      <Payment />
 
-        <div className="form-field">
-          <label htmlFor="mailindex">ПОЧТОВЫЙ ИНДЕКС</label>
-          <input
-            id="mailindex"
-            defaultValue={user.mailindex}
-            onChange={(e) => setMailindex(e.target.value)}
-            onBlur={updateUserData}
-            type="text"
-            name="mailindex"
-            ref={mailindexRef}
-            required
-          />
-        </div>
-
-        <div className="form-field">
-          <label htmlFor="note">ПРИМЕЧАНИЕ</label>
-          <input
-            id="note"
-            defaultValue={user.note}
-            onChange={(e) => setNote(e.target.value)}
-            onBlur={updateUserData}
-            type="text"
-            name="note"
-            ref={noteRef}
-            required
-          />
-        </div>
-        <Payment />
-
-        <Button className="continue-ordering-btn" disableDefaultStyles={true}>
-          {isLoading ? <Loader color="white" /> : <span>Оплатить</span>}
-        </Button>
-      </form>
-    </>
+      <Button className="continue-ordering-btn" disableDefaultStyles={true}>
+        {isLoading ? <Loader color="white" /> : <span>Оплатить</span>}
+      </Button>
+    </form>
   )
 }
 

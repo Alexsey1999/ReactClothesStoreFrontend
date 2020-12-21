@@ -61,8 +61,24 @@ const SignUpModal: React.FC = () => {
     }
   }
 
+  const clearSignUpState = () => {
+    setEmail('')
+    setPassword('')
+    setRepeatPassword('')
+  }
+
+  const backToSignIn = () => {
+    dispatch(openSignIn())
+    clearSignUpState()
+  }
+
+  const closeSignUpModal = () => {
+    dispatch(closeSignUp())
+    clearSignUpState()
+  }
+
   return (
-    <Modal open={isSignUpOpened} onClose={() => dispatch(closeSignUp())}>
+    <Modal open={isSignUpOpened} onClose={closeSignUpModal}>
       <div className="signUp">
         <div className="signUp-content">
           <div className="signUp-header">
@@ -190,10 +206,7 @@ const SignUpModal: React.FC = () => {
 
             <div className="exists-account">
               <span>Уже есть аккаунт?</span>
-              <span
-                className="sign-in-title"
-                onClick={() => dispatch(openSignIn())}
-              >
+              <span className="sign-in-title" onClick={backToSignIn}>
                 Войти
               </span>
             </div>

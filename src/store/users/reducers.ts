@@ -25,7 +25,7 @@ function loadFromLocalStorage() {
 const persistedState = loadFromLocalStorage()
 
 const initialState = {
-  user: null,
+  user: {},
   jwt: persistedState,
   loginToken: null,
 }

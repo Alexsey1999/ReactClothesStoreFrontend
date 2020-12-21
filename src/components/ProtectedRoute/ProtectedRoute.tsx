@@ -14,7 +14,11 @@ const ProtectedRoute = (
       render={(props) => {
         console.log(props)
 
-        if (isAuthenticated.jwt || isAuthenticated.googleId) {
+        if (
+          isAuthenticated.jwt ||
+          isAuthenticated.googleId ||
+          isAuthenticated.vkId
+        ) {
           return (
             <GoodsLayout>
               <Component {...props} />

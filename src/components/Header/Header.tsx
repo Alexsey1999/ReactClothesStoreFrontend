@@ -42,7 +42,11 @@ const Header: React.FC<IHeaderProps> = ({ goodsLayoutHeader, isProduct }) => {
   }, [])
 
   const isAuthorizedUser = () => {
-    if (localStorage.getItem('jwt') || localStorage.getItem('googleId')) {
+    if (
+      localStorage.getItem('jwt') ||
+      localStorage.getItem('googleId') ||
+      localStorage.getItem('vkId')
+    ) {
       return (
         <Link to="/account">
           <svg

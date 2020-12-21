@@ -28,38 +28,35 @@ const CARD_OPTIONS = {
 }
 
 const Payment = () => {
-  const stripe = loadStripe(
-    'pk_test_51Hzfg4EWaRj0TMbRs4RZRHlhStRRbqAltHfCMhcbAA6PKoAYxrSr7CrGIf5K1iBzVmY89UIpQSWltVEizRjxxLhc00xKvE7X6L'
-  )
   const history = useHistory()
   const { orderid } = useParams()
 
-  React.useEffect(() => {
-    const getOrderToken = async () => {
-      if (!localStorage.getItem('ordertoken')) {
-        history.push('/')
-        return
-      }
+  // React.useEffect(() => {
+  //   const getOrderToken = async () => {
+  //     if (!localStorage.getItem('ordertoken')) {
+  //       history.push('/')
+  //       return
+  //     }
 
-      try {
-        const response = await axios({
-          method: 'POST',
-          data: {
-            orderid,
-          },
-          url: '/booking/checktoken',
-        })
+  //     try {
+  //       const response = await axios({
+  //         method: 'POST',
+  //         data: {
+  //           orderid,
+  //         },
+  //         url: '/booking/checktoken',
+  //       })
 
-        if (!response.data) {
-          history.push('/')
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    }
+  //       if (!response.data) {
+  //         history.push('/')
+  //       }
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //   }
 
-    getOrderToken()
-  }, [])
+  //   getOrderToken()
+  // }, [])
 
   return (
     <fieldset className="FormGroup">

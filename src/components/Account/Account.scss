@@ -160,7 +160,7 @@
 }
 
 .account-person-data {
-  margin-top: 50px;
+  margin-top: 25px;
   margin-left: 100px;
 }
 
@@ -181,4 +181,13 @@
       color: #000;
     }
   }
+}
+
+.account-socials {
+  svg {
+    &:first-child {
+      margin-right: 20px;
+    }
+  }
+  margin-bottom: 20px;
 }

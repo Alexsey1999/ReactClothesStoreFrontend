@@ -27,7 +27,7 @@ const Booking = () => {
 
   React.useEffect(() => {
     const getOrderToken = async () => {
-      if (!localStorage.getItem('ordertoken')) {
+      if (localStorage.getItem('ordertoken') !== orderid) {
         history.push('/')
         return
       }
@@ -53,20 +53,25 @@ const Booking = () => {
   }, [])
 
   React.useEffect(() => {
+    let mounted = true
     const getUser = async () => {
       try {
         const { data } = await axios({
           method: 'GET',
           url: '/user',
         })
-        setUser(data)
-        console.log(data)
+
+        if (mounted) {
+          setUser(data)
+        }
       } catch (error) {
         console.log(error)
       }
     }
 
     getUser()
+
+    return () => (mounted = false)
   }, [])
 
   const orderNumber = () => {

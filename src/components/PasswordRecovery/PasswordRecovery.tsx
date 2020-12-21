@@ -11,29 +11,57 @@ import Button from '../Button'
 
 // Styles
 import './PasswordRecovery.scss'
+import { notify } from '../../utils/notify'
+import Loader from '../Loader'
 
 const PasswordRecovery: React.FC = () => {
   const { isPasswordRecoveryOpened } = useSelector((state) => state.modals)
+  const [isLoading, setIsLoading] = React.useState(false)
   const [email, setEmail] = React.useState('')
   const dispatch = useDispatch()
 
   const resetPassword = async (e) => {
     e.preventDefault()
     try {
+      setIsLoading(true)
       const response = await axios({
         method: 'POST',
         data: { email },
         url: '/user/resetpassword',
       })
+
+      if (response.data.errorMessage) {
+        notify(response.data.errorMessage)
+        setIsLoading(false)
+        return
+      }
+
+      notify(response.data.successMessage)
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
+      setIsLoading(false)
     }
+  }
+
+  const goBack = () => {
+    dispatch(openSignIn())
+    setEmail('')
+  }
+
+  const clearPasswordRecoveryState = () => {
+    setEmail('')
+  }
+
+  const closePasswordRecoveryModal = () => {
+    dispatch(closePasswordRecovery())
+    clearPasswordRecoveryState()
   }
 
   return (
     <Modal
       open={isPasswordRecoveryOpened}
-      onClose={() => dispatch(closePasswordRecovery())}
+      onClose={closePasswordRecoveryModal}
       center={true}
     >
       <div className="password-recovery">
@@ -66,12 +94,9 @@ const PasswordRecovery: React.FC = () => {
             </div>
             <div className="password-recovery-row">
               <Button className="password-recovery-btn">
-                Восстановить пароль
+                {isLoading ? <Loader color="white" /> : ' Восстановить пароль'}
               </Button>
-              <span
-                onClick={() => dispatch(openSignIn())}
-                className="password-recovery-cancel"
-              >
+              <span onClick={goBack} className="password-recovery-cancel">
                 Отмена
               </span>
             </div>

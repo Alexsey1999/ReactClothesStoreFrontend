@@ -6,6 +6,7 @@ import {
   Redirect,
   Route,
   useLocation,
+  Switch,
   useHistory,
 } from 'react-router-dom'
 // import Cookies from 'universal-cookie'
@@ -48,6 +49,7 @@ import Payment from '../Payment'
 
 import { ToastContainer, Flip } from 'react-toastify'
 import OrderPage from '../OrderPage'
+import NotFound from '../NotFound'
 
 const App: React.FC = (props) => {
   const { jwt } = useSelector((state) => state.users)
@@ -60,17 +62,24 @@ const App: React.FC = (props) => {
     'pk_test_51Hzfg4EWaRj0TMbRs4RZRHlhStRRbqAltHfCMhcbAA6PKoAYxrSr7CrGIf5K1iBzVmY89UIpQSWltVEizRjxxLhc00xKvE7X6L'
   )
 
-  // const location = useLocation()
-  // console.log(location)
-
   React.useEffect(() => {
     const getUser = async () => {
       try {
         const googleAuth =
           queryString.parse(window.location.search).googleauth || null
+        const vkAuth = queryString.parse(window.location.search).vkauth || null
+
         if (googleAuth && !localStorage.getItem('googleId')) {
           localStorage.setItem('googleId', googleAuth)
           dispatch(setLoginToken(googleAuth))
+
+          window.location.href = 'http://localhost:3000/account'
+          return
+        }
+
+        if (vkAuth && !localStorage.getItem('vkId')) {
+          localStorage.setItem('vkId', vkAuth)
+          // dispatch(setLoginToken(googleAuth))
 
           window.location.href = 'http://localhost:3000/account'
           return
@@ -115,65 +124,70 @@ const App: React.FC = (props) => {
             pauseOnHover
           />
 
-          <Route exact path="/">
-            <HomeLayout>
-              <Hits />
-              <Feedback />
-              <Question />
-            </HomeLayout>
-          </Route>
+          <Switch>
+            <Route exact path="/">
+              <HomeLayout>
+                <Hits />
+                <Feedback />
+                <Question />
+              </HomeLayout>
+            </Route>
 
-          <Route path="/category/:categoryName">
-            <GoodsLayout>
-              <Goods />
-            </GoodsLayout>
-          </Route>
+            <Route path="/category/:categoryName">
+              <GoodsLayout>
+                <Goods />
+              </GoodsLayout>
+            </Route>
 
-          <Route
-            path="/product/:id"
-            render={(routeProps) => {
-              return (
-                <GoodsLayout isProduct={true}>
-                  <ProductItem {...routeProps} />
-                </GoodsLayout>
-              )
-            }}
-          />
+            <Route
+              path="/product/:id"
+              render={(routeProps) => {
+                return (
+                  <GoodsLayout isProduct={true}>
+                    <ProductItem {...routeProps} />
+                  </GoodsLayout>
+                )
+              }}
+            />
 
-          <Route path="/faq">
-            <GoodsLayout>
-              <div className="faq-container">
-                <FaqAccordion />
-              </div>
-            </GoodsLayout>
-          </Route>
+            <Route path="/faq">
+              <GoodsLayout>
+                <div className="faq-container">
+                  <FaqAccordion />
+                </div>
+              </GoodsLayout>
+            </Route>
 
-          <Route path="/booking/:orderid/details">
-            <GoodsLayout>
-              <Booking />
-            </GoodsLayout>
-          </Route>
+            <Route path="/booking/:orderid/details">
+              <GoodsLayout>
+                <Booking />
+              </GoodsLayout>
+            </Route>
+            {/*
+            <Route path="/booking/:orderid/payment">
+              <GoodsLayout>
+                <Payment />
+              </GoodsLayout>
+            </Route> */}
 
-          <Route path="/booking/:orderid/payment">
-            <GoodsLayout>
-              <Payment />
-            </GoodsLayout>
-          </Route>
+            <Route path="/order/browse/:ordertoken">
+              <GoodsLayout>
+                <OrderPage />
+              </GoodsLayout>
+            </Route>
 
-          <Route path="/order/browse/:ordertoken">
-            <GoodsLayout>
-              <OrderPage />
-            </GoodsLayout>
-          </Route>
+            <ProtectedRoute
+              path="/account"
+              isAuthenticated={{
+                jwt,
+                googleId: localStorage.getItem('googleId') || null,
+                vkId: localStorage.getItem('vkId') || null,
+              }}
+              component={Account}
+            />
 
-          <ProtectedRoute
-            path="/account"
-            isAuthenticated={{
-              jwt,
-              googleId: localStorage.getItem('googleId') || null,
-            }}
-            component={Account}
-          />
+            <Route component={NotFound} />
+          </Switch>
         </div>
       </Router>
     </CookiesProvider>

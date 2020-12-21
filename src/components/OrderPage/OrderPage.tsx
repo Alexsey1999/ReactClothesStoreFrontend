@@ -4,16 +4,20 @@ import BookingProduct from '../Booking/BookingProduct'
 import { useSelector, useDispatch } from 'react-redux'
 
 import './OrderPage.scss'
-import { withRouter } from 'react-router-dom'
+import { withRouter, useHistory, useParams } from 'react-router-dom'
 
 const OrderPage = (props) => {
   const { user } = useSelector((state) => state.users)
+  const history = useHistory()
+  const dispatch = useDispatch()
 
   const order = props.location.state
+  const { ordertoken } = useParams()
 
-  console.log(order)
+  if (!order) {
+    history.push('/')
+  }
 
-  const dispatch = useDispatch()
   return (
     <div className="order-page">
       <div className="order-page-container">
@@ -51,7 +55,7 @@ const OrderPage = (props) => {
                     </div>
                     <div className="order-page-total-price">
                       Итого:
-                      <span>{order.totalPrice} RUB</span>
+                      <span>{order?.totalPrice} RUB</span>
                     </div>
                   </div>
                 </aside>
