@@ -25,24 +25,27 @@ const ClothesSizes: React.FC<IClothesSizesProps> = ({
   const dispatch = useDispatch()
 
   const setProductItemSize = async (size, index) => {
-    if (size.size === sizes[activeSize].size) {
-      notify('Сейчас уже выбран данный размер.')
-    } else {
-      try {
-        setActiveSize(index)
-        const response = await axios({
-          method: 'POST',
-          url: `/cart/size/${id}`,
-          data: { size, productIndex },
-        })
+    try {
+      setActiveSize(index)
+      const response = await axios({
+        method: 'POST',
+        url: `/cart/size/${id}`,
+        data: { size, productIndex },
+      })
 
-        dispatch(setSize(response.data.cart))
-        notify(response.data.message)
-      } catch (error) {
-        console.log(error)
+      if (response.data.errorMessage) {
+        notify(response.data.errorMessage)
+        return
       }
+
+      dispatch(setSize(response.data.cart))
+      notify(response.data.message)
+    } catch (error) {
+      console.log(error)
     }
   }
+
+  // console.log(size, currentSize)
 
   return (
     <ul className="clothes-size-list">

@@ -40,17 +40,10 @@ const GoodsItem: React.FC<IGoodsItem> = ({
   return (
     <Link
       className="goods-item"
-      // to={`/product/${id}?category=shirts`}
       to={(location) => ({
         pathname: `/product/${id}`,
-        search: '?category=shirts',
+        search: `?category=${category}`,
       })}
-      // to={{
-      //   pathname: `/product/${id}?category=shirts`,
-      //   // state: { oo: 123 },
-      //   props: { ss: 1 },
-      // }}
-      // onClick={fetchProduct}
     >
       <div className="goods-item-top">
         <div className="goods-item-price">{price} RUB</div>

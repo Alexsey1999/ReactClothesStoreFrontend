@@ -99,7 +99,7 @@ const Cart: React.FC<ICartProps> = () => {
           {cart.items.length ? (
             cart.items.map((cartItem, index) => (
               <CartItem
-                key={cartItem.item._id}
+                key={cartItem.item._id + index}
                 productIndex={index}
                 {...cartItem}
               />

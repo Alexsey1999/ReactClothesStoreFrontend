@@ -33,9 +33,9 @@ const OrderPage = (props) => {
             <div className="order-page-row">
               <div className="order-page-info">
                 <aside className="order-page-items">
-                  {order?.items.map((product) => (
+                  {order?.items.map((product, index) => (
                     <BookingProduct
-                      key={product.item._id}
+                      key={product.item._id + index}
                       name={product.item.name}
                       size={product.size}
                       quantity={product.quantity}

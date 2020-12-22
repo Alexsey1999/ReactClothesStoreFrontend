@@ -79,7 +79,6 @@ const App: React.FC = (props) => {
 
         if (vkAuth && !localStorage.getItem('vkId')) {
           localStorage.setItem('vkId', vkAuth)
-          // dispatch(setLoginToken(googleAuth))
 
           window.location.href = 'http://localhost:3000/account'
           return

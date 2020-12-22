@@ -8,6 +8,14 @@ html {
   scroll-behavior: smooth;
 }
 
+::-moz-selection {
+  background: #9297ad;
+}
+
+::selection {
+  background: #9297ad;
+}
+
 *,
 *::before,
 *::after {

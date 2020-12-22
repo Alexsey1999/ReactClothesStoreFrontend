@@ -31,7 +31,10 @@ const ProductInfo = ({
   isWhite,
   recommModal,
 }) => {
-  const { productSize, productQuantity } = useSelector((state) => state.product)
+  // const { productSize, productQuantity } = useSelector((state) => state.product)
+  const { productQuantity } = useSelector((state) => state.product)
+  const [productSizeIndex, setProductSizeIndex] = React.useState(0)
+
   const dispatch = useDispatch()
   const [isSizeModalOpened, setIsSizeModalOpened] = React.useState(false)
   const [isCareModalOpened, setIsCareModalOpened] = React.useState(false)
@@ -76,7 +79,7 @@ const ProductInfo = ({
       const response = await axios({
         method: 'POST',
         url: `/cart/add/${productId}?category=${category}`,
-        data: { productSize, productQuantity },
+        data: { productSize: sizes[productSizeIndex], productQuantity },
       })
 
       dispatch(setCart(response.data.cart))
@@ -110,7 +113,11 @@ const ProductInfo = ({
           openCareModal={openCareModal}
         />
       )}
-      <ProductSizes sizes={sizes} />
+      <ProductSizes
+        productSizeIndex={productSizeIndex}
+        setProductSizeIndex={setProductSizeIndex}
+        sizes={sizes}
+      />
 
       <div className="product-quantity-cartbtn-wrapper">
         <ProductQuantity />

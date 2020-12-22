@@ -12,8 +12,6 @@ const ProtectedRoute = (
     <Route
       {...rest}
       render={(props) => {
-        console.log(props)
-
         if (
           isAuthenticated.jwt ||
           isAuthenticated.googleId ||

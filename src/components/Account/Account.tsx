@@ -6,13 +6,22 @@ import { Link, NavLink } from 'react-router-dom'
 import axios from '../../axios'
 import { useHistory, Route, withRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeJwt, logoutUser, removeUser } from '../../store/users/actions'
+import {
+  removeJwt,
+  logoutUser,
+  removeUser,
+  updateUser,
+} from '../../store/users/actions'
 
 import './Account.scss'
+import Loader from '../Loader'
+import { notify } from '../../utils/notify'
+import { setCart } from '../../store/cart/actions'
 
 const Account = () => {
   const [isChanging, setIsChanging] = React.useState(false)
   const [isDeliveryChanging, setIsDeliveryChanging] = React.useState(false)
+  const [isLoading, setIsLoading] = React.useState(false)
 
   const [name, setName] = React.useState('')
   const [surname, setSurname] = React.useState('')
@@ -48,16 +57,16 @@ const Account = () => {
 
         const user = response.data
 
-        setName(user.name)
-        setSurname(user.surname)
-        setThirdname(user.thirdname)
-        setPhone(user.phone)
+        setName(user.name || '')
+        setSurname(user.surname || '')
+        setThirdname(user.thirdname || '')
+        setPhone(user.phone || '')
 
-        setCountry(user.country)
-        setCity(user.city)
-        setArea(user.area)
-        setAddress(user.address)
-        setMailindex(user.mailindex)
+        setCountry(user.country || '')
+        setCity(user.city || '')
+        setArea(user.area || '')
+        setAddress(user.address || '')
+        setMailindex(user.mailindex || '')
       } catch (error) {
         console.log(error)
       }
@@ -68,6 +77,7 @@ const Account = () => {
   const savePersonDataSettings = async (e) => {
     e.preventDefault()
     try {
+      setIsLoading(true)
       const response = await axios({
         method: 'POST',
         data: {
@@ -79,17 +89,22 @@ const Account = () => {
         url: '/account/persondata',
       })
 
-      // setName(response.data.name)
+      notify(response.data.successMessage)
+
+      dispatch(updateUser({ name, surname, thirdname, phone }))
 
       setIsChanging(false)
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
+      setIsLoading(false)
     }
   }
 
   const saveAddressDataSettings = async (e) => {
     e.preventDefault()
     try {
+      setIsLoading(true)
       const response = await axios({
         method: 'POST',
         data: {
@@ -101,9 +116,16 @@ const Account = () => {
         },
         url: '/account/addressdata',
       })
+
+      notify(response.data.successMessage)
+
+      dispatch(updateUser({ country, city, area, address, mailindex }))
+
+      setIsLoading(false)
       setIsDeliveryChanging(false)
     } catch (error) {
       console.log(error)
+      setIsLoading(false)
     }
   }
 
@@ -124,6 +146,21 @@ const Account = () => {
       }
 
       dispatch(removeJwt())
+
+      axios({
+        method: 'GET',
+        url: '/cart/clear',
+      })
+
+      dispatch(
+        setCart({
+          items: [],
+          purePrice: 0,
+          deliveryPrice: 0,
+          totalQuantity: 0,
+          totalPrice: 0,
+        })
+      )
       dispatch(removeUser())
       history.push('/')
     } catch (error) {
@@ -248,7 +285,11 @@ const Account = () => {
                         className="save-account-settings-btn"
                         disableDefaultStyles={true}
                       >
-                        Сохранить изменения
+                        {isLoading ? (
+                          <Loader color="white" />
+                        ) : (
+                          'Сохранить изменения'
+                        )}
                       </Button>
                     )}
                   </form>
@@ -315,7 +356,11 @@ const Account = () => {
                         className="save-account-settings-btn"
                         disableDefaultStyles={true}
                       >
-                        Сохранить изменения
+                        {isLoading ? (
+                          <Loader color="white" />
+                        ) : (
+                          'Сохранить изменения'
+                        )}
                       </Button>
                     )}
                   </form>
@@ -328,8 +373,8 @@ const Account = () => {
 
                   <ul className="account-orders-list">
                     {user && user.orders.length
-                      ? user.orders.map((order) => (
-                          <li key={order.ordertoken}>
+                      ? user.orders.map((order, index) => (
+                          <li key={order.ordertoken + index}>
                             <Link
                               to={{
                                 pathname: `/order/browse/${order.ordertoken}`,

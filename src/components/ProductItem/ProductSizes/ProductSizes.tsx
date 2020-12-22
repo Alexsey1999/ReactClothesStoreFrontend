@@ -6,13 +6,14 @@ import { setProductSize } from '../../../store/product/actions'
 
 import './ProductSizes.scss'
 
-const ProductSizes = ({ sizes }) => {
-  const productSize = useSelector((state) => state.product.productSize)
+const ProductSizes = ({ sizes, productSizeIndex, setProductSizeIndex }) => {
+  // const productSize = useSelector((state) => state.product.productSize)
 
   const dispatch = useDispatch()
 
   const chooseSize = (size, index) => {
-    dispatch(setProductSize({ ...size, sizeIndex: index }))
+    // dispatch(setProductSize({ ...size, sizeIndex: index }))
+    setProductSizeIndex(index)
   }
 
   const chooseSizeParse = (size, index) => (
@@ -20,7 +21,8 @@ const ProductSizes = ({ sizes }) => {
       key={size.size + index}
       onClick={() => chooseSize(size, index)}
       className={classNames('size-item', {
-        active: index === productSize.sizeIndex,
+        // active: index === productSize.sizeIndex,
+        active: index === productSizeIndex,
       })}
     >
       {size.size}

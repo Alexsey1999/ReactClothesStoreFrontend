@@ -18,11 +18,13 @@ import './SignUpModal.scss'
 import { setJwt, setUser } from '../../store/users/actions'
 import { useHistory } from 'react-router-dom'
 import { notify } from '../../utils/notify'
+import Loader from '../Loader'
 
 const SignUpModal: React.FC = () => {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [repeatPassword, setRepeatPassword] = React.useState('')
+  const [isLoading, setIsLoading] = React.useState(false)
 
   const dispatch = useDispatch()
   const { isSignUpOpened } = useSelector((state) => state.modals)
@@ -32,6 +34,7 @@ const SignUpModal: React.FC = () => {
   const registerUser = async (e) => {
     e.preventDefault()
     try {
+      setIsLoading(true)
       const response = await axios({
         method: 'post',
         url: '/user/register',
@@ -43,21 +46,18 @@ const SignUpModal: React.FC = () => {
         withCredentials: true,
       })
 
-      if (response.data.errorMessage) {
-        notify(response.data.errorMessage)
-        return
-      }
       dispatch(setJwt(response.data.token))
       localStorage.setItem('jwt', response.data.token)
-
-      console.log(response.data)
 
       dispatch(setUser(response.data.user))
 
       dispatch(openSuccessSignUp())
       dispatch(closeSignUp())
     } catch (error) {
-      console.log(error)
+      setIsLoading(false)
+      error.response.data.errors.forEach((error) => {
+        notify(error.msg)
+      })
     }
   }
 
@@ -104,7 +104,7 @@ const SignUpModal: React.FC = () => {
                   <input
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
-                    type="email"
+                    type="text"
                     name="email"
                     placeholder="Почта"
                     required
@@ -167,7 +167,7 @@ const SignUpModal: React.FC = () => {
 
               <div className="btn-wrapper">
                 <Button className="signUp-btn" disableDefaultStyles={true}>
-                  Зарегестрироваться
+                  {isLoading ? <Loader color="white" /> : 'Зарегестрироваться'}
                 </Button>
               </div>
             </form>

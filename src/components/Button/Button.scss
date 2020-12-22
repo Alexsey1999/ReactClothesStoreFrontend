@@ -38,6 +38,10 @@
   text-align: center;
   width: 100%;
   color: #fcf1f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
 }
 
 .password-recovery-btn {
@@ -166,7 +170,11 @@
   border-radius: 30px;
   font-family: SourceSansPro;
   font-size: 18px;
-  width: 100%;
+  width: 260px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .save-account-settings-btn {
@@ -177,6 +185,11 @@
   border-radius: 30px;
   padding: 8px 20px;
   margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 215px;
+  height: 36px;
 }
 
 .continue-ordering-btn {
@@ -188,8 +201,8 @@
   background: #000;
   color: #fff;
   padding: 10px 30px;
-  max-width: 240px;
-  width: 100%;
+  width: 240px;
+  height: 40px;
   font-size: 18px;
   svg {
     path {

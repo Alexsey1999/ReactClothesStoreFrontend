@@ -7,6 +7,7 @@ import {
   REMOVE_USER,
   SET_LOGIN_TOKEN,
   REMOVE_LOGIN_TOKEN,
+  UPDATE_USER,
 } from './actions'
 
 function loadFromLocalStorage() {
@@ -25,7 +26,18 @@ function loadFromLocalStorage() {
 const persistedState = loadFromLocalStorage()
 
 const initialState = {
-  user: {},
+  user: {
+    orders: [],
+    name: '',
+    surname: '',
+    thirdname: '',
+    phone: '',
+    country: '',
+    city: '',
+    area: '',
+    address: '',
+    mailindex: '',
+  },
   jwt: persistedState,
   loginToken: null,
 }
@@ -49,6 +61,12 @@ const usersReducer = produce((draft = initialState, action) => {
       break
     case REMOVE_USER:
       draft.user = {}
+      break
+    case UPDATE_USER:
+      draft.user = {
+        ...draft.user,
+        ...action.payload,
+      }
       break
     default:
       return draft

@@ -108,9 +108,9 @@ const Booking = () => {
               <aside>
                 <div className="booking-order-inner">
                   {cart.items.length &&
-                    cart.items.map((product) => (
+                    cart.items.map((product, index) => (
                       <BookingProduct
-                        key={product.item._id}
+                        key={product.item._id + index}
                         name={product.item.name}
                         size={product.size}
                         quantity={product.quantity}
