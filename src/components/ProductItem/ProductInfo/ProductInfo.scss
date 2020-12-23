@@ -1,10 +1,12 @@
 .product-info-block {
   max-width: 500px;
+  width: 100%;
 }
 
 .product-description {
   font-family: SourceSansPro;
-  font-size: 18px;
+  font-weight: 300;
+  font-size: 17px;
   line-height: 28px;
   ul {
     li {
@@ -25,6 +27,7 @@
   border-radius: 30px;
   padding: 10px 30px;
   font-size: 20px;
+  font-weight: 800;
   margin-bottom: 30px;
 }
 

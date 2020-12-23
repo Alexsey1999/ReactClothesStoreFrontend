@@ -1,26 +1,30 @@
 .product-size {
+  margin: 25px 0;
   h4 {
     font-family: SourceSansPro;
     font-size: 14px;
     margin-bottom: 15px;
+    color: #636573;
+    font-weight: 800;
   }
   ul {
-    margin-top: 0;
+    margin: 0 0 10px;
     display: flex;
     align-items: center;
     li.size-item {
       cursor: pointer;
-      margin-right: 5px;
+      margin-right: 7px;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 36px;
       border-radius: 30px;
       background: #474852;
       font-family: SourceSansPro;
       font-size: 18px;
-      font-weight: 400;
+      font-weight: 800;
+      color: #797b8c;
       &.active {
         background: #fff;
         color: #000;

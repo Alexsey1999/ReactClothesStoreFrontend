@@ -127,12 +127,15 @@
   display: flex;
   align-items: center;
   padding: 14px 40px;
-  margin-right: 45px;
+  margin-right: 65px;
   width: 270px;
-  height: 48px;
+  height: 45px;
   justify-content: center;
   span {
     margin-right: 12px;
+  }
+  svg {
+    margin-top: 3px;
   }
 }
 

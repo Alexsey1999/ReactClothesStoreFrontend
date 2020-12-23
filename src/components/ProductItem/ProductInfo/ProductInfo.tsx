@@ -73,13 +73,15 @@ const ProductInfo = ({
     }
   }
 
+  // console.log(size, care)
+
   const addProductItemToCart = async (productId, category) => {
     try {
       setIsLoading(true)
       const response = await axios({
         method: 'POST',
         url: `/cart/add/${productId}?category=${category}`,
-        data: { productSize: sizes[productSizeIndex], productQuantity },
+        data: { productSize: sizes[productSizeIndex] || {}, productQuantity },
       })
 
       dispatch(setCart(response.data.cart))
@@ -106,18 +108,22 @@ const ProductInfo = ({
       <div className="product-description">
         {description.map(descriptionParse)}
       </div>
-      {category !== 'souvenirs' && (
+
+      {size.length && care.length ? (
         <SizeAndCare
           category={category}
           openSizeModal={openSizeModal}
           openCareModal={openCareModal}
         />
-      )}
-      <ProductSizes
-        productSizeIndex={productSizeIndex}
-        setProductSizeIndex={setProductSizeIndex}
-        sizes={sizes}
-      />
+      ) : null}
+
+      {sizes.length ? (
+        <ProductSizes
+          productSizeIndex={productSizeIndex}
+          setProductSizeIndex={setProductSizeIndex}
+          sizes={sizes}
+        />
+      ) : null}
 
       <div className="product-quantity-cartbtn-wrapper">
         <ProductQuantity />

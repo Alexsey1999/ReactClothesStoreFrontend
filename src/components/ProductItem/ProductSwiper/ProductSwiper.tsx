@@ -1,13 +1,19 @@
 // @ts-nocheck
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Navigation, EffectFade } from 'swiper'
+import SwiperCore, {
+  Navigation,
+  EffectFade,
+  EffectCoverflow,
+  Pagination,
+} from 'swiper'
 
 import './ProductSwiper.scss'
 
-import 'swiper/components/effect-fade/effect-fade.scss'
+// import 'swiper/components/effect-fade/effect-fade.scss'
+// import 'swiper/components/effect-coverflow/effect-coverflow.scss'
 
-SwiperCore.use([Navigation, EffectFade])
+SwiperCore.use([Navigation, EffectFade, EffectCoverflow])
 
 const ProductSwiper = ({ swiperImages, name, isBlack }) => {
   const prevRef = React.useRef<HTMLDivElement>(null)
@@ -53,34 +59,42 @@ const ProductSwiper = ({ swiperImages, name, isBlack }) => {
           />
         </svg>
       </div>
+
       <Swiper
+        effect="coverflow"
+        allowTouchMove={false}
+        coverflowEffect={{
+          rotate: 0,
+          stretch: 200,
+          depth: 1000,
+          modifier: 1,
+          slideShadows: false,
+        }}
         className="product-slider"
         slidesPerView={1}
-        spaceBetween={0}
-        speed={500}
-        effect="fade"
+        centeredSlides={true}
+        speed={1000}
+        onInit={(swiper: any) => {
+          swiper.params.navigation.prevEl = prevRef.current
+          swiper.params.navigation.nextEl = nextRef.current
+          swiper.navigation.update()
+        }}
         pagination={{
           clickable: true,
           bulletClass: 'slider-dot',
           type: 'bullets',
           el: '.product-dots',
         }}
-        onInit={(swiper: any) => {
-          swiper.params.navigation.prevEl = prevRef.current
-          swiper.params.navigation.nextEl = nextRef.current
-          swiper.navigation.init()
-          swiper.navigation.update()
-        }}
       >
-        {swiperImages &&
-          swiperImages.map((image) => (
-            <SwiperSlide key={image}>
-              <div className="product-swiper-image">
-                <img src={image} alt={name} />
-              </div>
-            </SwiperSlide>
-          ))}
+        {swiperImages.map((image) => (
+          <SwiperSlide key={image}>
+            <div className="product-swiper-image">
+              <img src={image} alt={name} />
+            </div>
+          </SwiperSlide>
+        ))}
       </Swiper>
+
       <div className="product-dots"></div>
     </>
   )

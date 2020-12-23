@@ -12,9 +12,13 @@ const BookingProduct = ({ name, size, quantity, price, orderPage }) => {
       })}
     >
       <div className="booking-order-product-title">{name}</div>
-      <div className="booking-order-product-size">
-        Размер: <span>{size}</span>
-      </div>
+
+      {size && (
+        <div className="booking-order-product-size">
+          Размер: <span>{size}</span>
+        </div>
+      )}
+
       <div className="booking-order-product-quantity">
         Количество: <span>{quantity}</span>
       </div>

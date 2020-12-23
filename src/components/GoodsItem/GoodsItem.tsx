@@ -1,10 +1,10 @@
 // @ts-nocheck
 // Libs
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useHistory } from 'react-router-dom'
 import { PRODUCT_ITEM_REQUEST } from '../../store/product/actions'
-
+import queryString from 'query-string'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -25,25 +25,39 @@ interface IGoodsItem {
 }
 
 const GoodsItem: React.FC<IGoodsItem> = ({
-  id,
+  id: productId,
   imageUrl,
   price,
   name,
-  category,
+  category: productCategory,
 }) => {
   const dispatch = useDispatch()
+  const history = useHistory()
+  // const { product } = useSelector((store) => store.product.product)
+  // const { category: productCategory } = queryString.parse(
+  //   window.location.search
+  // )
 
   // const fetchProduct = () => {
   //   dispatch({ type: PRODUCT_ITEM_REQUEST, id, category })
   // }
 
   return (
-    <Link
+    <div
       className="goods-item"
-      to={(location) => ({
-        pathname: `/product/${id}`,
-        search: `?category=${category}`,
-      })}
+      // to={(location) => ({
+      //   pathname: `/product/${id}`,
+      //   search: `?category=${category}`,
+      // })}
+      onClick={() => {
+        dispatch({
+          type: PRODUCT_ITEM_REQUEST,
+          productId,
+          productCategory,
+        })
+
+        history.push(`/product/${productId}?category=${productCategory}`)
+      }}
     >
       <div className="goods-item-top">
         <div className="goods-item-price">{price} RUB</div>
@@ -78,7 +92,7 @@ const GoodsItem: React.FC<IGoodsItem> = ({
           {name}
         </Button>
       </div>
-    </Link>
+    </div>
   )
 }
 

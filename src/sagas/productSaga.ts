@@ -12,6 +12,7 @@ function* fetchProductSaga(action: any) {
     const response = yield call(() =>
       fetchProduct(action.productId, action.productCategory)
     )
+
     const data = response.data
     yield put(setProductItem(data))
   } catch (error) {

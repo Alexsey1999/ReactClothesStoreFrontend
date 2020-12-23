@@ -31,7 +31,7 @@
   height: 20px;
   border: 2px solid #fcf1f1;
   border-radius: 50%;
-  margin: 0 5px;
+  margin: 0 8px;
   position: relative;
   &::before {
     content: '';
@@ -46,6 +46,23 @@
     opacity: 0;
     transition: all 0.2s;
   }
+}
+.product-item-swiper {
+  .swiper-slide {
+    transition: all 0.2s;
+    height: auto;
+    opacity: 0;
+  }
+  .product-swiper-image {
+    img {
+      object-fit: contain;
+      max-height: 500px;
+    }
+  }
+}
+
+.swiper-slide.swiper-slide-active {
+  opacity: 1;
 }
 
 .swiper-pagination-bullet-active {

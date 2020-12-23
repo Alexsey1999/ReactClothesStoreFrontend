@@ -53,6 +53,7 @@ import NotFound from '../NotFound'
 
 const App: React.FC = (props) => {
   const { jwt } = useSelector((state) => state.users)
+  const { product } = useSelector((state) => state.product)
   // const { user } = useSelector((state) => state.users)
   const dispatch = useDispatch()
 
@@ -141,6 +142,7 @@ const App: React.FC = (props) => {
             <Route
               path="/product/:id"
               render={(routeProps) => {
+                // if (Object.keys(product).length)
                 return (
                   <GoodsLayout isProduct={true}>
                     <ProductItem {...routeProps} />

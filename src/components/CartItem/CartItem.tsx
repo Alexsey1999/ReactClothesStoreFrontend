@@ -101,13 +101,17 @@ const CartItem = ({
 
           <div className="cart-item-descr">
             <div className="cart-item-name">{name}</div>
-            <div className="cart-item-size">Размер:</div>
-            <ClothesSizes
-              productIndex={productIndex}
-              currentSize={size}
-              sizes={sizes}
-              id={_id}
-            />
+            {sizes.length ? (
+              <>
+                <div className="cart-item-size">Размер:</div>
+                <ClothesSizes
+                  productIndex={productIndex}
+                  currentSize={size}
+                  sizes={sizes}
+                  id={_id}
+                />
+              </>
+            ) : null}
           </div>
         </div>
         <div className="cart-item-quantity-block">
