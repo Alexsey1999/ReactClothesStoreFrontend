@@ -134,7 +134,12 @@ const ProductInfo = ({
           className="cart-btn product-item-add-to-cart-btn"
         >
           {isLoading ? (
-            <Loader color="black" />
+            <Loader
+              color={classNames({
+                black: isBlack || recommModal,
+                white: isWhite,
+              })}
+            />
           ) : (
             <>
               <span> Добавить в корзину</span>

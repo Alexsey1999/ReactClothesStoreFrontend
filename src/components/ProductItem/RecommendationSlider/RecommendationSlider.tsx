@@ -29,9 +29,9 @@ const RecommendationSlider = ({ recommendations, _id }) => {
   }
 
   const recommendationsParse = (el, index) => (
-    <React.Fragment key={el + index.toString()}>
+    <React.Fragment key={el._id + index}>
       {el._id !== _id ? (
-        <SwiperSlide>
+        <SwiperSlide key={el._id + index}>
           <div
             onClick={() => openProductItemModal(index)}
             className="recomendation-content"
@@ -85,12 +85,6 @@ const RecommendationSlider = ({ recommendations, _id }) => {
         slidesPerView={4}
         spaceBetween={10}
         speed={500}
-        //  pagination={{
-        //    clickable: true,
-        //    bulletClass: 'slider-dot',
-        //    type: 'bullets',
-        //    el: '.product-dots',
-        //  }}
         onInit={(swiper: any) => {
           swiper.params.navigation.prevEl = prevRecomendationRef.current
           swiper.params.navigation.nextEl = nextRecomendationRef.current

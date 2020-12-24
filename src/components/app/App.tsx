@@ -103,9 +103,9 @@ const App: React.FC = (props) => {
     getUser()
   }, [])
 
-  // React.useEffect(() => {
-  //   axios({ method: 'GET', url: '/user' })
-  // }, [])
+  React.useEffect(() => {
+    axios({ method: 'GET', url: '/user' })
+  }, [])
 
   return (
     <CookiesProvider>

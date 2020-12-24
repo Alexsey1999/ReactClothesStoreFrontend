@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import './ProductItem.scss'
 
 import { useSelector, useDispatch } from 'react-redux'
+import RecommendationSlider from '../ProductItem/RecommendationSlider'
 
 import SwiperCore, { Navigation } from 'swiper'
 import 'swiper/swiper.scss'
@@ -82,12 +83,12 @@ const ProductItem = (props) => {
             Рекомендуем к <span>покупке</span>
           </div>
 
-          {/* {recommendations && (
+          {recommendations && (
             <RecommendationSlider
               _id={product?._id}
               recommendations={recommendations}
             />
-          )} */}
+          )}
         </div>
       </div>
     </div>
