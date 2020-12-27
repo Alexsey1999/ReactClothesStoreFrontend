@@ -1,16 +1,24 @@
-// @ts-nocheck
+// Libs
 import React from 'react'
-import classNames from 'classnames'
 
+// Styles
 import './BookingProduct.scss'
 
-const BookingProduct = ({ name, size, quantity, price, orderPage }) => {
+interface IBookingProductProps {
+  name: string
+  size: string
+  quantity: number
+  price: number
+}
+
+const BookingProduct: React.FC<IBookingProductProps> = ({
+  name,
+  size,
+  quantity,
+  price,
+}) => {
   return (
-    <div
-      className={classNames('booking-order-product', {
-        orderPageProduct: orderPage,
-      })}
-    >
+    <div className="booking-order-product">
       <div className="booking-order-product-title">{name}</div>
 
       {size && (

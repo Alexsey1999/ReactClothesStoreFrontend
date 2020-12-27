@@ -1,25 +1,38 @@
-// @ts-nocheck
-import React from 'react'
-
+// Libs
+import React, { useState, useRef } from 'react'
 import SwiperCore, { Navigation } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
+
+// Components
 import RecommendationModal from '../../RecommendationModal'
 
+// Styles
 import './RecommendationSlider.scss'
+// import 'swiper/swiper.scss'
+
+// Interfaces
+import { IProductItem } from '../../../interfaces/product'
+interface IRecommendationSliderProps {
+  _id: string
+  recommendations: IProductItem[]
+}
 
 SwiperCore.use([Navigation])
 
-const RecommendationSlider = ({ recommendations, _id }) => {
-  const prevRecomendationRef = React.useRef<HTMLDivElement>(null)
-  const nextRecomendationRef = React.useRef<HTMLDivElement>(null)
-
+const RecommendationSlider: React.FC<IRecommendationSliderProps> = ({
+  recommendations,
+  _id,
+}) => {
+  const [currentModal, setCurrentModal] = useState<number>(0)
   const [
     isProductItemModalOpened,
     setIsProductItemModalOpened,
-  ] = React.useState(false)
-  const [currentModal, setCurrentModal] = React.useState(0)
+  ] = useState<boolean>(false)
 
-  const openProductItemModal = (index) => {
+  const prevRecomendationRef = useRef<SVGSVGElement>(null)
+  const nextRecomendationRef = useRef<SVGSVGElement>(null)
+
+  const openProductItemModal = (index: number) => {
     setIsProductItemModalOpened(true)
     setCurrentModal(index)
   }
@@ -28,10 +41,10 @@ const RecommendationSlider = ({ recommendations, _id }) => {
     setIsProductItemModalOpened(false)
   }
 
-  const recommendationsParse = (el, index) => (
-    <React.Fragment key={el._id + index}>
+  const recommendationsParse = (el: IProductItem, index: number) => (
+    <React.Fragment key={el._id! + index}>
       {el._id !== _id ? (
-        <SwiperSlide key={el._id + index}>
+        <SwiperSlide key={el._id! + index}>
           <div
             onClick={() => openProductItemModal(index)}
             className="recomendation-content"
@@ -89,6 +102,33 @@ const RecommendationSlider = ({ recommendations, _id }) => {
           swiper.params.navigation.prevEl = prevRecomendationRef.current
           swiper.params.navigation.nextEl = nextRecomendationRef.current
           swiper.navigation.update()
+        }}
+        breakpoints={{
+          320: {
+            width: 290,
+            centeredSlides: true,
+            slidesPerView: 1,
+            spaceBetween: 0,
+            allowTouchMove: false,
+          },
+          500: {
+            width: 470,
+            slidesPerView: 2,
+            spaceBetween: 0,
+            allowTouchMove: false,
+          },
+          680: {
+            width: 650,
+            slidesPerView: 3,
+            spaceBetween: 0,
+            allowTouchMove: false,
+          },
+          980: {
+            width: 950,
+            slidesPerView: 4,
+            spaceBetween: 0,
+            allowTouchMove: false,
+          },
         }}
       >
         {recommendations && recommendations.map(recommendationsParse)}

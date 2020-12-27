@@ -19,6 +19,9 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  @media (max-width: 1050px) {
+    display: block;
+  }
 }
 
 .product-item-title {
@@ -31,6 +34,9 @@
 .product-item-swiper {
   max-width: 500px;
   position: relative;
+  @media (max-width: 1050px) {
+    margin: 0px auto 30px auto;
+  }
 }
 
 .left-circle-arrow,

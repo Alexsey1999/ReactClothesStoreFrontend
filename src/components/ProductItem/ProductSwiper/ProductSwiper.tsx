@@ -1,23 +1,29 @@
-// @ts-nocheck
+// Libs
 import React from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, {
-  Navigation,
-  EffectFade,
-  EffectCoverflow,
-  Pagination,
-} from 'swiper'
 
+// Styles
 import './ProductSwiper.scss'
 
-// import 'swiper/components/effect-fade/effect-fade.scss'
-// import 'swiper/components/effect-coverflow/effect-coverflow.scss'
+// Swiper
+import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperCore, { Navigation, EffectFade, EffectCoverflow } from 'swiper'
+
+// Interfaces
+interface IProductSwiperProps {
+  name: string
+  isBlack: boolean
+  swiperImages: string[]
+}
 
 SwiperCore.use([Navigation, EffectFade, EffectCoverflow])
 
-const ProductSwiper = ({ swiperImages, name, isBlack }) => {
-  const prevRef = React.useRef<HTMLDivElement>(null)
-  const nextRef = React.useRef<HTMLDivElement>(null)
+const ProductSwiper: React.FC<IProductSwiperProps> = ({
+  swiperImages,
+  name,
+  isBlack,
+}) => {
+  const prevRef = React.useRef<SVGSVGElement>(null)
+  const nextRef = React.useRef<SVGSVGElement>(null)
 
   return (
     <>

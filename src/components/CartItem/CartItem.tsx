@@ -1,18 +1,38 @@
-// @ts-nocheck
 // Libs
 import React from 'react'
-import ClothesSizes from '../ClothesSizes'
 import axios from '../../axios'
-import { useParams, useLocation, useRouteMatch } from 'react-router-dom'
+
+// Components
+import ClothesSizes from '../ClothesSizes'
+
+// Redux
 import { removeItem, increaseItem, reduceItem } from '../../store/cart/actions'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 // Styles
 import './CartItem.scss'
-import { notify } from '../../utils/notify'
-import Loader from '../Loader'
 
-const CartItem = ({
+// Utils
+import { notify } from '../../utils/notify'
+
+// Interfaces
+import { IProductSize } from '../../interfaces/product'
+
+interface ICartItemProps {
+  price: number
+  quantity: number
+  size: string
+  productIndex: number
+  item: {
+    _id?: string
+    sizes?: IProductSize[]
+    name?: string
+    imageUrl?: string
+    category?: string
+  }
+}
+
+const CartItem: React.FC<ICartItemProps> = ({
   price,
   quantity,
   size,
@@ -20,7 +40,6 @@ const CartItem = ({
   item: { _id, sizes, name, imageUrl, category },
 }) => {
   const dispatch = useDispatch()
-  const { cart } = useSelector((state) => state.cart)
 
   const removeItemFromCart = async () => {
     try {
@@ -101,14 +120,14 @@ const CartItem = ({
 
           <div className="cart-item-descr">
             <div className="cart-item-name">{name}</div>
-            {sizes.length ? (
+            {sizes!.length ? (
               <>
                 <div className="cart-item-size">Размер:</div>
                 <ClothesSizes
                   productIndex={productIndex}
                   currentSize={size}
-                  sizes={sizes}
-                  id={_id}
+                  sizes={sizes!}
+                  id={_id!}
                 />
               </>
             ) : null}

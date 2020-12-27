@@ -1,5 +1,6 @@
-// @ts-nocheck
 import produce from 'immer'
+import { IUserState, UserActionTypes } from './types'
+
 import {
   SET_JWT,
   REMOVE_JWT,
@@ -7,8 +8,9 @@ import {
   REMOVE_USER,
   SET_LOGIN_TOKEN,
   REMOVE_LOGIN_TOKEN,
-  UPDATE_USER,
-} from './actions'
+  UPDATE_PERSON_DATA,
+  UPDATE_PERSON_DELIVERY_DATA,
+} from './types'
 
 function loadFromLocalStorage() {
   try {
@@ -25,7 +27,7 @@ function loadFromLocalStorage() {
 
 const persistedState = loadFromLocalStorage()
 
-const initialState = {
+const initialState: IUserState = {
   user: {
     orders: [],
     name: '',
@@ -42,35 +44,43 @@ const initialState = {
   loginToken: null,
 }
 
-const usersReducer = produce((draft = initialState, action) => {
-  switch (action.type) {
-    case SET_JWT:
-      draft.jwt = action.payload
-      break
-    case REMOVE_JWT:
-      draft.jwt = null
-      break
-    case SET_LOGIN_TOKEN:
-      draft.loginToken = action.payload
-      break
-    case REMOVE_LOGIN_TOKEN:
-      draft.loginToken = null
-      break
-    case SET_USER:
-      draft.user = action.payload
-      break
-    case REMOVE_USER:
-      draft.user = {}
-      break
-    case UPDATE_USER:
-      draft.user = {
-        ...draft.user,
-        ...action.payload,
-      }
-      break
-    default:
-      return draft
+const usersReducer = produce(
+  (draft = initialState, action: UserActionTypes) => {
+    switch (action.type) {
+      case SET_JWT:
+        draft.jwt = action.payload
+        break
+      case REMOVE_JWT:
+        draft.jwt = null
+        break
+      case SET_LOGIN_TOKEN:
+        draft.loginToken = action.payload
+        break
+      case REMOVE_LOGIN_TOKEN:
+        draft.loginToken = null
+        break
+      case SET_USER:
+        draft.user = action.payload
+        break
+      case REMOVE_USER:
+        draft.user = {}
+        break
+      case UPDATE_PERSON_DATA:
+        draft.user = {
+          ...draft.user,
+          ...action.payload,
+        }
+        break
+      case UPDATE_PERSON_DELIVERY_DATA:
+        draft.user = {
+          ...draft.user,
+          ...action.payload,
+        }
+        break
+      default:
+        return draft
+    }
   }
-})
+)
 
 export default usersReducer

@@ -1,17 +1,24 @@
-// @ts-nocheck
 // Libs
-import React, { ReactNode } from 'react'
-import { useSelector } from 'react-redux'
+import React from 'react'
+import { RootStateOrAny, useSelector } from 'react-redux'
 import classNames from 'classnames'
 
 // Components
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 
+// Styles
 import './layouts.scss'
 
-const GoodsLayout: React.FC<ReactNode> = ({ isProduct, children }) => {
-  const { product } = useSelector((store) => store.product.product)
+// Interfaces
+interface IGoodsLayoutProps {
+  isProduct?: boolean
+}
+
+const GoodsLayout: React.FC<IGoodsLayoutProps> = ({ isProduct, children }) => {
+  const { product } = useSelector(
+    (store: RootStateOrAny) => store.product.product
+  )
 
   return (
     <>

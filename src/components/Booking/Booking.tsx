@@ -1,31 +1,27 @@
-// @ts-nocheck
-import React from 'react'
+// Libs
+import React, { useEffect } from 'react'
 import axios from '../../axios'
-import './Booking.scss'
-import { useParams, useHistory, Link } from 'react-router-dom'
-import Button from '../Button'
+import { useParams, useHistory } from 'react-router-dom'
 import { loadStripe } from '@stripe/stripe-js'
-import Payment from '../Payment'
-import { useSelector } from 'react-redux'
+import { RootStateOrAny, useSelector } from 'react-redux'
+import { Elements } from '@stripe/react-stripe-js'
 
-import {
-  Elements,
-  CardElement,
-  ElementsConsumer,
-} from '@stripe/react-stripe-js'
+// Components
 import BookingForm from './BookingForm'
-import BookingProduct from './BookingProduct'
+
+// Styles
+import './Booking.scss'
+import BookingSidebar from './BookingSidebar'
 
 const Booking = () => {
-  const { cart } = useSelector((state) => state.cart)
-  const [user, setUser] = React.useState({})
+  const { cart } = useSelector((state: RootStateOrAny) => state.cart)
   const stripe = loadStripe(
     'pk_test_51Hzfg4EWaRj0TMbRs4RZRHlhStRRbqAltHfCMhcbAA6PKoAYxrSr7CrGIf5K1iBzVmY89UIpQSWltVEizRjxxLhc00xKvE7X6L'
   )
-  const { orderid } = useParams()
+  const { orderid }: any = useParams()
   const history = useHistory()
 
-  React.useEffect(() => {
+  useEffect(() => {
     const getOrderToken = async () => {
       if (localStorage.getItem('ordertoken') !== orderid) {
         history.push('/')
@@ -52,28 +48,6 @@ const Booking = () => {
     getOrderToken()
   }, [])
 
-  React.useEffect(() => {
-    let mounted = true
-    const getUser = async () => {
-      try {
-        const { data } = await axios({
-          method: 'GET',
-          url: '/user',
-        })
-
-        if (mounted) {
-          setUser(data)
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    }
-
-    getUser()
-
-    return () => (mounted = false)
-  }, [])
-
   const orderNumber = () => {
     if (localStorage.getItem('ordertoken')) {
       return localStorage.getItem('ordertoken')
@@ -98,37 +72,14 @@ const Booking = () => {
                 Введите данные для доставки
               </div>
               <Elements stripe={stripe}>
-                <BookingForm user={user} />
+                <BookingForm />
               </Elements>
             </div>
 
             <div className="booking-order">
               <div className="booking-order-title">Ваш заказ</div>
 
-              <aside>
-                <div className="booking-order-inner">
-                  {cart.items.length &&
-                    cart.items.map((product, index) => (
-                      <BookingProduct
-                        key={product.item._id + index}
-                        name={product.item.name}
-                        size={product.size}
-                        quantity={product.quantity}
-                        price={product.price}
-                      />
-                    ))}
-
-                  <div className="booking-order-cost">
-                    <div className="booking-order-commonprice">
-                      Общая стоимость: <span>{cart.purePrice || 0} RUB</span>
-                    </div>
-                    <div className="booking-order-delivery">
-                      Стоимость доставки:
-                      <span>{cart.deliveryPrice || 0} RUB</span>
-                    </div>
-                  </div>
-                </div>
-              </aside>
+              <BookingSidebar cart={cart} />
 
               <div className="booking-order-totalprice">
                 ИТОГО К ОПЛАТЕ: <span> {cart.totalPrice || 0} RUB</span>

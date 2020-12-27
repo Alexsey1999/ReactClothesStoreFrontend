@@ -16,7 +16,6 @@ import feedBackAvatar3 from '../../assets/images/feedback3.png'
 // Swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-// FeedbackSlideItem interface
 export interface IFeedbackSlideItem {
   avatar: string
   name: string

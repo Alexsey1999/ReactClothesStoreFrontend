@@ -1,14 +1,13 @@
+import { ICart } from './../../interfaces/cart'
 import produce from 'immer'
+import { CartActionTypes } from './types'
+import { SET_CART, REDUCE_ITEM, INCREASE_ITEM, SET_SIZE } from './types'
 
-import {
-  SET_CART,
-  REMOVE_ITEM,
-  REDUCE_ITEM,
-  INCREASE_ITEM,
-  SET_SIZE,
-} from './actions'
+interface ICartState {
+  cart: ICart
+}
 
-const initialState = {
+const initialState: ICartState = {
   cart: {
     items: [],
     purePrice: 0,
@@ -18,12 +17,9 @@ const initialState = {
   },
 }
 
-const cartReducer = produce((draft = initialState, action) => {
+const cartReducer = produce((draft = initialState, action: CartActionTypes) => {
   switch (action.type) {
     case SET_CART:
-      draft.cart = action.payload
-      break
-    case REMOVE_ITEM:
       draft.cart = action.payload
       break
     case REDUCE_ITEM:

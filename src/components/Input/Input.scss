@@ -1,0 +1,31 @@
+.input-group {
+  width: 200px;
+}
+
+.phone-group {
+  width: 300px !important;
+  margin-bottom: 30px;
+  input {
+    width: 100%;
+  }
+}
+
+label.account-settings-label {
+  color: #818d92;
+  font-size: 14px;
+  font-family: SourceSansPro;
+  display: block;
+  margin-bottom: 10px;
+}
+
+input.account-settings-input {
+  font-family: SourceSansPro;
+  font-size: 16px;
+  font-weight: 800;
+  padding: 10px;
+  height: 35px;
+  border-bottom: 1px solid #e8ecef;
+  width: 100%;
+  pointer-events: none;
+  background: transparent;
+}

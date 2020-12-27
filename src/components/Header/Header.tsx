@@ -1,6 +1,5 @@
-// @ts-nocheck
 // Libs
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactModal from 'react-modal'
 import classNames from 'classnames'
 import { Link } from 'react-router-dom'
@@ -15,19 +14,19 @@ import BurgerMenu from '../BurgerMenu'
 import Navigation from '../Navigation'
 import Logo from '../Logo'
 import Button from '../Button'
+import SuccessSignUpModal from '../SuccessSignUpModal'
 
 // Styles
 import './Header.scss'
 import 'react-responsive-modal/styles.css'
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux'
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux'
 import {
   openShoppingCart,
   openSignIn,
   openBurgerMenu,
 } from '../../store/modals/actions'
-import SuccessSignUpModal from '../SuccessSignUpModal'
 
 interface IHeaderProps {
   goodsLayoutHeader?: boolean
@@ -35,9 +34,11 @@ interface IHeaderProps {
 }
 
 const Header: React.FC<IHeaderProps> = ({ goodsLayoutHeader, isProduct }) => {
-  const { cart } = useSelector((state) => state.cart)
+  const { cart } = useSelector((state: RootStateOrAny) => state.cart)
+
   const dispatch = useDispatch()
-  React.useEffect(() => {
+
+  useEffect(() => {
     ReactModal.setAppElement('body')
   }, [])
 
@@ -111,7 +112,7 @@ const Header: React.FC<IHeaderProps> = ({ goodsLayoutHeader, isProduct }) => {
                 {isAuthorizedUser()}
                 <div className="cart-wrapper">
                   <svg
-                    onClick={() => dispatch(openShoppingCart(true))}
+                    onClick={() => dispatch(openShoppingCart())}
                     className="cart-icon"
                     width="30"
                     height="30"

@@ -1,5 +1,9 @@
-// @ts-nocheck
-const links = [
+export interface ILink {
+  category: string
+  url: string
+}
+
+const links: ILink[] = [
   { category: 'Футболки', url: 't-shirts' },
   { category: 'Рубашки', url: 'shirts' },
   { category: 'Худи', url: 'hoodies' },

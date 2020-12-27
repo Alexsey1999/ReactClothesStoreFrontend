@@ -1,18 +1,26 @@
-// @ts-nocheck
 // Libs
 import React from 'react'
 import classNames from 'classnames'
 import axios from '../../axios'
+
+// Redux
 import { useDispatch } from 'react-redux'
 import { setSize } from '../../store/cart/actions'
 
 // Styles
 import './ClothesSizes.scss'
+
+// Utils
 import { notify } from '../../utils/notify'
 
-// ClothesSizes props interface
+// Interfaces
+import { IProductSize } from '../../interfaces/product'
+
 interface IClothesSizesProps {
-  sizes: string[]
+  sizes: IProductSize[]
+  currentSize: string
+  productIndex: number
+  id: string
 }
 
 const ClothesSizes: React.FC<IClothesSizesProps> = ({
@@ -21,12 +29,10 @@ const ClothesSizes: React.FC<IClothesSizesProps> = ({
   productIndex,
   id,
 }) => {
-  const [activeSize, setActiveSize] = React.useState(0)
   const dispatch = useDispatch()
 
-  const setProductItemSize = async (size, index) => {
+  const setProductItemSize = async (size: IProductSize, index: number) => {
     try {
-      setActiveSize(index)
       const response = await axios({
         method: 'POST',
         url: `/cart/size/${id}`,
@@ -44,8 +50,6 @@ const ClothesSizes: React.FC<IClothesSizesProps> = ({
       console.log(error)
     }
   }
-
-  // console.log(size, currentSize)
 
   return (
     <ul className="clothes-size-list">

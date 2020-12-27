@@ -1,31 +1,27 @@
-// @ts-nocheck
 // Libs
 import React from 'react'
 import { slide as Menu } from 'react-burger-menu'
-import { useSelector, useDispatch } from 'react-redux'
-import { closeBurgerMenu } from '../../store/modals/actions'
+import { Link } from 'react-router-dom'
 
 // Components
 import Socials from '../Socials'
 
+// Redux
+import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
+import { closeBurgerMenu } from '../../store/modals/actions'
+
 // Styles
 import './BurgerMenu.scss'
 
+import links from '../Navigation/links'
+import { defineRoute } from '../MenuLink/MenuLink'
+
 const BurgerMenu: React.FC = () => {
-  const { isBurgerMenuOpened } = useSelector((state) => state.modals)
+  const { isBurgerMenuOpened } = useSelector(
+    (state: RootStateOrAny) => state.modals
+  )
+
   const dispatch = useDispatch()
-  const burgerLinks: string[] = [
-    'Футболки',
-    'Рубашки',
-    'Худи',
-    'Свитшоты',
-    'Шапки',
-    'Кепки',
-    'Поло',
-    'Рюкзаки',
-    'Сувениры',
-    'FAQ',
-  ]
 
   return (
     <Menu
@@ -38,11 +34,15 @@ const BurgerMenu: React.FC = () => {
       width={280}
     >
       <ul className="burger-links">
-        {burgerLinks.map((link) => (
-          <li key={link}>
-            <a className="burger-link" href="/">
-              {link}
-            </a>
+        {links.map((link) => (
+          <li key={link.category}>
+            <Link
+              className="burger-link"
+              onClick={() => dispatch(closeBurgerMenu())}
+              to={() => ({ pathname: defineRoute(link.url) })}
+            >
+              {link.category}
+            </Link>
           </li>
         ))}
       </ul>

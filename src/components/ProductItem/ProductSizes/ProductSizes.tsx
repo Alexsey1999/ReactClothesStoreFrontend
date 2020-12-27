@@ -1,27 +1,33 @@
-// @ts-nocheck
+// Libs
 import React from 'react'
 import classNames from 'classnames'
-import { useSelector, useDispatch } from 'react-redux'
-import { setProductSize } from '../../../store/product/actions'
 
+// Styles
 import './ProductSizes.scss'
 
-const ProductSizes = ({ sizes, productSizeIndex, setProductSizeIndex }) => {
-  // const productSize = useSelector((state) => state.product.productSize)
+// Interfaces
+import { IProductSize } from '../../../interfaces/product'
 
-  const dispatch = useDispatch()
+interface IProductSizesProps {
+  setProductSizeIndex: (productSizeIndex: number) => void
+  sizes: IProductSize[]
+  productSizeIndex: number
+}
 
-  const chooseSize = (size, index) => {
-    // dispatch(setProductSize({ ...size, sizeIndex: index }))
+const ProductSizes: React.FC<IProductSizesProps> = ({
+  sizes,
+  productSizeIndex,
+  setProductSizeIndex,
+}) => {
+  const chooseSize = (index: number) => {
     setProductSizeIndex(index)
   }
 
-  const chooseSizeParse = (size, index) => (
+  const chooseSizeParse = (size: IProductSize, index: number) => (
     <li
-      key={size.size + index}
-      onClick={() => chooseSize(size, index)}
+      key={size.size! + index}
+      onClick={() => chooseSize(index)}
       className={classNames('size-item', {
-        // active: index === productSize.sizeIndex,
         active: index === productSizeIndex,
       })}
     >

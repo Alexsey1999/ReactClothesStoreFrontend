@@ -1,0 +1,26 @@
+.personal-data-header {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 40px;
+  span {
+    font-family: SourceSansPro;
+    font-size: 24px;
+    font-weight: 400;
+  }
+  .change {
+    cursor: pointer;
+    font-family: SourceSansPro;
+    font-size: 14px;
+    color: #818d92;
+    border-bottom: 1px dashed #818d92;
+    margin-left: 10px;
+  }
+}
+
+.personal-data-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  position: relative;
+}

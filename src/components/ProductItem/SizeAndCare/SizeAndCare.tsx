@@ -1,10 +1,21 @@
-// @ts-nocheck
+// Libs
 import React from 'react'
+
+// Components
 import Button from '../../Button'
 
+// Styles
 import './SizeAndCare.scss'
 
-const SizeAndCare = ({ openSizeModal, openCareModal }) => {
+interface ISizeAndCareProps {
+  openSizeModal: () => void
+  openCareModal: () => void
+}
+
+const SizeAndCare: React.FC<ISizeAndCareProps> = ({
+  openSizeModal,
+  openCareModal,
+}) => {
   return (
     <div className="size-and-care">
       <Button onClick={openSizeModal} disableDefaultStyles={true}>

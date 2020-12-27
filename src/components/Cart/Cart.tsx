@@ -1,53 +1,52 @@
-// @ts-nocheck
 // Libs
-import React from 'react'
-import ReactModal from 'react-modal'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useEffect } from 'react'
+import axios from '../../axios'
+import { useHistory } from 'react-router-dom'
+
+// Redux
+import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
 import { closeShoppingCart } from '../../store/modals/actions'
 import { setCart } from '../../store/cart/actions'
-import axios from '../../axios'
-import { Link, useHistory } from 'react-router-dom'
 
 // Components
 import Button from '../Button'
 import CartItem from '../CartItem'
+import CartEmpty from '../CartEmpty'
+import ReactModal from 'react-modal'
 
 // Styles
 import './Cart.scss'
 
 // Images
 import leftArrow from '../../assets/icons/left-arrow.svg'
-import CartEmpty from '../CartEmpty'
-import Loader from '../Loader'
+
+// Utils
+import emptyCart from '../../utils/emptyCart'
 import { notify } from '../../utils/notify'
 
-const Cart: React.FC<ICartProps> = () => {
+// Interfaces
+import { ICartItem } from '../../interfaces/cart'
+
+const Cart: React.FC = () => {
   const isShoppingCartOpened = useSelector(
-    (state) => state.modals.isShoppingCartOpened
+    (state: RootStateOrAny) => state.modals.isShoppingCartOpened
   )
-  const [isLoading, setIsLoading] = React.useState(false)
-  const { cart } = useSelector((state) => state.cart)
+  const [isLoading, setIsLoading] = React.useState<boolean>(false)
+  const { cart } = useSelector((state: RootStateOrAny) => state.cart)
+
   const dispatch = useDispatch()
   const history = useHistory()
 
-  React.useEffect(() => {
+  useEffect(() => {
     axios({
       method: 'GET',
       url: '/cart/items',
     }).then((response) => {
       if (!response.data) {
-        dispatch(
-          setCart({
-            items: [],
-            purePrice: 0,
-            deliveryPrice: 0,
-            totalQuantity: 0,
-            totalPrice: 0,
-          })
-        )
+        dispatch(setCart(emptyCart))
       }
     })
-  }, [])
+  }, [dispatch])
 
   const makeOrder = async () => {
     setIsLoading(true)
@@ -97,11 +96,14 @@ const Cart: React.FC<ICartProps> = () => {
         <div className="cart-my-goods">Мои покупки</div>
         <div className="cart-items">
           {cart.items.length ? (
-            cart.items.map((cartItem, index) => (
+            cart.items.map((cartItem: ICartItem, index: number) => (
               <CartItem
-                key={cartItem.item._id + index}
+                key={cartItem.item?._id! + index}
                 productIndex={index}
-                {...cartItem}
+                price={cartItem.price}
+                quantity={cartItem.quantity}
+                size={cartItem.size!}
+                item={cartItem.item}
               />
             ))
           ) : (
@@ -123,8 +125,13 @@ const Cart: React.FC<ICartProps> = () => {
           </div>
         </div>
         <div className="btn-wrapper">
-          <Button onClick={makeOrder} className="cart-btn">
-            {isLoading ? <Loader color="white" /> : 'Оформить заказ'}
+          <Button
+            onClick={makeOrder}
+            isLoading={isLoading}
+            loaderColor="white"
+            className="cart-btn"
+          >
+            Оформить заказ
           </Button>
         </div>
       </div>

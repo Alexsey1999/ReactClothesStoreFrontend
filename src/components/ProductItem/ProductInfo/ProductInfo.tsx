@@ -1,23 +1,43 @@
-// @ts-nocheck
-import React from 'react'
+// Libs
+import React, { useState } from 'react'
+import classNames from 'classnames'
+import axios from '../../../axios'
+
+// Components
 import Button from '../../Button'
 import CareModal from '../../CareModal'
 import SizeModal from '../../SizeModal'
 import ProductQuantity from '../ProductQuantity'
 import ProductSizes from '../ProductSizes'
 import SizeAndCare from '../SizeAndCare'
-import classNames from 'classnames'
-import axios from '../../../axios'
-
-import './ProductInfo.scss'
-
-import { useSelector, useDispatch } from 'react-redux'
-import { openShoppingCart } from '../../../store/modals/actions'
-import { setCart } from '../../../store/cart/actions'
-import { notify } from '../../../utils/notify'
 import Loader from '../../Loader'
 
-const ProductInfo = ({
+// Styles
+import './ProductInfo.scss'
+
+// Redux
+import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
+import { openShoppingCart } from '../../../store/modals/actions'
+import { setCart } from '../../../store/cart/actions'
+
+// Utils
+import { notify } from '../../../utils/notify'
+import {
+  ISize,
+  ICare,
+  IProductItem,
+  IProductDescription,
+} from '../../../interfaces/product'
+
+// Interfaces
+interface IProductInfoProps extends IProductItem {
+  productId: string
+  recommModal?: boolean
+  size: ISize[]
+  care: ICare[]
+}
+
+const ProductInfo: React.FC<IProductInfoProps> = ({
   productId,
   price,
   deliveryInfo = '',
@@ -31,14 +51,16 @@ const ProductInfo = ({
   isWhite,
   recommModal,
 }) => {
-  // const { productSize, productQuantity } = useSelector((state) => state.product)
-  const { productQuantity } = useSelector((state) => state.product)
-  const [productSizeIndex, setProductSizeIndex] = React.useState(0)
+  const { productQuantity } = useSelector(
+    (state: RootStateOrAny) => state.product
+  )
+
+  const [productSizeIndex, setProductSizeIndex] = useState<number>(0)
+  const [isSizeModalOpened, setIsSizeModalOpened] = useState<boolean>(false)
+  const [isCareModalOpened, setIsCareModalOpened] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const dispatch = useDispatch()
-  const [isSizeModalOpened, setIsSizeModalOpened] = React.useState(false)
-  const [isCareModalOpened, setIsCareModalOpened] = React.useState(false)
-  const [isLoading, setIsLoading] = React.useState(false)
 
   const openSizeModal = () => {
     setIsSizeModalOpened(true)
@@ -56,15 +78,15 @@ const ProductInfo = ({
     setIsCareModalOpened(false)
   }
 
-  const descriptionParse = (elem, index) => {
+  const descriptionParse = (elem: IProductDescription, index: number) => {
     if ('p' in elem) {
-      return elem['p'].map((p) => <p key={p}>{p}</p>)
+      return elem['p']!.map((p) => <p key={p}>{p}</p>)
     } else {
       return (
-        <React.Fragment key={elem.ulTitle + index}>
+        <React.Fragment key={elem.ulTitle! + index}>
           <p>{elem.ulTitle}</p>
           <ul>
-            {elem['li'].map((li) => (
+            {elem['li']!.map((li) => (
               <li key={li}>{li}</li>
             ))}
           </ul>
@@ -73,20 +95,18 @@ const ProductInfo = ({
     }
   }
 
-  // console.log(size, care)
-
-  const addProductItemToCart = async (productId, category) => {
+  const addProductItemToCart = async (productId: string, category: string) => {
     try {
       setIsLoading(true)
       const response = await axios({
         method: 'POST',
         url: `/cart/add/${productId}?category=${category}`,
-        data: { productSize: sizes[productSizeIndex] || {}, productQuantity },
+        data: { productSize: sizes![productSizeIndex] || {}, productQuantity },
       })
 
       dispatch(setCart(response.data.cart))
       setIsLoading(false)
-      dispatch(openShoppingCart(true))
+      dispatch(openShoppingCart())
 
       notify(response.data.message)
     } catch (error) {
@@ -111,17 +131,16 @@ const ProductInfo = ({
 
       {size.length && care.length ? (
         <SizeAndCare
-          category={category}
           openSizeModal={openSizeModal}
           openCareModal={openCareModal}
         />
       ) : null}
 
-      {sizes.length ? (
+      {sizes!.length ? (
         <ProductSizes
           productSizeIndex={productSizeIndex}
           setProductSizeIndex={setProductSizeIndex}
-          sizes={sizes}
+          sizes={sizes!}
         />
       ) : null}
 

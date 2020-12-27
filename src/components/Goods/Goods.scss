@@ -3,6 +3,9 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+  @media (max-width: 600px) {
+    justify-content: center;
+  }
 }
 
 .goods-container {

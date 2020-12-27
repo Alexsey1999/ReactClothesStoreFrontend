@@ -4,7 +4,6 @@ import React from 'react'
 // Styles
 import './FeedbackSlide.scss'
 
-// FeedbackSlide props interface
 import { IFeedbackSlideItem } from '../Feedback/Feedback'
 
 const FeedbackSlide: React.FC<IFeedbackSlideItem> = ({

@@ -1,35 +1,40 @@
-// @ts-nocheck
 // Libs
-import React from 'react'
-import { Modal } from 'react-responsive-modal'
+import React, { FormEvent } from 'react'
 import axios from '../../axios'
-import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+
+// Components
+import Button from '../Button'
+import { Modal } from 'react-responsive-modal'
+
+// Redux
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux'
 import {
   closeSignIn,
   openSignUp,
   openPasswordRecovery,
 } from '../../store/modals/actions'
 import { setUser, setJwt } from '../../store/users/actions'
-import { useHistory, Link } from 'react-router-dom'
-
-// Components
-import Button from '../Button'
 
 // Styles
 import './SignInModal.scss'
-import { myContext } from '../../Context'
+
+// Utils
 import { notify } from '../../utils/notify'
 
 const SignInModal: React.FC = () => {
-  const [rememberme, setRememberme] = React.useState(false)
-  const [email, setEmail] = React.useState('')
-  const [password, setPassword] = React.useState('')
+  const [rememberme, setRememberme] = React.useState<string>('false')
+  const [email, setEmail] = React.useState<string>('')
+  const [password, setPassword] = React.useState<string>('')
 
-  const { isSignInOpened } = useSelector((state) => state.modals)
+  const { isSignInOpened } = useSelector(
+    (state: RootStateOrAny) => state.modals
+  )
+
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const loginUser = async (e) => {
+  const loginUser = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
       const response = await axios({
@@ -156,7 +161,7 @@ const SignInModal: React.FC = () => {
                   <input
                     className="custom-checkbox"
                     id="remember"
-                    onChange={(e) => setRememberme(e.target.checked)}
+                    onChange={(e) => setRememberme(e.target.checked.toString())}
                     value={rememberme}
                     type="checkbox"
                   />

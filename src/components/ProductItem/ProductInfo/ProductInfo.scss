@@ -1,6 +1,11 @@
 .product-info-block {
   max-width: 500px;
   width: 100%;
+  @media (max-width: 1050px) {
+    text-align: center;
+    margin: 0px auto;
+    max-width: 700px;
+  }
 }
 
 .product-description {
@@ -20,6 +25,9 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  @media (max-width: 1050px) {
+    display: block;
+  }
 }
 
 .product-price {
@@ -43,6 +51,10 @@
     bottom: 0;
     height: 2px;
     position: absolute;
+    @media (max-width: 1050px) {
+      width: 100%;
+      left: 0;
+    }
   }
 }
 

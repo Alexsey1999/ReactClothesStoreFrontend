@@ -2,15 +2,19 @@
 import React from 'react'
 import classNames from 'classnames'
 
+// Components
+import Loader from '../Loader'
+
 // Styles
 import './Button.scss'
 
-// Button props interface
 interface IButtonProps {
-  className: string
   onClick?: () => void
+  className?: string
   disableDefaultStyles?: boolean
   scrollTo?: string
+  loaderColor?: string
+  isLoading?: boolean
 }
 
 const Button: React.FC<IButtonProps> = ({
@@ -19,6 +23,8 @@ const Button: React.FC<IButtonProps> = ({
   onClick,
   disableDefaultStyles,
   scrollTo,
+  loaderColor,
+  isLoading,
 }) => {
   return (
     <>
@@ -41,7 +47,7 @@ const Button: React.FC<IButtonProps> = ({
             className
           )}
         >
-          {children}
+          {isLoading ? <Loader color={loaderColor} /> : children}
         </button>
       )}
     </>

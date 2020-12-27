@@ -1,37 +1,40 @@
-// @ts-nocheck
 // Libs
-import React from 'react'
-import { Modal } from 'react-responsive-modal'
+import React, { FormEvent, useState } from 'react'
 import axios from '../../axios'
-import { useDispatch, useSelector } from 'react-redux'
+
+// Components
+import Button from '../Button'
+import { Modal } from 'react-responsive-modal'
+
+// Redux
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux'
 import {
   openSuccessSignUp,
   closeSignUp,
   openSignIn,
 } from '../../store/modals/actions'
-
-// Components
-import Button from '../Button'
+import { setJwt, setUser } from '../../store/users/actions'
 
 // Styles
 import './SignUpModal.scss'
-import { setJwt, setUser } from '../../store/users/actions'
-import { useHistory } from 'react-router-dom'
+
+// Utils
 import { notify } from '../../utils/notify'
-import Loader from '../Loader'
+import { IErrorExpressValidator } from '../../interfaces/error'
 
 const SignUpModal: React.FC = () => {
-  const [email, setEmail] = React.useState('')
-  const [password, setPassword] = React.useState('')
-  const [repeatPassword, setRepeatPassword] = React.useState('')
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [repeatPassword, setRepeatPassword] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const { isSignUpOpened } = useSelector(
+    (state: RootStateOrAny) => state.modals
+  )
 
   const dispatch = useDispatch()
-  const { isSignUpOpened } = useSelector((state) => state.modals)
 
-  const history = useHistory()
-
-  const registerUser = async (e) => {
+  const registerUser = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
       setIsLoading(true)
@@ -55,7 +58,9 @@ const SignUpModal: React.FC = () => {
       dispatch(closeSignUp())
     } catch (error) {
       setIsLoading(false)
-      error.response.data.errors.forEach((error) => {
+      console.log(error.response.data.errors)
+
+      error.response.data.errors.forEach((error: IErrorExpressValidator) => {
         notify(error.msg)
       })
     }
@@ -166,8 +171,13 @@ const SignUpModal: React.FC = () => {
               </div>
 
               <div className="btn-wrapper">
-                <Button className="signUp-btn" disableDefaultStyles={true}>
-                  {isLoading ? <Loader color="white" /> : 'Зарегестрироваться'}
+                <Button
+                  className="signUp-btn"
+                  disableDefaultStyles={true}
+                  isLoading={isLoading}
+                  loaderColor="white"
+                >
+                  Зарегестрироваться
                 </Button>
               </div>
             </form>

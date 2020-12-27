@@ -1,5 +1,7 @@
+// Libs
 import React from 'react'
 
+// Components
 import {
   Accordion,
   AccordionItem,
@@ -7,13 +9,13 @@ import {
   AccordionItemButton,
   AccordionItemPanel,
 } from 'react-accessible-accordion'
-
-import './FaqAccordion.scss'
 import FaqBlock from './FaqBlock'
 
-import downArrow from '../../assets/icons/down-arrow.svg'
+// Styles
+import './FaqAccordion.scss'
 
-// import 'react-accessible-accordion/dist/fancy-example.css'
+// Images
+import downArrow from '../../assets/icons/down-arrow.svg'
 
 const FaqAccordion = () => {
   return (

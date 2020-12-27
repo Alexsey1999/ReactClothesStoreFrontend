@@ -1,9 +1,13 @@
+// Libs
 import React from 'react'
+
+// Components
 import { Link } from 'react-router-dom'
 
+// Styles
 import './NotFound.scss'
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
   return (
     <section className="page_404">
       <div className="container">

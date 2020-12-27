@@ -1,5 +1,6 @@
 import { takeEvery, put, call } from 'redux-saga/effects'
-import { PRODUCT_ITEM_REQUEST, setProductItem } from '../store/product/actions'
+import { PRODUCT_ITEM_REQUEST } from '../store/product/types'
+import { setProductItem } from '../store/product/actions'
 
 import axios from '../axios'
 

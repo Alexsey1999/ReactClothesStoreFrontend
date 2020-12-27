@@ -1,13 +1,30 @@
-// @ts-nocheck
+// Libs
 import React from 'react'
+
+// Components
 import { Modal } from 'react-responsive-modal'
 
+// Styles
 import './SizeModal.scss'
 
-const SizeModal = ({ isSizeModalOpened, closeSizeModal, sizeInfo, name }) => {
-  const sizeInfoParse = (elem, index) => {
+// Interfaces
+import { ISize } from '../../interfaces/product'
+interface ISizeModalProps {
+  closeSizeModal: () => void
+  isSizeModalOpened: boolean
+  name: string
+  sizeInfo: ISize[]
+}
+
+const SizeModal: React.FC<ISizeModalProps> = ({
+  isSizeModalOpened,
+  closeSizeModal,
+  sizeInfo,
+  name,
+}) => {
+  const sizeInfoParse = (elem: ISize, index: number) => {
     if ('p' in elem) {
-      return elem.p.map((p, index) => <p key={p + index}>{p}</p>)
+      return elem.p!.map((p, index) => <p key={p + index}>{p}</p>)
     } else if ('img' in elem) {
       return (
         <p key={'p' + index}>
@@ -19,14 +36,14 @@ const SizeModal = ({ isSizeModalOpened, closeSizeModal, sizeInfo, name }) => {
         <table key={'table' + index}>
           <thead>
             <tr>
-              {elem.table.th.map((th, index) => (
+              {elem.table!.th.map((th, index) => (
                 <th key={th + index}>{th}</th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {elem.table.tr.map((tr, index) => (
-              <tr key={tr + index}>
+            {elem.table!.tr.map((tr, index) => (
+              <tr key={tr[index] + index}>
                 {tr.map((td, index) => (
                   <td key={td + index}>{td}</td>
                 ))}

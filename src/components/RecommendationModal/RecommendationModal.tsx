@@ -1,18 +1,25 @@
-// @ts-nocheck
+// Libs
 import React from 'react'
 import { Modal } from 'react-responsive-modal'
-import ProductItem from '../ProductItem'
+
+// Components
 import ProductInfo from '../ProductItem/ProductInfo'
 
+// Styles
 import './RecommendationModal.scss'
 
-const RecommendationModal = ({
+// Interfaces
+import { IProductItem } from '../../interfaces/product'
+
+interface IRecommendationModalProps extends IProductItem {
+  closeProductItemModal: () => void
+  isProductItemModalOpened: boolean
+}
+
+const RecommendationModal: React.FC<IRecommendationModalProps> = ({
   _id,
   name,
   price,
-  swiperImages,
-  isBlack,
-  isWhite,
   imageUrl,
   category,
   deliveryInfo,
@@ -34,11 +41,11 @@ const RecommendationModal = ({
 
               <ProductInfo
                 recommModal={true}
-                productId={_id}
+                productId={_id!}
                 isWhite={true}
                 price={price || 0}
                 deliveryInfo={deliveryInfo || ''}
-                description={description || ''}
+                description={description! || ''}
                 category={category}
                 sizes={sizes || []}
                 size={sizeAndCare?.size || []}

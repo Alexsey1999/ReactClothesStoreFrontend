@@ -12,6 +12,10 @@
 .quantity-wrapper {
   display: flex;
   align-items: center;
+  @media (max-width: 1050px) {
+    justify-content: center;
+    margin-bottom: 20px;
+  }
 }
 
 .quantity-left-btn {

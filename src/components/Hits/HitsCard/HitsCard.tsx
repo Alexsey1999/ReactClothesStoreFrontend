@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Libs
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -6,11 +5,11 @@ import { Link } from 'react-router-dom'
 // Styles
 import './HitsCard.scss'
 
-// HitsCard props interface
 interface IHitsCardProps {
   image: string
   price: string
   name: string
+  productLink: string
 }
 
 const HitsCard: React.FC<IHitsCardProps> = ({

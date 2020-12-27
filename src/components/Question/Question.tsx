@@ -1,8 +1,6 @@
-// @ts-nocheck
 // Libs
-import React from 'react'
+import React, { FormEvent, useState } from 'react'
 import axios from '../../axios'
-import { notify } from '../../utils/notify'
 
 // Components
 import Button from '../Button'
@@ -10,12 +8,18 @@ import Button from '../Button'
 // Styles
 import './Question.scss'
 
-const Question: React.FC = () => {
-  const [name, setName] = React.useState('')
-  const [email, setEmail] = React.useState('')
-  const [message, setMessage] = React.useState('')
+// Utils
+import { notify } from '../../utils/notify'
 
-  const askQuestion = async (e) => {
+// Interfaces
+import { IErrorExpressValidator } from '../../interfaces/error'
+
+const Question: React.FC = () => {
+  const [name, setName] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [message, setMessage] = useState<string>('')
+
+  const askQuestion = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     try {
@@ -37,7 +41,7 @@ const Question: React.FC = () => {
 
       notify(response.data.successMessage || response.data.errorMessage)
     } catch (error) {
-      error.response.data.errors.forEach((error) => {
+      error.response.data.errors.forEach((error: IErrorExpressValidator) => {
         notify(error.msg)
       })
     }

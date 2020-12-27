@@ -1,26 +1,32 @@
-// @ts-nocheck
 // Libs
-import React from 'react'
-import { Modal } from 'react-responsive-modal'
-import { useSelector, useDispatch } from 'react-redux'
-import { closePasswordRecovery, openSignIn } from '../../store/modals/actions'
+import React, { FormEvent, useState } from 'react'
 import axios from '../../axios'
 
 // Components
 import Button from '../Button'
+import { Modal } from 'react-responsive-modal'
+
+// Redux
+import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
+import { closePasswordRecovery, openSignIn } from '../../store/modals/actions'
 
 // Styles
 import './PasswordRecovery.scss'
+
+// Utils
 import { notify } from '../../utils/notify'
-import Loader from '../Loader'
 
 const PasswordRecovery: React.FC = () => {
-  const { isPasswordRecoveryOpened } = useSelector((state) => state.modals)
-  const [isLoading, setIsLoading] = React.useState(false)
-  const [email, setEmail] = React.useState('')
+  const { isPasswordRecoveryOpened } = useSelector(
+    (state: RootStateOrAny) => state.modals
+  )
+
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [email, setEmail] = useState<string>('')
+
   const dispatch = useDispatch()
 
-  const resetPassword = async (e) => {
+  const resetPassword = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
       setIsLoading(true)
@@ -93,8 +99,12 @@ const PasswordRecovery: React.FC = () => {
               />
             </div>
             <div className="password-recovery-row">
-              <Button className="password-recovery-btn">
-                {isLoading ? <Loader color="white" /> : ' Восстановить пароль'}
+              <Button
+                className="password-recovery-btn"
+                isLoading={isLoading}
+                loaderColor="white"
+              >
+                Восстановить пароль
               </Button>
               <span onClick={goBack} className="password-recovery-cancel">
                 Отмена

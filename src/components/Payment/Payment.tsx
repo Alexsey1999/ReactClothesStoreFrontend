@@ -1,19 +1,20 @@
-// @ts-nocheck
+// Libs
 import React from 'react'
-import { Elements, CardElement } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
-import { useHistory, useParams } from 'react-router-dom'
-import axios from '../../axios'
 
+// Components
+import { CardElement } from '@stripe/react-stripe-js'
+
+// Styles
 import './Payment.scss'
+import { StripeCardElementOptions } from '@stripe/stripe-js'
 
-const CARD_OPTIONS = {
+const CARD_OPTIONS: StripeCardElementOptions = {
   iconStyle: 'solid',
   style: {
     base: {
       iconColor: '#fff',
       color: '#fff',
-      fontWeight: 500,
+      fontWeight: '500',
       fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
       fontSize: '16px',
       fontSmoothing: 'antialiased',
@@ -27,37 +28,7 @@ const CARD_OPTIONS = {
   },
 }
 
-const Payment = () => {
-  const history = useHistory()
-  const { orderid } = useParams()
-
-  // React.useEffect(() => {
-  //   const getOrderToken = async () => {
-  //     if (!localStorage.getItem('ordertoken')) {
-  //       history.push('/')
-  //       return
-  //     }
-
-  //     try {
-  //       const response = await axios({
-  //         method: 'POST',
-  //         data: {
-  //           orderid,
-  //         },
-  //         url: '/booking/checktoken',
-  //       })
-
-  //       if (!response.data) {
-  //         history.push('/')
-  //       }
-  //     } catch (error) {
-  //       console.log(error)
-  //     }
-  //   }
-
-  //   getOrderToken()
-  // }, [])
-
+const Payment: React.FC = () => {
   return (
     <fieldset className="FormGroup">
       <div className="FormRow">

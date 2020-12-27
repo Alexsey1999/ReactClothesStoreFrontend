@@ -1,41 +1,53 @@
-// @ts-nocheck
-import React from 'react'
+// Libs
+import React, { useEffect } from 'react'
 import classNames from 'classnames'
+import queryString from 'query-string'
 
-import './ProductItem.scss'
-
-import { useSelector, useDispatch } from 'react-redux'
-import RecommendationSlider from '../ProductItem/RecommendationSlider'
-
+// Components
 import SwiperCore, { Navigation } from 'swiper'
-import 'swiper/swiper.scss'
+import RecommendationSlider from '../ProductItem/RecommendationSlider'
 import ProductSwiper from './ProductSwiper'
 import ProductInfo from './ProductInfo'
-import queryString from 'query-string'
-import {
-  PRODUCT_ITEM_REQUEST,
-  removeProductItem,
-} from '../../store/product/actions'
+
+// Redux
+import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
+import { removeProductItem } from '../../store/product/actions'
+
+import { PRODUCT_ITEM_REQUEST } from '../../store/product/types'
+
+// Styles
+import './ProductItem.scss'
+import 'swiper/swiper.scss'
+
+// Interfaces
+import { RouteComponentProps } from 'react-router-dom'
+
+interface IProductItemMatchProps {
+  id: string
+}
+interface IProductItemProps
+  extends RouteComponentProps<IProductItemMatchProps> {}
 
 SwiperCore.use([Navigation])
 
-const ProductItem = (props) => {
+const ProductItem: React.FC<IProductItemProps> = (props) => {
   const { product, recommendations } = useSelector(
-    (store) => store.product.product
+    (store: RootStateOrAny) => store.product.product
   )
   const dispatch = useDispatch()
 
   const productId = props.match.params.id
+
   const { category: productCategory } = queryString.parse(
     window.location.search
   )
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch({ type: PRODUCT_ITEM_REQUEST, productId, productCategory })
 
     return () => {
       dispatch(removeProductItem())
     }
-  }, [productId, productCategory])
+  }, [productId, productCategory, dispatch])
 
   return (
     <div
@@ -58,7 +70,7 @@ const ProductItem = (props) => {
               </div>
             ) : (
               <div className="product-image">
-                <img src={product?.imageUrl} />
+                <img src={product?.imageUrl} alt={product?.name} />
               </div>
             )}
 

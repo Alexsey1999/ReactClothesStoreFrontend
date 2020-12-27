@@ -1,4 +1,4 @@
-// @ts-nocheck
+import { ModalsActionTypes } from './types'
 import produce from 'immer'
 import {
   OPEN_SHOPPING_CART,
@@ -13,9 +13,18 @@ import {
   CLOSE_PASSWORD_RECOVERY,
   OPEN_BURGER_MENU,
   CLOSE_BURGER_MENU,
-} from './actions'
+} from './types'
 
-const initialState = {
+interface IModalsState {
+  isSignInOpened: boolean
+  isSignUpOpened: boolean
+  isPasswordRecoveryOpened: boolean
+  isShoppingCartOpened: boolean
+  isBurgerMenuOpened: boolean
+  isSuccessSignUpOpened: boolean
+}
+
+const initialState: IModalsState = {
   isSignInOpened: false,
   isSignUpOpened: false,
   isPasswordRecoveryOpened: false,
@@ -24,51 +33,53 @@ const initialState = {
   isSuccessSignUpOpened: false,
 }
 
-const modalsReducer = produce((draft = initialState, action) => {
-  switch (action.type) {
-    case OPEN_SHOPPING_CART:
-      draft.isShoppingCartOpened = true
-      break
-    case CLOSE_SHOPPING_CART:
-      draft.isShoppingCartOpened = false
-      break
-    case OPEN_BURGER_MENU:
-      draft.isBurgerMenuOpened = true
-      break
-    case CLOSE_BURGER_MENU:
-      draft.isBurgerMenuOpened = false
-      break
-    case OPEN_SUCCESS_SIGNUP:
-      draft.isSuccessSignUpOpened = true
-      break
-    case CLOSE_SUCCESS_SIGNUP:
-      draft.isSuccessSignUpOpened = false
-      break
-    case OPEN_SIGNIN:
-      draft.isSignInOpened = true
-      draft.isSignUpOpened = false
-      draft.isPasswordRecoveryOpened = false
-      break
-    case CLOSE_SIGNIN:
-      draft.isSignInOpened = false
-      break
-    case OPEN_SIGNUP:
-      draft.isSignInOpened = false
-      draft.isSignUpOpened = true
-      break
-    case CLOSE_SIGNUP:
-      draft.isSignUpOpened = false
-      break
-    case OPEN_PASSWORD_RECOVERY:
-      draft.isPasswordRecoveryOpened = true
-      draft.isSignInOpened = false
-      break
-    case CLOSE_PASSWORD_RECOVERY:
-      draft.isPasswordRecoveryOpened = false
-      break
-    default:
-      return draft
+const modalsReducer = produce(
+  (draft = initialState, action: ModalsActionTypes) => {
+    switch (action.type) {
+      case OPEN_SHOPPING_CART:
+        draft.isShoppingCartOpened = true
+        break
+      case CLOSE_SHOPPING_CART:
+        draft.isShoppingCartOpened = false
+        break
+      case OPEN_BURGER_MENU:
+        draft.isBurgerMenuOpened = true
+        break
+      case CLOSE_BURGER_MENU:
+        draft.isBurgerMenuOpened = false
+        break
+      case OPEN_SUCCESS_SIGNUP:
+        draft.isSuccessSignUpOpened = true
+        break
+      case CLOSE_SUCCESS_SIGNUP:
+        draft.isSuccessSignUpOpened = false
+        break
+      case OPEN_SIGNIN:
+        draft.isSignInOpened = true
+        draft.isSignUpOpened = false
+        draft.isPasswordRecoveryOpened = false
+        break
+      case CLOSE_SIGNIN:
+        draft.isSignInOpened = false
+        break
+      case OPEN_SIGNUP:
+        draft.isSignInOpened = false
+        draft.isSignUpOpened = true
+        break
+      case CLOSE_SIGNUP:
+        draft.isSignUpOpened = false
+        break
+      case OPEN_PASSWORD_RECOVERY:
+        draft.isPasswordRecoveryOpened = true
+        draft.isSignInOpened = false
+        break
+      case CLOSE_PASSWORD_RECOVERY:
+        draft.isPasswordRecoveryOpened = false
+        break
+      default:
+        return draft
+    }
   }
-})
+)
 
 export default modalsReducer

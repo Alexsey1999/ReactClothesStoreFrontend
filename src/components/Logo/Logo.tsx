@@ -9,7 +9,6 @@ import './Logo.scss'
 // Images
 import logo from '../../assets/images/logo.png'
 
-//  Logo props interface
 interface ILogoProps {
   headerLogo?: boolean
   footerLogo?: boolean

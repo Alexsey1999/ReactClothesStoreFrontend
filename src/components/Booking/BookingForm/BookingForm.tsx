@@ -1,76 +1,77 @@
-// @ts-nocheck
+// Libs
+import React, { useState, useRef, FormEvent, FocusEvent } from 'react'
+import axios from '../../../axios'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import React from 'react'
+
+// Components
 import Button from '../../Button'
 import Payment from '../../Payment'
-import axios from '../../../axios'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
 
+// Styles
 import './BookingForm.scss'
-import { setUser } from '../../../store/users/actions'
-import { setCart } from '../../../store/cart/actions'
-
-import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+
+// Redux
+import { setCart } from '../../../store/cart/actions'
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux'
+
+// Utils
 import { notify } from '../../../utils/notify'
-import Loader from '../../Loader'
+import emptyCart from '../../../utils/emptyCart'
 
-const BookingForm = () => {
-  const { cart } = useSelector((state) => state.cart)
-  const { user } = useSelector((state) => state.users)
+const BookingForm: React.FC = () => {
+  const { cart } = useSelector((state: RootStateOrAny) => state.cart)
+  const { user } = useSelector((state: RootStateOrAny) => state.users)
 
-  const [isLoading, setIsLoading] = React.useState(false)
-
-  const dispatch = useDispatch()
-
-  const [name, setName] = React.useState(() => {
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [name, setName] = useState<string>(() => {
     return user ? user.name : ''
   })
 
-  const [surname, setSurname] = React.useState('')
-  const [thirdname, setThirdname] = React.useState('')
-  const [phone, setPhone] = React.useState('')
-  const [email, setEmail] = React.useState('')
+  const [surname, setSurname] = useState<string>('')
+  const [thirdname, setThirdname] = useState<string>('')
+  const [phone, setPhone] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
 
-  const [country, setCountry] = React.useState('')
-  const [city, setCity] = React.useState('')
-  const [area, setArea] = React.useState('')
-  const [address, setAddress] = React.useState('')
-  const [mailindex, setMailindex] = React.useState('')
+  const [country, setCountry] = useState<string>('')
+  const [city, setCity] = useState<string>('')
+  const [area, setArea] = useState<string>('')
+  const [address, setAddress] = useState<string>('')
+  const [mailindex, setMailindex] = useState<string>('')
+  const [note, setNote] = useState<string>('')
 
-  const [note, setNote] = React.useState('')
+  const nameRef = useRef<HTMLInputElement>(null)
+  const phoneRef = useRef<HTMLInputElement>(null)
+  const addressRef = useRef<HTMLInputElement>(null)
+  const emailRef = useRef<HTMLInputElement>(null)
+
+  const countryRef = useRef<HTMLInputElement>(null)
+  const cityRef = useRef<HTMLInputElement>(null)
+  const areaRef = useRef<HTMLInputElement>(null)
+  const surnameRef = useRef<HTMLInputElement>(null)
+  const thirdnameRef = useRef<HTMLInputElement>(null)
+  const mailindexRef = useRef<HTMLInputElement>(null)
+  const noteRef = useRef<HTMLInputElement>(null)
 
   const stripe = useStripe()
   const elements = useElements()
 
-  const nameRef = React.useRef()
-  const phoneRef = React.useRef()
-  const addressRef = React.useRef()
-  const emailRef = React.useRef()
+  const dispatch = useDispatch()
 
-  const countryRef = React.useRef()
-  const cityRef = React.useRef()
-  const areaRef = React.useRef()
-  const surnameRef = React.useRef()
-  const thirdnameRef = React.useRef()
-  const mailindexRef = React.useRef()
-  const noteRef = React.useRef()
-
-  const buyProducts = async (e) => {
+  const buyProducts = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     const description = {
-      name: name || nameRef.current.value,
-      surname: surname || surnameRef.current.value,
-      thirdname: thirdname || thirdnameRef.current.value,
-      area: area || areaRef.current.value,
-      note: note || noteRef.current.value,
-      mailindex: mailindex || mailindexRef.current.value,
-      country: country || countryRef.current.value,
-      city: city || cityRef.current.value,
-      phone: phone || phoneRef.current.value,
-      address: address || addressRef.current.value,
+      name: name || nameRef.current!.value,
+      surname: surname || surnameRef.current!.value,
+      thirdname: thirdname || thirdnameRef.current!.value,
+      area: area || areaRef.current!.value,
+      note: note || noteRef.current!.value,
+      mailindex: mailindex || mailindexRef.current!.value,
+      country: country || countryRef.current!.value,
+      city: city || cityRef.current!.value,
+      phone: phone || phoneRef.current!.value,
+      address: address || addressRef.current!.value,
     }
 
     if (!stripe || !elements) {
@@ -89,21 +90,20 @@ const BookingForm = () => {
 
     const paymentMethodReq = await stripe.createPaymentMethod({
       type: 'card',
-      card: elements.getElement(CardElement),
+      card: elements.getElement(CardElement)!,
       billing_details: {
-        name: name || nameRef.current.value,
-        phone: phone || phoneRef.current.value,
-        address: address || addressRef.current.value,
-        email: email || emailRef.current.value,
+        name: name || nameRef.current!.value,
+        phone: phone || phoneRef.current!.value,
+        email: email || emailRef.current!.value,
       },
     })
 
     if (paymentMethodReq.error) {
-      notify(paymentMethodReq.error.message)
+      notify(paymentMethodReq.error.message!)
       setIsLoading(false)
     } else {
       await stripe.confirmCardPayment(data.clientSecret, {
-        payment_method: paymentMethodReq.paymentMethod.id,
+        payment_method: paymentMethodReq.paymentMethod!.id,
       })
 
       notify('Оплата успешно проведена')
@@ -114,15 +114,7 @@ const BookingForm = () => {
           url: '/cart/clear',
         })
 
-        dispatch(
-          setCart({
-            items: [],
-            purePrice: 0,
-            deliveryPrice: 0,
-            totalQuantity: 0,
-            totalPrice: 0,
-          })
-        )
+        dispatch(setCart(emptyCart))
         setIsLoading(false)
       } catch (error) {
         setIsLoading(false)
@@ -130,7 +122,7 @@ const BookingForm = () => {
       }
 
       try {
-        const response = await axios({
+        await axios({
           method: 'POST',
           url: '/booking/addorder',
           data: {
@@ -151,7 +143,7 @@ const BookingForm = () => {
     }
   }
 
-  const updateUserData = async (e) => {
+  const updateUserData = async (e: FocusEvent<HTMLInputElement>) => {
     const field = e.target.name
 
     try {
@@ -328,8 +320,13 @@ const BookingForm = () => {
       </div>
       <Payment />
 
-      <Button className="continue-ordering-btn" disableDefaultStyles={true}>
-        {isLoading ? <Loader color="white" /> : <span>Оплатить</span>}
+      <Button
+        className="continue-ordering-btn"
+        loaderColor="white"
+        disableDefaultStyles={true}
+        isLoading={isLoading}
+      >
+        Оплатить
       </Button>
     </form>
   )

@@ -75,5 +75,36 @@ code {
     monospace;
 }
 
+.Toastify__toast--default {
+  background: #797b8c;
+  border-radius: 20px;
+  color: #fff;
+}
+
+.Toastify__toast {
+  min-height: 85px;
+}
+
+.Toastify__close-button--default {
+  opacity: 0.5;
+}
+
+.Toastify__progress-bar--default {
+  background: #a2a3af;
+}
+
+.Toastify__close-button > svg {
+  fill: #fff !important;
+  margin-bottom: 5px;
+}
+
+.Toastify__toast-body {
+  font-size: 15px;
+  font-family: SourceSansPro;
+  letter-spacing: 0.8px;
+  text-align: center;
+  font-weight: 300;
+}
+
 @import './assets/scss/modals.scss';
 @import './assets/scss/swiper.scss';

@@ -4,7 +4,6 @@ import FooterMenu from '../FooterMenu'
 
 // Components
 import Logo from '../Logo'
-import Navigation from '../Navigation'
 import Socials from '../Socials'
 
 // Styles
@@ -13,7 +12,6 @@ import './Footer.scss'
 // Images
 import mailIcon from '../../assets/icons/envelope.svg'
 import locationIcon from '../../assets/icons/location.svg'
-
 import visaIcon from '../../assets/images/visa.png'
 import masterCardIcon from '../../assets/images/mastercard.png'
 

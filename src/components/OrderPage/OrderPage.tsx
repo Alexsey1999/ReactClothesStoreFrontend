@@ -1,18 +1,18 @@
-// @ts-nocheck
+// Libs
 import React from 'react'
+import { withRouter, useHistory, RouteComponentProps } from 'react-router-dom'
+import { IOrderItem } from '../../interfaces/order'
+
+// Components
 import BookingProduct from '../Booking/BookingProduct'
-import { useSelector, useDispatch } from 'react-redux'
 
+// Styles
 import './OrderPage.scss'
-import { withRouter, useHistory, useParams } from 'react-router-dom'
 
-const OrderPage = (props) => {
-  const { user } = useSelector((state) => state.users)
+const OrderPage: React.FC<RouteComponentProps> = (props) => {
   const history = useHistory()
-  const dispatch = useDispatch()
 
-  const order = props.location.state
-  const { ordertoken } = useParams()
+  const order: any = props.location.state
 
   if (!order) {
     history.push('/')
@@ -33,14 +33,13 @@ const OrderPage = (props) => {
             <div className="order-page-row">
               <div className="order-page-info">
                 <aside className="order-page-items">
-                  {order?.items.map((product, index) => (
+                  {order?.items.map((product: IOrderItem, index: number) => (
                     <BookingProduct
-                      key={product.item._id + index}
+                      key={product.item?._id! + index}
                       name={product.item.name}
-                      size={product.size}
+                      size={product.size!}
                       quantity={product.quantity}
                       price={product.price}
-                      orderPage={true}
                     />
                   ))}
 

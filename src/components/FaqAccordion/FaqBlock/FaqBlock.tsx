@@ -4,7 +4,6 @@ import React from 'react'
 // Styles
 import './FaqBlock.scss'
 
-// FaqBlock props interface
 interface IFaqBlockProps {
   title?: string
   isMultiple?: boolean

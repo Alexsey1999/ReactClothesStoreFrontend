@@ -1,15 +1,24 @@
-// @ts-nocheck
+// Libs
 import React from 'react'
+
+// Components
 import { Modal } from 'react-responsive-modal'
 import Button from '../Button'
-import { useDispatch, useSelector } from 'react-redux'
-import './SuccessSignUpModal.scss'
-import { closeSuccessSignUp } from '../../store/modals/actions'
 import { Link } from 'react-router-dom'
 
-const SuccessSignUpModal = () => {
+// Redux
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux'
+import { closeSuccessSignUp } from '../../store/modals/actions'
+
+// Styles
+import './SuccessSignUpModal.scss'
+
+const SuccessSignUpModal: React.FC = () => {
+  const { isSuccessSignUpOpened } = useSelector(
+    (state: RootStateOrAny) => state.modals
+  )
+
   const dispatch = useDispatch()
-  const { isSuccessSignUpOpened } = useSelector((state) => state.modals)
 
   return (
     <Modal

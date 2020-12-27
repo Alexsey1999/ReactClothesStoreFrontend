@@ -1,12 +1,18 @@
-// @ts-nocheck
+// Libs
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+
+// Redux
+import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
 import { setProductQuantity } from '../../../store/product/actions'
 
+// Styles
 import './ProductQuantity.scss'
 
 const ProductQuantity = () => {
-  const productQuantity = useSelector((state) => state.product.productQuantity)
+  const productQuantity = useSelector(
+    (state: RootStateOrAny) => state.product.productQuantity
+  )
+
   const dispatch = useDispatch()
 
   const downProductQuantity = () => {

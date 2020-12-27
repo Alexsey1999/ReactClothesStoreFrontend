@@ -1,74 +1,47 @@
-// @ts-nocheck
 // Libs
-import React from 'react'
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  useLocation,
-  Switch,
-  useHistory,
-} from 'react-router-dom'
-// import Cookies from 'universal-cookie'
+import React, { useEffect } from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { withCookies, CookiesProvider } from 'react-cookie'
+import queryString from 'query-string'
+import axios from '../../axios'
+import { ToastContainer, Flip } from 'react-toastify'
+
+// Redux
+import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
+import { setLoginToken, setUser } from '../../store/users/actions'
 
 // Layouts
 import HomeLayout from '../../layouts/HomeLayout'
 
 // Components
-// import Home from '../Home'
 import Hits from '../Hits'
 import Feedback from '../Feedback'
 import Question from '../Question'
-// import Footer from '../Footer'
 import GoodsLayout from '../../layouts/GoodsLayout'
-// import GoodsItem from '../GoodsItem'
 import FaqAccordion from '../FaqAccordion'
 import Goods from '../Goods'
 import ProductItem from '../ProductItem'
 import ProtectedRoute from '../ProtectedRoute'
-import { withCookies, CookiesProvider } from 'react-cookie'
-import queryString from 'query-string'
-
-// Styles
-import './App.scss'
 import Account from '../Account'
-import { useSelector, useDispatch } from 'react-redux'
-import { myContext } from '../../Context'
-import {
-  setLoginStatusToken,
-  setLoginToken,
-  setUser,
-} from '../../store/users/actions'
-import axios from '../../axios'
-import { removeJwt } from '../../store/users/actions'
 import Booking from '../Booking'
-
-import { Elements, CardElement } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
-import Payment from '../Payment'
-
-import { ToastContainer, Flip } from 'react-toastify'
 import OrderPage from '../OrderPage'
 import NotFound from '../NotFound'
 
-const App: React.FC = (props) => {
-  const { jwt } = useSelector((state) => state.users)
-  const { product } = useSelector((state) => state.product)
-  // const { user } = useSelector((state) => state.users)
+// Styles
+import './App.scss'
+
+const App: React.FC = () => {
+  const { jwt } = useSelector((state: RootStateOrAny) => state.users)
+
   const dispatch = useDispatch()
 
-  const history = useHistory()
-
-  const stripe = loadStripe(
-    'pk_test_51Hzfg4EWaRj0TMbRs4RZRHlhStRRbqAltHfCMhcbAA6PKoAYxrSr7CrGIf5K1iBzVmY89UIpQSWltVEizRjxxLhc00xKvE7X6L'
-  )
-
-  React.useEffect(() => {
+  useEffect(() => {
     const getUser = async () => {
       try {
-        const googleAuth =
+        const googleAuth: any =
           queryString.parse(window.location.search).googleauth || null
-        const vkAuth = queryString.parse(window.location.search).vkauth || null
+        const vkAuth: any =
+          queryString.parse(window.location.search).vkauth || null
 
         if (googleAuth && !localStorage.getItem('googleId')) {
           localStorage.setItem('googleId', googleAuth)
@@ -84,6 +57,7 @@ const App: React.FC = (props) => {
           window.location.href = 'http://localhost:3000/account'
           return
         }
+
         const response = await axios({
           method: 'GET',
           url: '/user',
@@ -101,11 +75,7 @@ const App: React.FC = (props) => {
     }
 
     getUser()
-  }, [])
-
-  React.useEffect(() => {
-    axios({ method: 'GET', url: '/user' })
-  }, [])
+  }, [dispatch])
 
   return (
     <CookiesProvider>
@@ -142,7 +112,6 @@ const App: React.FC = (props) => {
             <Route
               path="/product/:id"
               render={(routeProps) => {
-                // if (Object.keys(product).length)
                 return (
                   <GoodsLayout isProduct={true}>
                     <ProductItem {...routeProps} />
@@ -164,12 +133,6 @@ const App: React.FC = (props) => {
                 <Booking />
               </GoodsLayout>
             </Route>
-            {/*
-            <Route path="/booking/:orderid/payment">
-              <GoodsLayout>
-                <Payment />
-              </GoodsLayout>
-            </Route> */}
 
             <Route path="/order/browse/:ordertoken">
               <GoodsLayout>

@@ -5,7 +5,6 @@ import classNames from 'classnames'
 // Styles
 import './Socials.scss'
 
-// Socials props interface
 interface ISocialsProps {
   inBurger?: boolean
   inFooter?: boolean

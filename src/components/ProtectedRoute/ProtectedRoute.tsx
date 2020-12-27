@@ -1,11 +1,28 @@
-// @ts-nocheck
-import React from 'react'
-import { Route, Redirect, withRouter } from 'react-router-dom'
-import GoodsLayout from '../../layouts/GoodsLayout'
-import axios from '../../axios'
+// Libs
+import React, { FC } from 'react'
+import {
+  Route,
+  Redirect,
+  withRouter,
+  RouteComponentProps,
+} from 'react-router-dom'
 
-const ProtectedRoute = (
-  { component: Component, isAuthenticated, logout, ...rest },
+// Components
+import GoodsLayout from '../../layouts/GoodsLayout'
+
+// Interfaces
+interface IProtectedRouteProps extends RouteComponentProps {
+  component: FC<RouteComponentProps>
+  path: string
+  isAuthenticated: {
+    jwt?: string | null
+    googleId?: string | null
+    vkId?: string | null
+  }
+}
+
+const ProtectedRoute: React.FC<IProtectedRouteProps> = (
+  { component: Component, isAuthenticated, ...rest },
   props
 ) => {
   return (

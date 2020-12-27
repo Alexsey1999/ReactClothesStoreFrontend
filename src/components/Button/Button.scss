@@ -131,6 +131,9 @@
   width: 270px;
   height: 45px;
   justify-content: center;
+  @media (max-width: 1050px) {
+    margin: 0px auto;
+  }
   span {
     margin-right: 12px;
   }

@@ -1,20 +1,16 @@
-// @ts-nocheck
 // Libs
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, useHistory } from 'react-router-dom'
-import { PRODUCT_ITEM_REQUEST } from '../../store/product/actions'
-import queryString from 'query-string'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
 // Components
 import Button from '../Button'
 
+// Redux
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { PRODUCT_ITEM_REQUEST } from '../../store/product/types'
+
 // Styles
 import './GoodsItem.scss'
-
-// GoodsItem props interface
 
 interface IGoodsItem {
   imageUrl: string
@@ -33,22 +29,10 @@ const GoodsItem: React.FC<IGoodsItem> = ({
 }) => {
   const dispatch = useDispatch()
   const history = useHistory()
-  // const { product } = useSelector((store) => store.product.product)
-  // const { category: productCategory } = queryString.parse(
-  //   window.location.search
-  // )
-
-  // const fetchProduct = () => {
-  //   dispatch({ type: PRODUCT_ITEM_REQUEST, id, category })
-  // }
 
   return (
     <div
       className="goods-item"
-      // to={(location) => ({
-      //   pathname: `/product/${id}`,
-      //   search: `?category=${category}`,
-      // })}
       onClick={() => {
         dispatch({
           type: PRODUCT_ITEM_REQUEST,
