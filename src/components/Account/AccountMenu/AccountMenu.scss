@@ -1,5 +1,16 @@
+.account-menu {
+  @media (max-width: 1015px) {
+    max-width: 400px;
+    width: 100%;
+  }
+}
+
 .account-menu-block {
   width: 260px;
+  @media (max-width: 1015px) {
+    max-width: 400px;
+    width: 100%;
+  }
   ul {
     width: 100%;
     height: 160px;

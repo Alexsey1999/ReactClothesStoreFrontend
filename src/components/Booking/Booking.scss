@@ -39,24 +39,36 @@
   font-family: SourceSansPro;
   font-size: 24px;
   margin-bottom: 50px;
-}
-
-.booking-order-title {
-  margin-bottom: 50px;
+  @media (max-width: 853px) {
+    text-align: center;
+    margin-bottom: 30px;
+  }
 }
 
 .booking-delivery {
   width: 480px;
+  @media (max-width: 853px) {
+    width: 500px;
+    margin: 0px auto;
+  }
 }
 
 .booking-inner {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  @media (max-width: 853px) {
+    flex-wrap: wrap;
+  }
 }
 
 .booking-order {
   width: 324px;
+  @media (max-width: 853px) {
+    order: -1;
+    width: 500px;
+    margin: 0px auto 40px auto;
+  }
 }
 
 .booking-order-cost {

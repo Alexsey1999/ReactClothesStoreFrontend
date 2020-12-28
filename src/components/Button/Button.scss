@@ -181,6 +181,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  @media (max-width: 1015px) {
+    width: 100%;
+  }
 }
 
 .save-account-settings-btn {
@@ -196,6 +199,9 @@
   justify-content: center;
   width: 215px;
   height: 36px;
+  @media (max-width: 1015px) {
+    margin: 0px auto 40px auto;
+  }
 }
 
 .continue-ordering-btn {
@@ -217,4 +223,7 @@
     margin: 5px 0 0 10px;
   }
   margin-bottom: 20px;
+  @media (max-width: 853px) {
+    width: 100%;
+  }
 }

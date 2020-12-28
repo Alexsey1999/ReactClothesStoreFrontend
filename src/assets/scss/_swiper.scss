@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .feedback-dots {
@@ -17,10 +18,11 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    margin-bottom: 8px;
     &::before {
       position: static;
-      width: 9px;
-      height: 9px;
+      width: 10px;
+      height: 10px;
       transition: all 0.4s;
     }
   }

@@ -11,19 +11,40 @@
 
 .account-row {
   display: flex;
+  @media (max-width: 1015px) {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }
 
 .account-settings {
   width: 100%;
+  @media (max-width: 1015px) {
+    order: -1;
+  }
 }
 
 .changing {
   .input-group {
     width: 180px;
     margin-right: 20px;
+    @media (max-width: 1015px) {
+      width: 400px;
+      margin: 0px auto 30px auto;
+    }
     &:last-child {
       width: 200px;
       margin-right: 0;
+      @media (max-width: 1015px) {
+        width: 400px;
+        margin: 0px auto;
+      }
+    }
+
+    input {
+      @media (max-width: 1015px) {
+        padding-left: 0;
+      }
     }
   }
   input.account-settings-input {
@@ -32,6 +53,9 @@
     border-radius: 30px;
     pointer-events: initial;
     width: 100%;
+    @media (max-width: 1015px) {
+      padding-left: 10px;
+    }
   }
   .phone-group {
     input {
@@ -47,6 +71,9 @@
 .account-person-data {
   margin-top: 25px;
   margin-left: 100px;
+  @media (max-width: 1015px) {
+    margin: 0px auto;
+  }
 }
 
 .account-orders-list {
@@ -58,6 +85,9 @@
         border-radius: 30px;
         padding: 15px;
         max-width: 400px;
+        @media (max-width: 1015px) {
+          margin: 0px auto;
+        }
       }
     }
     .ordertoken {

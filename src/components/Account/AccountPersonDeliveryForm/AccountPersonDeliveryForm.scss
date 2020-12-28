@@ -3,4 +3,7 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 30px;
+  @media (max-width: 1015px) {
+    display: block;
+  }
 }

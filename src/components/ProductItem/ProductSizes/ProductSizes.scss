@@ -1,11 +1,15 @@
 .product-size {
-  margin: 25px 0;
+  margin-top: 15px;
+  @media (max-width: 1050px) {
+    margin: 15px 0;
+  }
   h4 {
     font-family: SourceSansPro;
     font-size: 14px;
     margin-bottom: 15px;
     color: #636573;
     font-weight: 800;
+    margin-top: 0;
   }
   ul {
     margin: 0 0 10px;
@@ -16,7 +20,7 @@
     }
     li.size-item {
       cursor: pointer;
-      margin-right: 7px;
+
       display: flex;
       align-items: center;
       justify-content: center;
@@ -28,6 +32,9 @@
       font-size: 18px;
       font-weight: 800;
       color: #797b8c;
+      &:not(:last-child) {
+        margin-right: 7px;
+      }
       &.active {
         background: #fff;
         color: #000;

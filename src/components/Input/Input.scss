@@ -1,5 +1,10 @@
 .input-group {
   width: 200px;
+  @media (max-width: 1015px) {
+    max-width: 400px;
+    width: 100%;
+    margin: 0px auto 30px auto;
+  }
 }
 
 .phone-group {
@@ -7,6 +12,10 @@
   margin-bottom: 30px;
   input {
     width: 100%;
+  }
+  @media (max-width: 1015px) {
+    max-width: 400px;
+    width: 100% !important;
   }
 }
 
@@ -28,4 +37,7 @@ input.account-settings-input {
   width: 100%;
   pointer-events: none;
   background: transparent;
+  @media (max-width: 1015px) {
+    padding-left: 0;
+  }
 }

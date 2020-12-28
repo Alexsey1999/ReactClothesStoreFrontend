@@ -17,6 +17,7 @@
     li {
       list-style-type: disc;
       margin-left: 18px;
+      text-align: left;
     }
   }
 }
@@ -25,6 +26,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  margin-top: 15px;
   @media (max-width: 1050px) {
     display: block;
   }

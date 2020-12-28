@@ -5,6 +5,12 @@
 .size-modal-wrapper {
   text-align: center;
   padding: 40px 40px 20px 40px;
+  @media (max-width: 630px) {
+    padding: 30px 30px 10px 30px;
+  }
+  @media (max-width: 480px) {
+    padding: 20px 20px 0px 20px;
+  }
   p {
     font-size: 16px;
     font-family: SourceSansPro;

@@ -7,4 +7,8 @@
 .account-orders {
   margin-top: 30px;
   margin-left: 50px;
+  @media (max-width: 1015px) {
+    text-align: center;
+    margin-left: 0;
+  }
 }

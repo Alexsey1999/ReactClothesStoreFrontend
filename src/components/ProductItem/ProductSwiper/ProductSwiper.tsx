@@ -69,6 +69,7 @@ const ProductSwiper: React.FC<IProductSwiperProps> = ({
       <Swiper
         effect="coverflow"
         allowTouchMove={false}
+        loop={true}
         coverflowEffect={{
           rotate: 0,
           stretch: 200,
@@ -90,6 +91,13 @@ const ProductSwiper: React.FC<IProductSwiperProps> = ({
           bulletClass: 'slider-dot',
           type: 'bullets',
           el: '.product-dots',
+        }}
+        breakpoints={{
+          320: {
+            allowTouchMove: true,
+            navigation: {},
+          },
+          460: {},
         }}
       >
         {swiperImages.map((image) => (

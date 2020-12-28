@@ -106,5 +106,11 @@ code {
   font-weight: 300;
 }
 
+@media only screen and (max-width: 480px) {
+  .Toastify__toast {
+    margin: 10px;
+  }
+}
+
 @import './assets/scss/modals.scss';
 @import './assets/scss/swiper.scss';
